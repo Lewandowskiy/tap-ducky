@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
+import '../models/advanced_settings.dart';
 import '../models/app_settings.dart';
 
 class KeyboardLayoutInfo {
@@ -9,15 +10,27 @@ class KeyboardLayoutInfo {
   final String name;
 
   String get code {
+    final fromId = _codeForBackendId(id);
+    if (fromId != null) return fromId;
+
     final n = name.trim();
     if (n.isEmpty) return '';
     final first = n.split(RegExp(r'[\s(]+')).first;
-    return first.trim().toLowerCase();
+    return AdvancedSettings.normalizeKeyboardLayoutId(first);
+  }
+
+  static String? _codeForBackendId(int id) {
+    for (final opt in AdvancedSettings.supportedKeyboardLayouts) {
+      if (opt.backendId == id) return opt.id;
+    }
+    return null;
   }
 
   static KeyboardLayoutInfo fromMap(Map<String, dynamic> m) {
     final idRaw = m['id'];
-    final id = (idRaw is num) ? idRaw.toInt() : int.tryParse(idRaw?.toString() ?? '') ?? 0;
+    final id = (idRaw is num)
+        ? idRaw.toInt()
+        : int.tryParse(idRaw?.toString() ?? '') ?? 0;
     final name = (m['name'] ?? '').toString();
     return KeyboardLayoutInfo(id: id, name: name);
   }
@@ -49,17 +62,18 @@ class GadgetProfile {
   final String? preferredUdc;
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'name': name,
-        'roleType': roleType,
-        'manufacturer': manufacturer,
-        'product': product,
-        'serialNumber': serialNumber,
-        'vendorId': vendorId,
-        'productId': productId,
-        'maxPowerMa': maxPowerMa,
-        if (preferredUdc != null && preferredUdc!.trim().isNotEmpty) 'preferredUdc': preferredUdc!.trim(),
-      };
+    'id': id,
+    'name': name,
+    'roleType': roleType,
+    'manufacturer': manufacturer,
+    'product': product,
+    'serialNumber': serialNumber,
+    'vendorId': vendorId,
+    'productId': productId,
+    'maxPowerMa': maxPowerMa,
+    if (preferredUdc != null && preferredUdc!.trim().isNotEmpty)
+      'preferredUdc': preferredUdc!.trim(),
+  };
 
   factory GadgetProfile.keyboard({
     required String id,
@@ -167,19 +181,19 @@ class GadgetStatus {
   final int hostConfigurationRequestCount;
 
   Map<String, dynamic> toMap() => {
-        'rootAvailable': rootAvailable,
-        'supportAvailable': supportAvailable,
-        'deviceConnected': deviceConnected,
-        'isActive': isActive,
-        'state': state,
-        'activeProfileId': activeProfileId,
-        'message': message,
-        'udcList': udcList,
-        'keyboardWriterReady': keyboardWriterReady,
-        'mouseWriterReady': mouseWriterReady,
-        'udcState': udcState,
-        'hostConfigurationRequestCount': hostConfigurationRequestCount,
-      };
+    'rootAvailable': rootAvailable,
+    'supportAvailable': supportAvailable,
+    'deviceConnected': deviceConnected,
+    'isActive': isActive,
+    'state': state,
+    'activeProfileId': activeProfileId,
+    'message': message,
+    'udcList': udcList,
+    'keyboardWriterReady': keyboardWriterReady,
+    'mouseWriterReady': mouseWriterReady,
+    'udcState': udcState,
+    'hostConfigurationRequestCount': hostConfigurationRequestCount,
+  };
 
   factory GadgetStatus.fromMap(Map<String, dynamic> m) {
     bool b(String k, {bool d = false}) {
@@ -205,10 +219,13 @@ class GadgetStatus {
 
     final rawState = (m['state'] ?? '').toString().trim();
     final normalizedState = rawState.isEmpty ? '' : rawState.toUpperCase();
-    final activeFromState = normalizedState == 'ACTIVE' || normalizedState == 'ACTIVATING';
+    final activeFromState =
+        normalizedState == 'ACTIVE' || normalizedState == 'ACTIVATING';
     final hasIsActive = m.containsKey('isActive');
     final isActive = hasIsActive ? b('isActive') : activeFromState;
-    final state = normalizedState.isNotEmpty ? normalizedState : (isActive ? 'ACTIVE' : 'IDLE');
+    final state = normalizedState.isNotEmpty
+        ? normalizedState
+        : (isActive ? 'ACTIVE' : 'IDLE');
 
     return GadgetStatus(
       rootAvailable: b('rootAvailable'),
@@ -228,19 +245,33 @@ class GadgetStatus {
 }
 
 class PlatformGadgetService {
-  static const MethodChannel _methods = MethodChannel('org.kaijinlab.tap_ducky/gadget');
-  static const EventChannel _logsChannel = EventChannel('org.kaijinlab.tap_ducky/gadget_logs');
-  static const EventChannel _statusChannel = EventChannel('org.kaijinlab.tap_ducky/gadget_status');
-  static const EventChannel _execChannel = EventChannel('org.kaijinlab.tap_ducky/gadget_exec');
+  static const MethodChannel _methods = MethodChannel(
+    'org.kaijinlab.tap_ducky/gadget',
+  );
+  static const EventChannel _logsChannel = EventChannel(
+    'org.kaijinlab.tap_ducky/gadget_logs',
+  );
+  static const EventChannel _statusChannel = EventChannel(
+    'org.kaijinlab.tap_ducky/gadget_status',
+  );
+  static const EventChannel _execChannel = EventChannel(
+    'org.kaijinlab.tap_ducky/gadget_exec',
+  );
 
-  late final Stream<Map<String, dynamic>> logsStream =
-      _logsChannel.receiveBroadcastStream().map(_asMap).asBroadcastStream();
+  late final Stream<Map<String, dynamic>> logsStream = _logsChannel
+      .receiveBroadcastStream()
+      .map(_asMap)
+      .asBroadcastStream();
 
-  late final Stream<Map<String, dynamic>> statusStream =
-      _statusChannel.receiveBroadcastStream().map(_asMap).asBroadcastStream();
+  late final Stream<Map<String, dynamic>> statusStream = _statusChannel
+      .receiveBroadcastStream()
+      .map(_asMap)
+      .asBroadcastStream();
 
-  late final Stream<Map<String, dynamic>> execStream =
-      _execChannel.receiveBroadcastStream().map(_asMap).asBroadcastStream();
+  late final Stream<Map<String, dynamic>> execStream = _execChannel
+      .receiveBroadcastStream()
+      .map(_asMap)
+      .asBroadcastStream();
 
   Future<bool> checkRoot() async {
     final v = await _methods.invokeMethod<dynamic>('checkRoot');
@@ -284,7 +315,11 @@ class PlatformGadgetService {
   Future<List<KeyboardLayoutInfo>> getKeyboardLayouts() async {
     final v = await _methods.invokeMethod<dynamic>('getKeyboardLayouts');
     if (v is List) {
-      return v.whereType<Map>().map((e) => e.cast<String, dynamic>()).map(KeyboardLayoutInfo.fromMap).toList();
+      return v
+          .whereType<Map>()
+          .map((e) => e.cast<String, dynamic>())
+          .map(KeyboardLayoutInfo.fromMap)
+          .toList();
     }
     return const <KeyboardLayoutInfo>[];
   }
@@ -299,9 +334,16 @@ class PlatformGadgetService {
     final asInt = int.tryParse(raw);
     if (asInt != null) return asInt;
 
-    final code = raw.toLowerCase();
+    final code = AdvancedSettings.normalizeKeyboardLayoutId(raw);
     final layouts = await getKeyboardLayouts();
-    if (layouts.isEmpty) return 0;
+    if (layouts.isEmpty) {
+      return AdvancedSettings.supportedKeyboardLayouts
+          .firstWhere(
+            (opt) => opt.id == code,
+            orElse: () => AdvancedSettings.supportedKeyboardLayouts.first,
+          )
+          .backendId;
+    }
 
     for (final l in layouts) {
       if (l.code == code) return l.id;
@@ -339,9 +381,13 @@ class PlatformGadgetService {
   Future<void> cancelExecution(String executionId) async {
     final id = executionId.trim();
     final primary = id.isEmpty ? '*' : id;
-    await _methods.invokeMethod<void>('cancelExecution', {'executionId': primary});
+    await _methods.invokeMethod<void>('cancelExecution', {
+      'executionId': primary,
+    });
     if (primary != '*') {
-      await _methods.invokeMethod<void>('cancelExecution', {'executionId': '*'});
+      await _methods.invokeMethod<void>('cancelExecution', {
+        'executionId': '*',
+      });
     }
   }
 
@@ -361,10 +407,10 @@ class PlatformGadgetService {
     required String script,
     required double delayMultiplier,
   }) async {
-    final v = await _methods.invokeMethod<dynamic>('estimateDuckyScriptDuration', {
-      'script': script,
-      'delayMultiplier': delayMultiplier,
-    });
+    final v = await _methods.invokeMethod<dynamic>(
+      'estimateDuckyScriptDuration',
+      {'script': script, 'delayMultiplier': delayMultiplier},
+    );
     if (v is num) return v.toInt();
     return int.tryParse(v?.toString() ?? '') ?? 0;
   }
@@ -426,14 +472,16 @@ class PlatformGadgetService {
   }) async {
     await _methods.invokeMethod<void>('setDialShortcutBindings', {
       'bindings': bindings
-          .map((b) => {
-                'code': b.code,
-                'enabled': b.enabled,
-                'mode': b.mode,
-                'payloadId': b.payloadId,
-                'script': b.script,
-                'name': b.name,
-              })
+          .map(
+            (b) => {
+              'code': b.code,
+              'enabled': b.enabled,
+              'mode': b.mode,
+              'payloadId': b.payloadId,
+              'script': b.script,
+              'name': b.name,
+            },
+          )
           .toList(),
     });
   }

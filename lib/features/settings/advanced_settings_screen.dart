@@ -48,7 +48,8 @@ class AdvancedSettingsScreen extends ConsumerWidget {
       ),
       body: async.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Failed to load advanced settings: $e')),
+        error: (e, st) =>
+            Center(child: Text('Failed to load advanced settings: $e')),
         data: (s) => _Body(settings: s),
       ),
     );
@@ -83,15 +84,21 @@ class _BodyState extends ConsumerState<_Body> {
     'execute_recent': 'Execute most recent',
     'execute_selected': 'Execute selected payload',
   };
-  static const List<String> _dialCodes = <String>['38250', '38251', '38252', '38253'];
+  static const List<String> _dialCodes = <String>[
+    '38250',
+    '38251',
+    '38252',
+    '38253',
+  ];
 
   @override
   void initState() {
     super.initState();
     _vidCtrl = TextEditingController(text: widget.settings.defaultVid);
     _pidCtrl = TextEditingController(text: widget.settings.defaultPid);
-    _keyboardLayoutsFuture =
-        ref.read(platformGadgetServiceProvider).getKeyboardLayouts();
+    _keyboardLayoutsFuture = ref
+        .read(platformGadgetServiceProvider)
+        .getKeyboardLayouts();
     _udcsFuture = ref.read(platformGadgetServiceProvider).listUdcs();
     _syncParsedAndResolved();
   }
@@ -126,7 +133,12 @@ class _BodyState extends ConsumerState<_Body> {
       _pidError = pidRes.error;
       _vidParsed = vid;
       _pidParsed = pid;
-      _resolvedNames = _buildResolvedFuture(vid, pid, vidRes.error, pidRes.error);
+      _resolvedNames = _buildResolvedFuture(
+        vid,
+        pid,
+        vidRes.error,
+        pidRes.error,
+      );
     });
   }
 
@@ -138,7 +150,9 @@ class _BodyState extends ConsumerState<_Body> {
   ) {
     if (vid == null || pid == null) return null;
     if (vidErr != null || pidErr != null) return null;
-    return ref.read(usbIdsDbProvider.future).then((db) => db.resolveNames(vid, pid));
+    return ref
+        .read(usbIdsDbProvider.future)
+        .then((db) => db.resolveNames(vid, pid));
   }
 
   void _validateVid(String value) {
@@ -147,7 +161,12 @@ class _BodyState extends ConsumerState<_Body> {
     setState(() {
       _vidError = res.error;
       _vidParsed = nextVid;
-      _resolvedNames = _buildResolvedFuture(nextVid, _pidParsed, res.error, _pidError);
+      _resolvedNames = _buildResolvedFuture(
+        nextVid,
+        _pidParsed,
+        res.error,
+        _pidError,
+      );
     });
   }
 
@@ -157,7 +176,12 @@ class _BodyState extends ConsumerState<_Body> {
     setState(() {
       _pidError = res.error;
       _pidParsed = nextPid;
-      _resolvedNames = _buildResolvedFuture(_vidParsed, nextPid, _vidError, res.error);
+      _resolvedNames = _buildResolvedFuture(
+        _vidParsed,
+        nextPid,
+        _vidError,
+        res.error,
+      );
     });
   }
 
@@ -218,7 +242,8 @@ class _BodyState extends ConsumerState<_Body> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            'Selected ${picked.vendorName} • ${picked.productName} ($vidText:$pidText)'),
+          'Selected ${picked.vendorName} • ${picked.productName} ($vidText:$pidText)',
+        ),
       ),
     );
   }
@@ -226,15 +251,20 @@ class _BodyState extends ConsumerState<_Body> {
   List<DropdownMenuItem<String>> _fallbackKeyboardItems() {
     return const [
       DropdownMenuItem(value: 'us', child: Text('US (QWERTY)')),
+      DropdownMenuItem(value: 'gb', child: Text('UK (QWERTY)')),
       DropdownMenuItem(value: 'fr', child: Text('FR (AZERTY)')),
-      DropdownMenuItem(value: 'jp', child: Text('JP (JIS)')),
+      DropdownMenuItem(value: 'es', child: Text('Spanish')),
     ];
   }
 
-  List<DropdownMenuItem<String>> _itemsFromLayouts(List<KeyboardLayoutInfo> layouts) {
+  List<DropdownMenuItem<String>> _itemsFromLayouts(
+    List<KeyboardLayoutInfo> layouts,
+  ) {
     final filtered = layouts.where((l) => l.code.trim().isNotEmpty).toList()
       ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-    return filtered.map((l) => DropdownMenuItem(value: l.code, child: Text(l.name))).toList();
+    return filtered
+        .map((l) => DropdownMenuItem(value: l.code, child: Text(l.name)))
+        .toList();
   }
 
   @override
@@ -242,7 +272,8 @@ class _BodyState extends ConsumerState<_Body> {
     final cs = Theme.of(context).colorScheme;
     final hotkeys = widget.settings.hotkeys;
     final appSettingsAsync = ref.watch(appSettingsControllerProvider);
-    final payloads = ref.watch(payloadsControllerProvider).value ?? const <Payload>[];
+    final payloads =
+        ref.watch(payloadsControllerProvider).value ?? const <Payload>[];
 
     return ListView(
       children: [
@@ -270,7 +301,8 @@ class _BodyState extends ConsumerState<_Body> {
                             builder: (context, snap) {
                               final v = snap.data?.vendor;
                               final p = snap.data?.product;
-                              if (snap.connectionState == ConnectionState.waiting) {
+                              if (snap.connectionState ==
+                                  ConnectionState.waiting) {
                                 return Text(
                                   'Looking up vendor/product…',
                                   style: TextStyle(color: cs.onSurfaceVariant),
@@ -320,7 +352,9 @@ class _BodyState extends ConsumerState<_Body> {
                             _validateVid(v);
                             if (_vidError == null) {
                               await ref
-                                  .read(advancedSettingsControllerProvider.notifier)
+                                  .read(
+                                    advancedSettingsControllerProvider.notifier,
+                                  )
                                   .setDefaultVid(v.trim());
                             }
                           },
@@ -342,7 +376,9 @@ class _BodyState extends ConsumerState<_Body> {
                             _validatePid(v);
                             if (_pidError == null) {
                               await ref
-                                  .read(advancedSettingsControllerProvider.notifier)
+                                  .read(
+                                    advancedSettingsControllerProvider.notifier,
+                                  )
                                   .setDefaultPid(v.trim());
                             }
                           },
@@ -358,16 +394,21 @@ class _BodyState extends ConsumerState<_Body> {
                       final dynamicItems = layouts.isEmpty
                           ? <DropdownMenuItem<String>>[]
                           : _itemsFromLayouts(layouts);
-                      final baseItems =
-                          dynamicItems.isNotEmpty ? dynamicItems : _fallbackKeyboardItems();
+                      final baseItems = dynamicItems.isNotEmpty
+                          ? dynamicItems
+                          : _fallbackKeyboardItems();
 
                       final current = widget.settings.keyboardLayout.trim();
-                      final hasCurrent = baseItems.any((e) => e.value == current);
+                      final hasCurrent = baseItems.any(
+                        (e) => e.value == current,
+                      );
 
                       final items = <DropdownMenuItem<String>>[
                         if (!hasCurrent && current.isNotEmpty)
                           DropdownMenuItem(
-                              value: current, child: Text('Current (${current.toUpperCase()})')),
+                            value: current,
+                            child: Text('Current (${current.toUpperCase()})'),
+                          ),
                         ...baseItems,
                       ];
 
@@ -379,9 +420,12 @@ class _BodyState extends ConsumerState<_Body> {
                         value: value,
                         decoration: InputDecoration(
                           labelText: 'Keyboard layout',
-                          helperText: snap.connectionState == ConnectionState.waiting
+                          helperText:
+                              snap.connectionState == ConnectionState.waiting
                               ? 'Loading supported layouts…'
-                              : (dynamicItems.isNotEmpty ? 'From backend' : 'Fallback list'),
+                              : (dynamicItems.isNotEmpty
+                                    ? 'From backend'
+                                    : 'Fallback list'),
                         ),
                         items: items,
                         onChanged: (v) async {
@@ -410,13 +454,18 @@ class _BodyState extends ConsumerState<_Body> {
                           value: 'auto',
                           child: Text('Auto (try all UDCs)'),
                         ),
-                        ...udcs.map((u) => DropdownMenuItem(value: u, child: Text(u))),
+                        ...udcs.map(
+                          (u) => DropdownMenuItem(value: u, child: Text(u)),
+                        ),
                       ];
 
                       final hasCurrent = items.any((e) => e.value == current);
                       final mergedItems = <DropdownMenuItem<String>>[
                         if (!hasCurrent && current != 'auto')
-                          DropdownMenuItem(value: current, child: Text('Current ($current)')),
+                          DropdownMenuItem(
+                            value: current,
+                            child: Text('Current ($current)'),
+                          ),
                         ...items,
                       ];
 
@@ -424,7 +473,8 @@ class _BodyState extends ConsumerState<_Body> {
                         value: hasCurrent ? current : mergedItems.first.value,
                         decoration: InputDecoration(
                           labelText: 'Preferred UDC',
-                          helperText: snap.connectionState == ConnectionState.waiting
+                          helperText:
+                              snap.connectionState == ConnectionState.waiting
                               ? 'Loading UDC list…'
                               : 'Auto will fallback across available UDCs',
                         ),
@@ -455,14 +505,24 @@ class _BodyState extends ConsumerState<_Body> {
           child: Card(
             child: Column(
               children: [
-                for (int i = 0; i < widget.settings.commandPresets.length; i++) ...[
-                  _PresetTile(index: i, preset: widget.settings.commandPresets[i]),
-                  if (i != widget.settings.commandPresets.length - 1) const Divider(height: 1),
+                for (
+                  int i = 0;
+                  i < widget.settings.commandPresets.length;
+                  i++
+                ) ...[
+                  _PresetTile(
+                    index: i,
+                    preset: widget.settings.commandPresets[i],
+                  ),
+                  if (i != widget.settings.commandPresets.length - 1)
+                    const Divider(height: 1),
                 ],
                 ListTile(
                   leading: const Icon(Icons.add),
                   title: const Text('Add preset'),
-                  subtitle: const Text('Adds a reusable script fragment for the Execute console'),
+                  subtitle: const Text(
+                    'Adds a reusable script fragment for the Execute console',
+                  ),
                   onTap: () => _addPresetDialog(context, ref),
                 ),
               ],
@@ -529,14 +589,17 @@ class _BodyState extends ConsumerState<_Body> {
                 child: Text('Failed to load dial shortcuts: $e'),
               ),
               data: (settings) {
-                final bindings = _normalizeDialShortcuts(settings.dialShortcuts);
+                final bindings = _normalizeDialShortcuts(
+                  settings.dialShortcuts,
+                );
                 return Column(
                   children: [
                     for (int i = 0; i < bindings.length; i++) ...[
                       _DialShortcutTile(
                         binding: bindings[i],
                         payloads: payloads,
-                        onChanged: (next) => _updateDialShortcut(ref, bindings, next),
+                        onChanged: (next) =>
+                            _updateDialShortcut(ref, bindings, next),
                       ),
                       if (i != bindings.length - 1) const Divider(height: 1),
                     ],
@@ -567,14 +630,19 @@ class _BodyState extends ConsumerState<_Body> {
         content: TextField(
           controller: ctrl,
           maxLines: 8,
-          decoration:
-              const InputDecoration(hintText: 'Example:\nDELAY 250\nSTRING hello\nENTER'),
+          decoration: const InputDecoration(
+            hintText: 'Example:\nDELAY 250\nSTRING hello\nENTER',
+          ),
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.of(context).pop(null), child: const Text('Cancel')),
+            onPressed: () => Navigator.of(context).pop(null),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
-              onPressed: () => Navigator.of(context).pop(ctrl.text), child: const Text('Add')),
+            onPressed: () => Navigator.of(context).pop(ctrl.text),
+            child: const Text('Add'),
+          ),
         ],
       ),
     );
@@ -584,7 +652,9 @@ class _BodyState extends ConsumerState<_Body> {
         .addCommandPreset(res.trim());
   }
 
-  List<DialShortcutBinding> _normalizeDialShortcuts(List<DialShortcutBinding> existing) {
+  List<DialShortcutBinding> _normalizeDialShortcuts(
+    List<DialShortcutBinding> existing,
+  ) {
     final map = <String, DialShortcutBinding>{};
     for (final b in existing) {
       if (b.code.isEmpty) continue;
@@ -593,15 +663,17 @@ class _BodyState extends ConsumerState<_Body> {
     final out = <DialShortcutBinding>[];
     for (final code in _dialCodes) {
       final existingBinding = map[code];
-      out.add(existingBinding ??
-          DialShortcutBinding(
-            code: code,
-            enabled: false,
-            mode: 'last',
-            payloadId: null,
-            script: null,
-            name: null,
-          ));
+      out.add(
+        existingBinding ??
+            DialShortcutBinding(
+              code: code,
+              enabled: false,
+              mode: 'last',
+              payloadId: null,
+              script: null,
+              name: null,
+            ),
+      );
     }
     return out;
   }
@@ -619,7 +691,9 @@ class _BodyState extends ConsumerState<_Body> {
         next.add(b);
       }
     }
-    await ref.read(appSettingsControllerProvider.notifier).setDialShortcuts(next);
+    await ref
+        .read(appSettingsControllerProvider.notifier)
+        .setDialShortcuts(next);
   }
 }
 
@@ -665,7 +739,10 @@ class _DialShortcutTile extends StatelessWidget {
         Row(
           children: [
             const Expanded(
-              child: Text('Target', style: TextStyle(fontWeight: FontWeight.w700)),
+              child: Text(
+                'Target',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -678,17 +755,25 @@ class _DialShortcutTile extends StatelessWidget {
                   value: mode,
                   style: TextStyle(color: cs.onSurface),
                   items: const [
-                    DropdownMenuItem(value: 'last', child: Text('Last executed')),
-                    DropdownMenuItem(value: 'payload', child: Text('Selected payload')),
+                    DropdownMenuItem(
+                      value: 'last',
+                      child: Text('Last executed'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'payload',
+                      child: Text('Selected payload'),
+                    ),
                   ],
                   onChanged: (v) {
                     if (v == null) return;
-                    onChanged(binding.copyWith(
-                      mode: v,
-                      payloadId: v == 'payload' ? binding.payloadId : null,
-                      script: v == 'payload' ? binding.script : null,
-                      name: v == 'payload' ? binding.name : null,
-                    ));
+                    onChanged(
+                      binding.copyWith(
+                        mode: v,
+                        payloadId: v == 'payload' ? binding.payloadId : null,
+                        script: v == 'payload' ? binding.script : null,
+                        name: v == 'payload' ? binding.name : null,
+                      ),
+                    );
                   },
                 ),
               ),
@@ -700,10 +785,16 @@ class _DialShortcutTile extends StatelessWidget {
           Row(
             children: [
               const Expanded(
-                child: Text('Payload', style: TextStyle(fontWeight: FontWeight.w700)),
+                child: Text(
+                  'Payload',
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: cs.surfaceVariant,
                   borderRadius: BorderRadius.circular(12),
@@ -714,19 +805,26 @@ class _DialShortcutTile extends StatelessWidget {
                     hint: const Text('Select payload'),
                     style: TextStyle(color: cs.onSurface),
                     items: payloads
-                        .map((p) => DropdownMenuItem(
-                              value: p.id,
-                              child: Text(p.name, overflow: TextOverflow.ellipsis),
-                            ))
+                        .map(
+                          (p) => DropdownMenuItem(
+                            value: p.id,
+                            child: Text(
+                              p.name,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        )
                         .toList(),
                     onChanged: (v) {
                       if (v == null) return;
                       final p = payloads.firstWhere((e) => e.id == v);
-                      onChanged(binding.copyWith(
-                        payloadId: p.id,
-                        script: p.script,
-                        name: p.name,
-                      ));
+                      onChanged(
+                        binding.copyWith(
+                          payloadId: p.id,
+                          script: p.script,
+                          name: p.name,
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -802,9 +900,13 @@ class _PresetTile extends ConsumerWidget {
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.of(context).pop(null), child: const Text('Cancel')),
+            onPressed: () => Navigator.of(context).pop(null),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
-              onPressed: () => Navigator.of(context).pop(ctrl.text), child: const Text('Save')),
+            onPressed: () => Navigator.of(context).pop(ctrl.text),
+            child: const Text('Save'),
+          ),
         ],
       ),
     );
@@ -888,7 +990,10 @@ class _HotkeyTile extends ConsumerWidget {
               const SizedBox(height: 8),
               ListTile(
                 title: Text(title),
-                subtitle: Text('Select a gesture', style: TextStyle(color: cs.onSurfaceVariant)),
+                subtitle: Text(
+                  'Select a gesture',
+                  style: TextStyle(color: cs.onSurfaceVariant),
+                ),
               ),
               Flexible(
                 child: ListView.separated(
@@ -899,23 +1004,31 @@ class _HotkeyTile extends ConsumerWidget {
                     final o = opts[i];
                     final selected = o.value == groupValue;
                     final usedBy = _usedByOtherAction(o.value);
-                    final disabled = usedBy != null && !selected && o.value != _none;
-                    final extra =
-                        usedBy == null ? '' : ' (Assigned to ${actionTitles[usedBy] ?? usedBy})';
+                    final disabled =
+                        usedBy != null && !selected && o.value != _none;
+                    final extra = usedBy == null
+                        ? ''
+                        : ' (Assigned to ${actionTitles[usedBy] ?? usedBy})';
 
                     return ListTile(
                       enabled: !disabled,
                       leading: Radio<String>(
                         value: o.value,
                         groupValue: groupValue,
-                        onChanged: disabled ? null : (v) => Navigator.of(context).pop(v),
+                        onChanged: disabled
+                            ? null
+                            : (v) => Navigator.of(context).pop(v),
                       ),
                       title: Text(o.title),
                       subtitle: Text('${o.subtitle}$extra'),
                       trailing: selected
                           ? const Icon(Icons.check)
-                          : (disabled ? Icon(Icons.lock, color: cs.onSurfaceVariant) : null),
-                      onTap: disabled ? null : () => Navigator.of(context).pop(o.value),
+                          : (disabled
+                                ? Icon(Icons.lock, color: cs.onSurfaceVariant)
+                                : null),
+                      onTap: disabled
+                          ? null
+                          : () => Navigator.of(context).pop(o.value),
                     );
                   },
                 ),
@@ -951,7 +1064,9 @@ class _HotkeyTile extends ConsumerWidget {
         if (stored != normalized && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('This gesture is already assigned to another action.'),
+              content: Text(
+                'This gesture is already assigned to another action.',
+              ),
               duration: Duration(seconds: 2),
             ),
           );

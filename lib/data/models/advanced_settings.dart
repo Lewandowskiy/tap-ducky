@@ -46,35 +46,40 @@ class AdvancedSettings {
   }
 
   Map<String, dynamic> toJson() => {
-        'keyboardLayout': normalizeKeyboardLayoutId(keyboardLayout),
-        'preferredUdc': normalizePreferredUdc(preferredUdc),
-        'defaultVid': defaultVid,
-        'defaultPid': defaultPid,
-        'commandPresets': commandPresets,
-        'hotkeys': hotkeys,
-      };
+    'keyboardLayout': normalizeKeyboardLayoutId(keyboardLayout),
+    'preferredUdc': normalizePreferredUdc(preferredUdc),
+    'defaultVid': defaultVid,
+    'defaultPid': defaultPid,
+    'commandPresets': commandPresets,
+    'hotkeys': hotkeys,
+  };
 
-  static const List<KeyboardLayoutOption> supportedKeyboardLayouts = <KeyboardLayoutOption>[
-    KeyboardLayoutOption(id: 'us', label: 'US (QWERTY)', backendId: 0),
-    KeyboardLayoutOption(id: 'tr', label: 'Turkish', backendId: 1),
-    KeyboardLayoutOption(id: 'sv', label: 'Swedish', backendId: 2),
-    KeyboardLayoutOption(id: 'si', label: 'Slovenian', backendId: 3),
-    KeyboardLayoutOption(id: 'ru', label: 'Russian (Cyrillic)', backendId: 4),
-    KeyboardLayoutOption(id: 'pt', label: 'Portuguese', backendId: 5),
-    KeyboardLayoutOption(id: 'no', label: 'Norwegian', backendId: 6),
-    KeyboardLayoutOption(id: 'it', label: 'Italian', backendId: 7),
-    KeyboardLayoutOption(id: 'hr', label: 'Croatian', backendId: 8),
-    KeyboardLayoutOption(id: 'fr', label: 'French (AZERTY)', backendId: 9),
-    KeyboardLayoutOption(id: 'fi', label: 'Finnish', backendId: 10),
-    KeyboardLayoutOption(id: 'es', label: 'Spanish', backendId: 11),
-    KeyboardLayoutOption(id: 'dk', label: 'Danish', backendId: 12),
-    KeyboardLayoutOption(id: 'de', label: 'German (QWERTZ)', backendId: 13),
-    KeyboardLayoutOption(id: 'ca', label: 'Canadian', backendId: 14),
-    KeyboardLayoutOption(id: 'br', label: 'Brazilian', backendId: 15),
-    KeyboardLayoutOption(id: 'be', label: 'Belgian', backendId: 16),
-    KeyboardLayoutOption(id: 'hu', label: 'Hungarian', backendId: 17),
-    KeyboardLayoutOption(id: 'jp', label: 'Japanese', backendId: 18),
-  ];
+  static const List<KeyboardLayoutOption> supportedKeyboardLayouts =
+      <KeyboardLayoutOption>[
+        KeyboardLayoutOption(id: 'us', label: 'US (QWERTY)', backendId: 0),
+        KeyboardLayoutOption(id: 'tr', label: 'Turkish', backendId: 1),
+        KeyboardLayoutOption(id: 'sv', label: 'Swedish', backendId: 2),
+        KeyboardLayoutOption(id: 'si', label: 'Slovenian', backendId: 3),
+        KeyboardLayoutOption(
+          id: 'ru',
+          label: 'Russian (Cyrillic)',
+          backendId: 4,
+        ),
+        KeyboardLayoutOption(id: 'pt', label: 'Portuguese', backendId: 5),
+        KeyboardLayoutOption(id: 'no', label: 'Norwegian', backendId: 6),
+        KeyboardLayoutOption(id: 'it', label: 'Italian', backendId: 7),
+        KeyboardLayoutOption(id: 'hr', label: 'Croatian', backendId: 8),
+        KeyboardLayoutOption(id: 'gb', label: 'UK (QWERTY)', backendId: 9),
+        KeyboardLayoutOption(id: 'fr', label: 'French (AZERTY)', backendId: 10),
+        KeyboardLayoutOption(id: 'fi', label: 'Finnish', backendId: 11),
+        KeyboardLayoutOption(id: 'es', label: 'Spanish', backendId: 12),
+        KeyboardLayoutOption(id: 'dk', label: 'Danish', backendId: 13),
+        KeyboardLayoutOption(id: 'de', label: 'German (QWERTZ)', backendId: 14),
+        KeyboardLayoutOption(id: 'ca', label: 'Canadian', backendId: 15),
+        KeyboardLayoutOption(id: 'br', label: 'Brazilian', backendId: 16),
+        KeyboardLayoutOption(id: 'be', label: 'Belgian', backendId: 17),
+        KeyboardLayoutOption(id: 'hu', label: 'Hungarian', backendId: 18),
+      ];
 
   static const Map<String, String> keyboardLayoutLabels = <String, String>{
     'us': 'US (QWERTY)',
@@ -86,6 +91,7 @@ class AdvancedSettings {
     'no': 'Norwegian',
     'it': 'Italian',
     'hr': 'Croatian',
+    'gb': 'UK (QWERTY)',
     'fr': 'French (AZERTY)',
     'fi': 'Finnish',
     'es': 'Spanish',
@@ -95,25 +101,24 @@ class AdvancedSettings {
     'br': 'Brazilian',
     'be': 'Belgian',
     'hu': 'Hungarian',
-    'jp': 'Japanese',
   };
 
   static AdvancedSettings defaults() => const AdvancedSettings(
-        keyboardLayout: 'us',
-        preferredUdc: 'auto',
-        defaultVid: '0x1D6B',
-        defaultPid: '0x0104',
-        commandPresets: <String>[
-          'DELAY 500\nSTRING TapDucky ready\nENTER',
-          'DELAY 250\nGUI r\nDELAY 200\nSTRING notepad\nENTER',
-        ],
-        hotkeys: <String, String>{
-          'arm_toggle': '—',
-          'stop_execution': '—',
-          'execute_recent': '—',
-          'execute_selected': '—',
-        },
-      );
+    keyboardLayout: 'us',
+    preferredUdc: 'auto',
+    defaultVid: '0x1D6B',
+    defaultPid: '0x0104',
+    commandPresets: <String>[
+      'DELAY 500\nSTRING TapDucky ready\nENTER',
+      'DELAY 250\nGUI r\nDELAY 200\nSTRING notepad\nENTER',
+    ],
+    hotkeys: <String, String>{
+      'arm_toggle': '—',
+      'stop_execution': '—',
+      'execute_recent': '—',
+      'execute_selected': '—',
+    },
+  );
 
   static AdvancedSettings fromJson(Map<String, dynamic> json) {
     final presetsRaw = json['commandPresets'];
@@ -123,8 +128,10 @@ class AdvancedSettings {
         ? hotkeysRaw.map((k, v) => MapEntry(k.toString(), v.toString()))
         : <String, String>{};
 
-    if (parsedHotkeys.containsKey('open_execute') && !parsedHotkeys.containsKey('execute_recent')) {
-      parsedHotkeys['execute_recent'] = parsedHotkeys['open_execute']!.toString();
+    if (parsedHotkeys.containsKey('open_execute') &&
+        !parsedHotkeys.containsKey('execute_recent')) {
+      parsedHotkeys['execute_recent'] = parsedHotkeys['open_execute']!
+          .toString();
     }
     parsedHotkeys.remove('open_execute');
 
@@ -134,12 +141,19 @@ class AdvancedSettings {
     };
 
     return AdvancedSettings(
-      keyboardLayout: normalizeKeyboardLayoutId((json['keyboardLayout'] ?? 'us').toString()),
-      preferredUdc: normalizePreferredUdc((json['preferredUdc'] ?? 'auto').toString()),
+      keyboardLayout: normalizeKeyboardLayoutId(
+        (json['keyboardLayout'] ?? 'us').toString(),
+      ),
+      preferredUdc: normalizePreferredUdc(
+        (json['preferredUdc'] ?? 'auto').toString(),
+      ),
       defaultVid: (json['defaultVid'] ?? '0x1D6B').toString(),
       defaultPid: (json['defaultPid'] ?? '0x0104').toString(),
       commandPresets: presetsRaw is List
-          ? presetsRaw.map((e) => e.toString()).where((s) => s.trim().isNotEmpty).toList()
+          ? presetsRaw
+                .map((e) => e.toString())
+                .where((s) => s.trim().isNotEmpty)
+                .toList()
           : AdvancedSettings.defaults().commandPresets,
       hotkeys: mergedHotkeys,
     );
@@ -147,7 +161,8 @@ class AdvancedSettings {
 
   String get keyboardLayoutId => normalizeKeyboardLayoutId(keyboardLayout);
   int get keyboardLayoutBackendId => keyboardLayoutOption?.backendId ?? 0;
-  String get keyboardLayoutDisplayName => keyboardLayoutLabels[keyboardLayoutId] ?? keyboardLayoutId.toUpperCase();
+  String get keyboardLayoutDisplayName =>
+      keyboardLayoutLabels[keyboardLayoutId] ?? keyboardLayoutId.toUpperCase();
 
   KeyboardLayoutOption? get keyboardLayoutOption {
     final id = keyboardLayoutId;
@@ -173,20 +188,30 @@ class AdvancedSettings {
       'en-us': 'us',
       'en_us': 'us',
       'qwerty': 'us',
+      'english': 'us',
+      'united states': 'us',
       'us': 'us',
+      'gb': 'gb',
+      'uk': 'gb',
+      'en-gb': 'gb',
+      'en_gb': 'gb',
+      'british': 'gb',
+      'united kingdom': 'gb',
       'fr-fr': 'fr',
       'fr_fr': 'fr',
       'azerty': 'fr',
       'fr': 'fr',
-      'jp-jp': 'jp',
-      'jp_jp': 'jp',
-      'ja': 'jp',
-      'ja-jp': 'jp',
-      'ja_jp': 'jp',
-      'jpn': 'jp',
-      'jp': 'jp',
+      'french': 'fr',
+      'jp-jp': 'us',
+      'jp_jp': 'us',
+      'ja': 'us',
+      'ja-jp': 'us',
+      'ja_jp': 'us',
+      'jpn': 'us',
+      'jp': 'us',
       'no-no': 'no',
       'no_no': 'no',
+      'norwegian': 'no',
       'nb': 'no',
       'nb-no': 'no',
       'nb_no': 'no',
@@ -198,38 +223,53 @@ class AdvancedSettings {
       'da': 'dk',
       'da-dk': 'dk',
       'da_dk': 'dk',
+      'danish': 'dk',
       'sv-se': 'sv',
       'sv_se': 'sv',
       'se': 'sv',
+      'swedish': 'sv',
       'de-de': 'de',
       'de_de': 'de',
       'qwertz': 'de',
+      'german': 'de',
       'es-es': 'es',
       'es_es': 'es',
+      'spanish': 'es',
       'pt-pt': 'pt',
       'pt_pt': 'pt',
+      'portuguese': 'pt',
       'pt-br': 'br',
       'pt_br': 'br',
       'br': 'br',
+      'brazilian': 'br',
       'be-be': 'be',
       'be_be': 'be',
+      'belgian': 'be',
       'hu-hu': 'hu',
       'hu_hu': 'hu',
+      'hungarian': 'hu',
       'hr-hr': 'hr',
       'hr_hr': 'hr',
+      'croatian': 'hr',
       'ru-ru': 'ru',
       'ru_ru': 'ru',
+      'russian': 'ru',
       'ca-ca': 'ca',
       'ca_ca': 'ca',
+      'canadian': 'ca',
       'si-si': 'si',
       'si_si': 'si',
       'sl': 'si',
       'sl-si': 'si',
       'sl_si': 'si',
+      'slovenian': 'si',
       'tr-tr': 'tr',
       'tr_tr': 'tr',
+      'turkish': 'tr',
       'fi-fi': 'fi',
       'fi_fi': 'fi',
+      'finnish': 'fi',
+      'italian': 'it',
     };
     final mapped = synonyms[s] ?? s;
     for (final opt in supportedKeyboardLayouts) {
