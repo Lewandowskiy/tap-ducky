@@ -2,7 +2,11 @@ package org.kaijinlab.tap_ducky
 
 import java.util.Locale
 
-data class KeyStroke(val modifiers: Int, val keyCode: Int)
+data class KeyStroke(
+    val modifiers: Int,
+    val keyCode: Int,
+    val terminatorKeyCode: Int? = null
+)
 
 object KeyboardLayout {
     const val LAYOUT_US = 0
@@ -56,8 +60,9 @@ class KeyboardMapper(private val layout: Int) {
 
     private companion object {
         const val MOD_NONE = 0x00
+        const val MOD_LCTRL = 0x01
         const val MOD_LSHIFT = 0x02
-        const val MOD_RALT = 0x40
+        const val MOD_RALT = MOD_LCTRL or 0x40
         const val MOD_SHIFT_RALT = MOD_LSHIFT or MOD_RALT
 
         private val WINDOWS_PUNCTUATION_OVERRIDES = mapOf(
@@ -71,6 +76,13 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x26),
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
+                '`' to KeyStroke(MOD_RALT, 0x31, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x30, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x20, 0x2C),
+                '´' to KeyStroke(MOD_RALT, 0x33, 0x2C),
+                '¨' to KeyStroke(MOD_RALT, 0x2F, 0x2C),
+                '½' to KeyStroke(MOD_RALT, 0x22),
+                '₺' to KeyStroke(MOD_RALT, 0x17),
                 '#' to KeyStroke(MOD_RALT, 0x20),
                 '$' to KeyStroke(MOD_RALT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -98,6 +110,13 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x26),
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
+                '`' to KeyStroke(MOD_LSHIFT, 0x2E, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x30, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x30, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x2E, 0x2C),
+                '¨' to KeyStroke(MOD_NONE, 0x30, 0x2C),
+                '¤' to KeyStroke(MOD_LSHIFT, 0x21),
+                '½' to KeyStroke(MOD_LSHIFT, 0x35),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_RALT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -127,6 +146,21 @@ class KeyboardMapper(private val layout: Int) {
                 '}' to KeyStroke(MOD_RALT, 0x11),
                 '`' to KeyStroke(MOD_RALT, 0x24),
                 '~' to KeyStroke(MOD_RALT, 0x1E),
+                '^' to KeyStroke(MOD_RALT, 0x20, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x2E, 0x2C),
+                '¨' to KeyStroke(MOD_RALT, 0x2D, 0x2C),
+                '°' to KeyStroke(MOD_LSHIFT, 0x35, 0x2C),
+                '¸' to KeyStroke(MOD_RALT, 0x2E, 0x2C),
+                'ˇ' to KeyStroke(MOD_RALT, 0x1F, 0x2C),
+                '˘' to KeyStroke(MOD_RALT, 0x21, 0x2C),
+                '˙' to KeyStroke(MOD_RALT, 0x25, 0x2C),
+                '˛' to KeyStroke(MOD_RALT, 0x23, 0x2C),
+                '˝' to KeyStroke(MOD_RALT, 0x27, 0x2C),
+                '¤' to KeyStroke(MOD_RALT, 0x31),
+                '×' to KeyStroke(MOD_RALT, 0x30),
+                '÷' to KeyStroke(MOD_RALT, 0x2F),
+                'Ł' to KeyStroke(MOD_RALT, 0x0F),
+                'ł' to KeyStroke(MOD_RALT, 0x0E),
                 '#' to KeyStroke(MOD_RALT, 0x1B),
                 '$' to KeyStroke(MOD_RALT, 0x33),
                 '&' to KeyStroke(MOD_NONE, 0x64),
@@ -158,6 +192,7 @@ class KeyboardMapper(private val layout: Int) {
                 '?' to KeyStroke(MOD_LSHIFT, 0x24),
                 ':' to KeyStroke(MOD_LSHIFT, 0x23),
                 ';' to KeyStroke(MOD_LSHIFT, 0x21),
+                '₽' to KeyStroke(MOD_RALT, 0x25),
             ),
             KeyboardLayout.LAYOUT_PT to mapOf(
                 '"' to KeyStroke(MOD_LSHIFT, 0x1F),
@@ -169,6 +204,13 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x26),
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
+                '`' to KeyStroke(MOD_LSHIFT, 0x30, 0x2C),
+                '~' to KeyStroke(MOD_NONE, 0x31, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x31, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x30, 0x2C),
+                '¨' to KeyStroke(MOD_RALT, 0x2F, 0x2C),
+                '«' to KeyStroke(MOD_NONE, 0x2E),
+                '»' to KeyStroke(MOD_LSHIFT, 0x2E),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -196,6 +238,12 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x26),
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
+                '`' to KeyStroke(MOD_LSHIFT, 0x2E, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x30, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x30, 0x2C),
+                '´' to KeyStroke(MOD_RALT, 0x2E, 0x2C),
+                '¨' to KeyStroke(MOD_NONE, 0x30, 0x2C),
+                '¤' to KeyStroke(MOD_LSHIFT, 0x21),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_RALT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -253,6 +301,21 @@ class KeyboardMapper(private val layout: Int) {
                 '}' to KeyStroke(MOD_RALT, 0x11),
                 '`' to KeyStroke(MOD_RALT, 0x24),
                 '~' to KeyStroke(MOD_RALT, 0x1E),
+                '^' to KeyStroke(MOD_RALT, 0x20, 0x2C),
+                '´' to KeyStroke(MOD_RALT, 0x26, 0x2C),
+                '¨' to KeyStroke(MOD_RALT, 0x2D, 0x2C),
+                '°' to KeyStroke(MOD_RALT, 0x22, 0x2C),
+                '¸' to KeyStroke(MOD_RALT, 0x2E, 0x2C),
+                'ˇ' to KeyStroke(MOD_RALT, 0x1F, 0x2C),
+                '˘' to KeyStroke(MOD_RALT, 0x21, 0x2C),
+                '˙' to KeyStroke(MOD_RALT, 0x25, 0x2C),
+                '˛' to KeyStroke(MOD_RALT, 0x23, 0x2C),
+                '˝' to KeyStroke(MOD_RALT, 0x27, 0x2C),
+                '¤' to KeyStroke(MOD_RALT, 0x31),
+                '×' to KeyStroke(MOD_RALT, 0x30),
+                '÷' to KeyStroke(MOD_RALT, 0x2F),
+                'Ł' to KeyStroke(MOD_RALT, 0x0F),
+                'ł' to KeyStroke(MOD_RALT, 0x0E),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -283,6 +346,7 @@ class KeyboardMapper(private val layout: Int) {
                 '`' to KeyStroke(MOD_NONE, 0x35),
                 '~' to KeyStroke(MOD_LSHIFT, 0x31),
                 '^' to KeyStroke(MOD_LSHIFT, 0x23),
+                '¦' to KeyStroke(MOD_RALT, 0x35),
                 '#' to KeyStroke(MOD_NONE, 0x31),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x24),
@@ -310,7 +374,12 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x2D),
                 '{' to KeyStroke(MOD_RALT, 0x21),
                 '}' to KeyStroke(MOD_RALT, 0x2E),
-                '^' to KeyStroke(MOD_RALT, 0x26),
+                '^' to KeyStroke(MOD_NONE, 0x2F, 0x2C),
+                '`' to KeyStroke(MOD_RALT, 0x24, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x1F, 0x2C),
+                '¨' to KeyStroke(MOD_LSHIFT, 0x2F, 0x2C),
+                '¤' to KeyStroke(MOD_RALT, 0x30),
+                '²' to KeyStroke(MOD_NONE, 0x35),
                 '#' to KeyStroke(MOD_RALT, 0x20),
                 '$' to KeyStroke(MOD_NONE, 0x30),
                 '&' to KeyStroke(MOD_NONE, 0x1E),
@@ -338,6 +407,13 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x26),
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
+                '`' to KeyStroke(MOD_LSHIFT, 0x2E, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x30, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x30, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x2E, 0x2C),
+                '¨' to KeyStroke(MOD_NONE, 0x30, 0x2C),
+                '¤' to KeyStroke(MOD_LSHIFT, 0x21),
+                '½' to KeyStroke(MOD_LSHIFT, 0x35),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_RALT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -366,6 +442,20 @@ class KeyboardMapper(private val layout: Int) {
                 '{' to KeyStroke(MOD_RALT, 0x34),
                 '}' to KeyStroke(MOD_RALT, 0x31),
                 '#' to KeyStroke(MOD_RALT, 0x20),
+                '~' to KeyStroke(MOD_RALT, 0x21, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x2F, 0x2C),
+                '`' to KeyStroke(MOD_NONE, 0x2F, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x34, 0x2C),
+                '¨' to KeyStroke(MOD_LSHIFT, 0x34, 0x2C),
+                '·' to KeyStroke(MOD_LSHIFT, 0x20),
+                '¬' to KeyStroke(MOD_RALT, 0x23),
+                '€' to KeyStroke(MOD_RALT, 0x08),
+                'º' to KeyStroke(MOD_NONE, 0x35),
+                'ª' to KeyStroke(MOD_LSHIFT, 0x35),
+                'ç' to KeyStroke(MOD_NONE, 0x31),
+                'Ç' to KeyStroke(MOD_LSHIFT, 0x31),
+                '¡' to KeyStroke(MOD_NONE, 0x2E),
+                '¿' to KeyStroke(MOD_LSHIFT, 0x2E),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
                 '*' to KeyStroke(MOD_LSHIFT, 0x30),
@@ -392,6 +482,13 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x26),
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
+                '`' to KeyStroke(MOD_LSHIFT, 0x2E, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x30, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x30, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x2E, 0x2C),
+                '¨' to KeyStroke(MOD_NONE, 0x30, 0x2C),
+                '¤' to KeyStroke(MOD_LSHIFT, 0x21),
+                '½' to KeyStroke(MOD_NONE, 0x35),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_RALT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -420,6 +517,12 @@ class KeyboardMapper(private val layout: Int) {
                 '{' to KeyStroke(MOD_RALT, 0x24),
                 '}' to KeyStroke(MOD_RALT, 0x27),
                 '~' to KeyStroke(MOD_RALT, 0x30),
+                '`' to KeyStroke(MOD_LSHIFT, 0x2E, 0x2C),
+                '^' to KeyStroke(MOD_NONE, 0x35, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x2E, 0x2C),
+                '²' to KeyStroke(MOD_RALT, 0x1F),
+                '³' to KeyStroke(MOD_RALT, 0x20),
+                'ẞ' to KeyStroke(MOD_SHIFT_RALT, 0x2D),
                 '#' to KeyStroke(MOD_NONE, 0x31),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x23),
@@ -448,6 +551,25 @@ class KeyboardMapper(private val layout: Int) {
                 '{' to KeyStroke(MOD_RALT, 0x34),
                 '}' to KeyStroke(MOD_RALT, 0x31),
                 '~' to KeyStroke(MOD_RALT, 0x33),
+                '`' to KeyStroke(MOD_NONE, 0x34, 0x2C),
+                '^' to KeyStroke(MOD_NONE, 0x2F, 0x2C),
+                '´' to KeyStroke(MOD_RALT, 0x38, 0x2C),
+                '¨' to KeyStroke(MOD_LSHIFT, 0x30, 0x2C),
+                '¸' to KeyStroke(MOD_NONE, 0x30, 0x2C),
+                '¢' to KeyStroke(MOD_RALT, 0x21),
+                '¤' to KeyStroke(MOD_RALT, 0x22),
+                '¦' to KeyStroke(MOD_RALT, 0x24),
+                '«' to KeyStroke(MOD_NONE, 0x64),
+                '­' to KeyStroke(MOD_RALT, 0x37),
+                '¯' to KeyStroke(MOD_RALT, 0x36),
+                '±' to KeyStroke(MOD_RALT, 0x1E),
+                '²' to KeyStroke(MOD_RALT, 0x25),
+                '³' to KeyStroke(MOD_RALT, 0x26),
+                '¶' to KeyStroke(MOD_RALT, 0x13),
+                '»' to KeyStroke(MOD_LSHIFT, 0x64),
+                '¼' to KeyStroke(MOD_RALT, 0x27),
+                '½' to KeyStroke(MOD_RALT, 0x2D),
+                '¾' to KeyStroke(MOD_RALT, 0x2E),
                 '#' to KeyStroke(MOD_NONE, 0x35),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x24),
@@ -475,6 +597,16 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_NONE, 0x31),
                 '{' to KeyStroke(MOD_LSHIFT, 0x30),
                 '}' to KeyStroke(MOD_LSHIFT, 0x31),
+                '`' to KeyStroke(MOD_LSHIFT, 0x2F, 0x2C),
+                '~' to KeyStroke(MOD_NONE, 0x34, 0x2C),
+                '^' to KeyStroke(MOD_LSHIFT, 0x34, 0x2C),
+                '´' to KeyStroke(MOD_NONE, 0x2F, 0x2C),
+                '¨' to KeyStroke(MOD_LSHIFT, 0x23, 0x2C),
+                '¢' to KeyStroke(MOD_RALT, 0x22),
+                '²' to KeyStroke(MOD_RALT, 0x1F),
+                '³' to KeyStroke(MOD_RALT, 0x20),
+                '¹' to KeyStroke(MOD_RALT, 0x1E),
+                '₢' to KeyStroke(MOD_RALT, 0x06),
                 '#' to KeyStroke(MOD_LSHIFT, 0x20),
                 '$' to KeyStroke(MOD_LSHIFT, 0x21),
                 '&' to KeyStroke(MOD_LSHIFT, 0x24),
@@ -502,7 +634,13 @@ class KeyboardMapper(private val layout: Int) {
                 ']' to KeyStroke(MOD_RALT, 0x30),
                 '{' to KeyStroke(MOD_RALT, 0x21),
                 '}' to KeyStroke(MOD_RALT, 0x27),
-                '^' to KeyStroke(MOD_RALT, 0x23),
+                '^' to KeyStroke(MOD_NONE, 0x2F, 0x2C),
+                '`' to KeyStroke(MOD_RALT, 0x31, 0x2C),
+                '~' to KeyStroke(MOD_RALT, 0x38, 0x2C),
+                '´' to KeyStroke(MOD_RALT, 0x34, 0x2C),
+                '¨' to KeyStroke(MOD_LSHIFT, 0x2F, 0x2C),
+                '²' to KeyStroke(MOD_NONE, 0x35),
+                '³' to KeyStroke(MOD_LSHIFT, 0x35),
                 '#' to KeyStroke(MOD_RALT, 0x20),
                 '$' to KeyStroke(MOD_NONE, 0x30),
                 '&' to KeyStroke(MOD_NONE, 0x1E),
@@ -532,6 +670,21 @@ class KeyboardMapper(private val layout: Int) {
                 '}' to KeyStroke(MOD_RALT, 0x11),
                 '`' to KeyStroke(MOD_RALT, 0x24),
                 '~' to KeyStroke(MOD_RALT, 0x1E),
+                '^' to KeyStroke(MOD_RALT, 0x20, 0x2C),
+                '´' to KeyStroke(MOD_RALT, 0x26, 0x2C),
+                '¨' to KeyStroke(MOD_RALT, 0x2D, 0x2C),
+                '°' to KeyStroke(MOD_RALT, 0x22, 0x2C),
+                '¸' to KeyStroke(MOD_RALT, 0x2E, 0x2C),
+                'ˇ' to KeyStroke(MOD_RALT, 0x1F, 0x2C),
+                '˘' to KeyStroke(MOD_RALT, 0x21, 0x2C),
+                '˙' to KeyStroke(MOD_RALT, 0x25, 0x2C),
+                '˛' to KeyStroke(MOD_RALT, 0x23, 0x2C),
+                '˝' to KeyStroke(MOD_RALT, 0x27, 0x2C),
+                '¤' to KeyStroke(MOD_RALT, 0x31),
+                '×' to KeyStroke(MOD_RALT, 0x30),
+                '÷' to KeyStroke(MOD_RALT, 0x2F),
+                'Ł' to KeyStroke(MOD_RALT, 0x0F),
+                'ł' to KeyStroke(MOD_RALT, 0x0E),
                 '#' to KeyStroke(MOD_RALT, 0x1B),
                 '$' to KeyStroke(MOD_RALT, 0x33),
                 '&' to KeyStroke(MOD_RALT, 0x06),
@@ -584,8 +737,8 @@ class KeyboardMapper(private val layout: Int) {
 
     fun getStrokeForChar(ch: Char): KeyStroke? = charMap[ch]
 
-    private fun map(ch: Char, keyCode: Int, modifiers: Int = MOD_NONE) {
-        charMap[ch] = KeyStroke(modifiers, keyCode)
+    private fun map(ch: Char, keyCode: Int, modifiers: Int = MOD_NONE, terminatorKeyCode: Int? = null) {
+        charMap[ch] = KeyStroke(modifiers, keyCode, terminatorKeyCode)
     }
 
     private fun mapCase(lower: Char, upper: Char, keyCode: Int, lowerMods: Int = MOD_NONE, upperMods: Int = MOD_LSHIFT) {
@@ -595,7 +748,7 @@ class KeyboardMapper(private val layout: Int) {
 
     private fun applyWindowsPunctuationOverrides() {
         WINDOWS_PUNCTUATION_OVERRIDES[layout]?.forEach { (ch, stroke) ->
-            map(ch, stroke.keyCode, stroke.modifiers)
+            charMap[ch] = stroke
         }
     }
 
@@ -791,12 +944,19 @@ class KeyboardMapper(private val layout: Int) {
         map('€', 0x08, MOD_RALT)
         map('@', 0x1F, MOD_RALT)
         mapCase('ñ', 'Ñ', 0x33)
+        mapCase('ç', 'Ç', 0x31)
+        mapCase('º', 'ª', 0x35)
         map('¡', 0x2E)
         map('¿', 0x2E, MOD_LSHIFT)
+        map('·', 0x20, MOD_LSHIFT)
+        map('¬', 0x23, MOD_RALT)
         map('\\', 0x35, MOD_RALT)
         map('|', 0x1E, MOD_RALT)
         map('`', 0x2F)
         map('^', 0x2F, MOD_LSHIFT)
+        map('´', 0x34)
+        map('¨', 0x34, MOD_LSHIFT)
+        map('~', 0x21, MOD_RALT)
         map('[', 0x2F, MOD_RALT)
         map(']', 0x30, MOD_RALT)
         map('{', 0x34, MOD_RALT)

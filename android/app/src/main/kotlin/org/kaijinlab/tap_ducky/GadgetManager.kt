@@ -12,6 +12,7 @@ import java.util.LinkedHashMap
 import java.util.Locale
 import java.util.concurrent.atomic.AtomicReference
 import java.text.Normalizer
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
@@ -518,12 +519,13 @@ class GadgetManager(
     for (ch in text) {
       val stroke = keyboardMapper.getStrokeForChar(ch)
       if (stroke != null) {
-        val up = keyboardReport(0x00, 0x00)
-        val down = keyboardReport(stroke.modifiers, stroke.keyCode)
+        val reports = ArrayList<ByteArray>(5)
+        reports.add(keyboardReport(0x00, 0x00))
+        addStrokeReports(reports, stroke)
         writeKeyboardReportsWithDelays(
           path,
-          reports = listOf(up, down, up),
-          delaysUs = listOf(interUs, downUs)
+          reports = reports,
+          delaysUs = strokeDelays(reports.size, interUs, downUs)
         )
         if (delayMs > 0) Thread.sleep(delayMs.toLong())
       } else {
@@ -928,6 +930,8 @@ class GadgetManager(
       val s = keyboardMapper.getStrokeForChar(ch)
       if (s != null) {
         strokes.add(s)
+      } else if (addComposedUnicodeStrokes(ch, strokes)) {
+        // Handled as a layout-specific dead-key accent followed by the base character.
       } else {
         addFallbackStrokes(ch, strokes)
       }
@@ -937,18 +941,30 @@ class GadgetManager(
     val interUs = scaledInterKeyDelayUs()
     val downUs = scaledDownHoldUs(baseKeyDownHoldUs)
 
-    val reports = ArrayList<ByteArray>(1 + strokes.size * 2)
-    val delays = ArrayList<Int>(strokes.size * 2)
+    val reports = ArrayList<ByteArray>(1 + strokes.size * 4)
     reports.add(keyboardReport(0x00, 0x00))
     for (stroke in strokes) {
-      reports.add(keyboardReport(stroke.modifiers, stroke.keyCode))
+      addStrokeReports(reports, stroke)
+    }
+    writeKeyboardReportsWithDelays(path, reports, strokeDelays(reports.size, interUs, downUs))
+  }
+
+  private fun addStrokeReports(reports: MutableList<ByteArray>, stroke: KeyStroke) {
+    reports.add(keyboardReport(stroke.modifiers, stroke.keyCode))
+    reports.add(keyboardReport(0x00, 0x00))
+    stroke.terminatorKeyCode?.let { key ->
+      reports.add(keyboardReport(0x00, key))
       reports.add(keyboardReport(0x00, 0x00))
     }
-    for (i in 0 until (reports.size - 1)) {
+  }
+
+  private fun strokeDelays(reportCount: Int, interUs: Int, downUs: Int): List<Int> {
+    val delays = ArrayList<Int>(max(0, reportCount - 1))
+    for (i in 0 until (reportCount - 1)) {
       val isDownReport = (i % 2 == 1)
       delays.add(if (isDownReport) downUs else interUs)
     }
-    writeKeyboardReportsWithDelays(path, reports, delays)
+    return delays
   }
 
   private fun addFallbackStrokes(ch: Char, strokes: MutableList<KeyStroke>) {
@@ -975,10 +991,48 @@ class GadgetManager(
     }
   }
 
+  private fun addComposedUnicodeStrokes(ch: Char, strokes: MutableList<KeyStroke>): Boolean {
+    val normalized = Normalizer.normalize(ch.toString(), Normalizer.Form.NFD)
+    if (normalized.length < 2) return false
+
+    val base = normalized[0]
+    val accent = combiningAccentToDeadKey(normalized.substring(1)) ?: return false
+    val accentStroke = keyboardMapper.getStrokeForChar(accent) ?: return false
+    val baseStroke = keyboardMapper.getStrokeForChar(base) ?: return false
+
+    strokes.add(KeyStroke(accentStroke.modifiers, accentStroke.keyCode))
+    strokes.add(baseStroke)
+    return true
+  }
+
+  private fun combiningAccentToDeadKey(combiningMarks: String): Char? {
+    if (combiningMarks.length != 1) return null
+    return when (combiningMarks[0]) {
+      '\u0300' -> '`'
+      '\u0301' -> '´'
+      '\u0302' -> '^'
+      '\u0303' -> '~'
+      '\u0306' -> '˘'
+      '\u0307' -> '˙'
+      '\u0308' -> '¨'
+      '\u030A' -> '°'
+      '\u030B' -> '˝'
+      '\u030C' -> 'ˇ'
+      '\u0327' -> '¸'
+      '\u0328' -> '˛'
+      else -> null
+    }
+  }
+
   private fun countFallbackChars(ch: Char): Int {
     return when (unicodeFallbackMode) {
       "skip", "warn" -> 0
       "ascii" -> {
+        val strokes = ArrayList<KeyStroke>(2)
+        if (addComposedUnicodeStrokes(ch, strokes)) {
+          return strokes.size
+        }
+
         val ascii = transliterateToAscii(ch)
         val out = if (ascii.isEmpty()) "?" else ascii
         var count = 0
@@ -994,6 +1048,22 @@ class GadgetManager(
   }
 
   private fun handleUnsupportedChar(path: String, ch: Char, delayMs: Int, withPerCharDelay: Boolean) {
+    val composedStrokes = ArrayList<KeyStroke>(2)
+    if (addComposedUnicodeStrokes(ch, composedStrokes)) {
+      val reports = ArrayList<ByteArray>(1 + composedStrokes.size * 4)
+      reports.add(keyboardReport(0x00, 0x00))
+      for (stroke in composedStrokes) {
+        addStrokeReports(reports, stroke)
+      }
+      writeKeyboardReportsWithDelays(
+        path,
+        reports = reports,
+        delaysUs = strokeDelays(reports.size, scaledInterKeyDelayUs(), scaledDownHoldUs(baseKeyDownHoldUs))
+      )
+      if (withPerCharDelay && delayMs > 0) Thread.sleep(delayMs.toLong())
+      return
+    }
+
     when (unicodeFallbackMode) {
       "skip" -> return
       "warn" -> {
@@ -1006,12 +1076,13 @@ class GadgetManager(
         for (c in out) {
           val stroke = keyboardMapper.getStrokeForChar(c)
           if (stroke != null) {
-            val up = keyboardReport(0x00, 0x00)
-            val down = keyboardReport(stroke.modifiers, stroke.keyCode)
+            val reports = ArrayList<ByteArray>(5)
+            reports.add(keyboardReport(0x00, 0x00))
+            addStrokeReports(reports, stroke)
             writeKeyboardReportsWithDelays(
               path,
-              reports = listOf(up, down, up),
-              delaysUs = listOf(scaledInterKeyDelayUs(), scaledDownHoldUs(baseKeyDownHoldUs))
+              reports = reports,
+              delaysUs = strokeDelays(reports.size, scaledInterKeyDelayUs(), scaledDownHoldUs(baseKeyDownHoldUs))
             )
             if (withPerCharDelay && delayMs > 0) Thread.sleep(delayMs.toLong())
           }
