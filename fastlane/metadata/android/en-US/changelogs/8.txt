@@ -1,0 +1,1 @@
+Fix AltGr modifier for keyboard layouts
