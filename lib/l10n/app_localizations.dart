@@ -481,6 +481,372 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Root not available. Check Device screen for diagnostics.'**
   String get rootNotAvailableCheckDeviceScreenForDiagnostics;
+
+  /// No description provided for @labelCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} copied to clipboard'**
+  String labelCopiedToClipboard(String label);
+
+  /// No description provided for @deviceInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Device Information'**
+  String get deviceInformation;
+
+  /// No description provided for @refreshDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh diagnostics'**
+  String get refreshDiagnostics;
+
+  /// No description provided for @hidReadiness.
+  ///
+  /// In en, this message translates to:
+  /// **'HID Readiness'**
+  String get hidReadiness;
+
+  /// No description provided for @usbGadgetSystemStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget system status'**
+  String get usbGadgetSystemStatus;
+
+  /// No description provided for @usbDeviceController.
+  ///
+  /// In en, this message translates to:
+  /// **'USB Device Controller'**
+  String get usbDeviceController;
+
+  /// No description provided for @realTimeConnectionState.
+  ///
+  /// In en, this message translates to:
+  /// **'Real-time connection state'**
+  String get realTimeConnectionState;
+
+  /// No description provided for @hardwareAndSoftwareDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Hardware & software details'**
+  String get hardwareAndSoftwareDetails;
+
+  /// No description provided for @backendDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Backend Diagnostics'**
+  String get backendDiagnostics;
+
+  /// No description provided for @kernelAndSysytemConfiguration.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel & system configuration'**
+  String get kernelAndSysytemConfiguration;
+
+  /// No description provided for @compatibilityNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Compatibility Notes'**
+  String get compatibilityNotes;
+
+  /// No description provided for @requirementsAndRecommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'Requirements & recommendations'**
+  String get requirementsAndRecommendations;
+
+  /// No description provided for @systemReady.
+  ///
+  /// In en, this message translates to:
+  /// **'System Ready'**
+  String get systemReady;
+
+  /// No description provided for @allRequirementsMetForHIDOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'All requirements met for HID operations'**
+  String get allRequirementsMetForHIDOperations;
+
+  /// No description provided for @missingRequiredComponents.
+  ///
+  /// In en, this message translates to:
+  /// **'Missing required components'**
+  String get missingRequiredComponents;
+
+  /// No description provided for @rootAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Root Access'**
+  String get rootAccess;
+
+  /// No description provided for @avaible.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get avaible;
+
+  /// No description provided for @unavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable'**
+  String get unavailable;
+
+  /// No description provided for @superUserPermissionsGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Superuser permissions granted'**
+  String get superUserPermissionsGranted;
+
+  /// No description provided for @rootAccessRequiredForUSBGadgetControl.
+  ///
+  /// In en, this message translates to:
+  /// **'Root access required for USB gadget control'**
+  String get rootAccessRequiredForUSBGadgetControl;
+
+  /// No description provided for @usbGadgetSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'USB Gadget Support'**
+  String get usbGadgetSupport;
+
+  /// No description provided for @supported.
+  ///
+  /// In en, this message translates to:
+  /// **'Supported'**
+  String get supported;
+
+  /// No description provided for @unsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported'**
+  String get unsupported;
+
+  /// No description provided for @kernelSupportsConfigFSUSBGadgets.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel supports ConfigFS USB gadgets'**
+  String get kernelSupportsConfigFSUSBGadgets;
+
+  /// No description provided for @kernelMissingUSBGadgetConfigFSSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel missing USB gadget/ConfigFS support'**
+  String get kernelMissingUSBGadgetConfigFSSupport;
+
+  /// No description provided for @sessionState.
+  ///
+  /// In en, this message translates to:
+  /// **'Session State'**
+  String get sessionState;
+
+  /// No description provided for @armed.
+  ///
+  /// In en, this message translates to:
+  /// **'Armed'**
+  String get armed;
+
+  /// No description provided for @disarmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Disarmed'**
+  String get disarmed;
+
+  /// No description provided for @usbGadgetIsActiveAndReady.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget is active and ready'**
+  String get usbGadgetIsActiveAndReady;
+
+  /// No description provided for @activateSessionToEnableHIDOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate session to enable HID operations'**
+  String get activateSessionToEnableHIDOperations;
+
+  /// No description provided for @targetConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Target Connection'**
+  String get targetConnection;
+
+  /// No description provided for @connected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get connected;
+
+  /// No description provided for @disconnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnected'**
+  String get disconnected;
+
+  /// No description provided for @usbCableConnectedToTargetHost.
+  ///
+  /// In en, this message translates to:
+  /// **'USB cable connected to target host'**
+  String get usbCableConnectedToTargetHost;
+
+  /// No description provided for @availableUDCControllers.
+  ///
+  /// In en, this message translates to:
+  /// **'Available UDC Controllers'**
+  String get availableUDCControllers;
+
+  /// No description provided for @hostHasEnumeratedTheDeviceReadyForHIDCommunication.
+  ///
+  /// In en, this message translates to:
+  /// **'Host has enumerated the device. Ready for HID communication.'**
+  String get hostHasEnumeratedTheDeviceReadyForHIDCommunication;
+
+  /// No description provided for @noUSBCableConnectedOrHostIsPoweredOff.
+  ///
+  /// In en, this message translates to:
+  /// **'No USB cable connected or host is powered off.'**
+  String get noUSBCableConnectedOrHostIsPoweredOff;
+
+  /// No description provided for @usbCableConnectedWaitingForPowerNegotiation.
+  ///
+  /// In en, this message translates to:
+  /// **'USB cable connected, waiting for power negotiation.'**
+  String get usbCableConnectedWaitingForPowerNegotiation;
+
+  /// No description provided for @deviceIsPoweredWaitingForEnumeration.
+  ///
+  /// In en, this message translates to:
+  /// **'Device is powered, waiting for enumeration.'**
+  String get deviceIsPoweredWaitingForEnumeration;
+
+  /// No description provided for @enumerationStartedDeviceIsBeingConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Enumeration started, device is being configured.'**
+  String get enumerationStartedDeviceIsBeingConfigured;
+
+  /// No description provided for @deviceHasBeenAddressedByHostConfigurationInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Device has been addressed by host, configuration in progress.'**
+  String get deviceHasBeenAddressedByHostConfigurationInProgress;
+
+  /// No description provided for @unknownUDCState.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown UDC state: {state}'**
+  String unknownUDCState(String state);
+
+  /// No description provided for @udcStateIsPolledEvery2SecondsWhenSessionIsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'UDC state is polled every 2 seconds when session is active'**
+  String get udcStateIsPolledEvery2SecondsWhenSessionIsActive;
+
+  /// No description provided for @rootShellID.
+  ///
+  /// In en, this message translates to:
+  /// **'Root Shell ID'**
+  String get rootShellID;
+
+  /// No description provided for @udcControllers.
+  ///
+  /// In en, this message translates to:
+  /// **'UDC Controllers'**
+  String get udcControllers;
+
+  /// No description provided for @configfsMountPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'ConfigFS Mount Points'**
+  String get configfsMountPoints;
+
+  /// No description provided for @activeGadgetDirectories.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Gadget Directories'**
+  String get activeGadgetDirectories;
+
+  /// No description provided for @kernelConfigFlags.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel Config Flags ({length})'**
+  String kernelConfigFlags(int length);
+
+  /// No description provided for @systemPaths.
+  ///
+  /// In en, this message translates to:
+  /// **'System Paths'**
+  String get systemPaths;
+
+  /// No description provided for @rawKernelConfig.
+  ///
+  /// In en, this message translates to:
+  /// **'Raw Kernel Config ({length} lines)'**
+  String rawKernelConfig(int length);
+
+  /// No description provided for @physicalDeviceDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical device detected'**
+  String get physicalDeviceDetected;
+
+  /// No description provided for @emulatorDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'Emulator detected'**
+  String get emulatorDetected;
+
+  /// No description provided for @thisIsAPhysicalDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a physical device - the recommended environment for USB gadget operations. All HID features should work as expected.'**
+  String get thisIsAPhysicalDevice;
+
+  /// No description provided for @thisIsAnEmulator.
+  ///
+  /// In en, this message translates to:
+  /// **'This appears to be an emulator. Emulators typically cannot validate USB gadget/ConfigFS behavior. Use a physical rooted device for real HID operations.'**
+  String get thisIsAnEmulator;
+
+  /// No description provided for @requirementsForRealHID.
+  ///
+  /// In en, this message translates to:
+  /// **'Requirements for Real HID'**
+  String get requirementsForRealHID;
+
+  /// No description provided for @rootAccessMagiskKernelSUOrSuperSU.
+  ///
+  /// In en, this message translates to:
+  /// **'Root access (Magisk, Kernel SU, or SuperSU)'**
+  String get rootAccessMagiskKernelSUOrSuperSU;
+
+  /// No description provided for @usbGadgetConfigFSKernelSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget / ConfigFS kernel support'**
+  String get usbGadgetConfigFSKernelSupport;
+
+  /// No description provided for @usbOTGCableOrUSBCDataCable.
+  ///
+  /// In en, this message translates to:
+  /// **'USB OTG cable or USB-C data cable'**
+  String get usbOTGCableOrUSBCDataCable;
+
+  /// No description provided for @targetHostWithUSBHIDSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Target host with USB HID support'**
+  String get targetHostWithUSBHIDSupport;
+
+  /// No description provided for @failedToLoadDeviceInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Load Device Info'**
+  String get failedToLoadDeviceInfo;
+
+  /// No description provided for @failedToLoadDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Load Diagnostics'**
+  String get failedToLoadDiagnostics;
 }
 
 class _AppLocalizationsDelegate

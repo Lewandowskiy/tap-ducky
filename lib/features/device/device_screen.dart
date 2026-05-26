@@ -7,6 +7,8 @@ import '../../data/models/device_snapshot.dart';
 import '../../state/controllers/hid_status_controller.dart';
 import '../../state/providers.dart';
 
+import '../../extension/context_extensions.dart';
+
 final deviceSnapshotProvider = FutureProvider<DeviceSnapshot>((ref) async {
   final svc = ref.read(deviceInfoServiceProvider);
   return svc.getSnapshot();
@@ -25,7 +27,7 @@ class DeviceScreen extends ConsumerWidget {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('$label copied to clipboard'),
+        content: Text(context.l10n.labelCopiedToClipboard(label.toString())),
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 2),
       ),
@@ -40,10 +42,10 @@ class DeviceScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Device Information'),
+        title: Text(context.l10n.deviceInformation),
         actions: [
           IconButton(
-            tooltip: 'Refresh diagnostics',
+            tooltip: context.l10n.refreshDiagnostics,
             onPressed: () => ref.invalidate(deviceDiagnosticsProvider),
             icon: const Icon(Icons.refresh),
           ),
@@ -69,8 +71,8 @@ class DeviceScreen extends ConsumerWidget {
                 // HID Readiness
                 _SectionTitle(
                   icon: Icons.security,
-                  title: 'HID Readiness',
-                  subtitle: 'USB gadget system status',
+                  title: context.l10n.hidReadiness,
+                  subtitle: context.l10n.usbGadgetSystemStatus,
                 ),
                 const SizedBox(height: 12),
                 _HidReadinessCard(hid: hid),
@@ -80,8 +82,8 @@ class DeviceScreen extends ConsumerWidget {
                 if (hid.udcState != null) ...[
                   _SectionTitle(
                     icon: Icons.usb,
-                    title: 'USB Device Controller',
-                    subtitle: 'Real-time connection state',
+                    title: context.l10n.usbDeviceController,
+                    subtitle: context.l10n.realTimeConnectionState,
                   ),
                   const SizedBox(height: 12),
                   _UdcStateCard(hid: hid),
@@ -91,8 +93,8 @@ class DeviceScreen extends ConsumerWidget {
                 // Device Information
                 _SectionTitle(
                   icon: Icons.phone_android,
-                  title: 'Device Information',
-                  subtitle: 'Hardware & software details',
+                  title: context.l10n.deviceInformation,
+                  subtitle: context.l10n.hardwareAndSoftwareDetails,
                 ),
                 const SizedBox(height: 12),
                 _DeviceInfoCard(
@@ -104,8 +106,8 @@ class DeviceScreen extends ConsumerWidget {
                 // Backend Diagnostics
                 _SectionTitle(
                   icon: Icons.bug_report,
-                  title: 'Backend Diagnostics',
-                  subtitle: 'Kernel & system configuration',
+                  title: context.l10n.backendDiagnostics,
+                  subtitle: context.l10n.kernelAndSysytemConfiguration,
                 ),
                 const SizedBox(height: 12),
                 diagnosticsAsync.when(
@@ -123,8 +125,8 @@ class DeviceScreen extends ConsumerWidget {
                 // Compatibility Notes
                 _SectionTitle(
                   icon: Icons.info_outline,
-                  title: 'Compatibility Notes',
-                  subtitle: 'Requirements & recommendations',
+                  title: context.l10n.compatibilityNotes,
+                  subtitle: context.l10n.requirementsAndRecommendations,
                 ),
                 const SizedBox(height: 12),
                 _CompatibilityCard(isPhysical: snap.isPhysicalDevice),
@@ -179,7 +181,7 @@ class _SystemStatusHeroCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        isReady ? 'System Ready' : 'System Not Ready',
+                        isReady ? context.l10n.systemReady : context.l10n.systemNotReady,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w900,
                             ),
@@ -187,8 +189,8 @@ class _SystemStatusHeroCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         isReady
-                            ? 'All requirements met for HID operations'
-                            : 'Missing required components',
+                            ? context.l10n.allRequirementsMetForHIDOperations
+                            : context.l10n.missingRequiredComponents,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: cs.onSurfaceVariant,
                             ),
@@ -204,7 +206,7 @@ class _SystemStatusHeroCard extends StatelessWidget {
                 Expanded(
                   child: _QuickStat(
                     icon: Icons.phone_android,
-                    label: 'Device',
+                    label: context.l10n.device,
                     value: snapshot.model,
                   ),
                 ),
@@ -294,42 +296,42 @@ class _HidReadinessCard extends StatelessWidget {
         children: [
           _StatusRow(
             icon: Icons.security,
-            label: 'Root Access',
-            status: hid.rootAvailable ? 'Available' : 'Unavailable',
+            label: context.l10n.rootAccess,
+            status: hid.rootAvailable ? context.l10n.avaible : context.l10n.unavailable,
             isOk: hid.rootAvailable,
             description: hid.rootAvailable
-                ? 'Superuser permissions granted'
-                : 'Root access required for USB gadget control',
+                ? context.l10n.superUserPermissionsGranted
+                : context.l10n.rootAccessRequiredForUSBGadgetControl,
           ),
           const Divider(height: 1),
           _StatusRow(
             icon: Icons.usb,
-            label: 'USB Gadget Support',
-            status: hid.hidSupported ? 'Supported' : 'Unsupported',
+            label: context.l10n.usbGadgetSupport,
+            status: hid.hidSupported ? context.l10n.supported : context.l10n.unsupported,
             isOk: hid.hidSupported,
             description: hid.hidSupported
-                ? 'Kernel supports ConfigFS USB gadgets'
-                : 'Kernel missing USB gadget/ConfigFS support',
+                ? context.l10n.kernelSupportsConfigFSUSBGadgets
+                : context.l10n.kernelMissingUSBGadgetConfigFSSupport,
           ),
           const Divider(height: 1),
           _StatusRow(
             icon: hid.sessionArmed ? Icons.lock_open : Icons.lock_outline,
-            label: 'Session State',
-            status: hid.sessionArmed ? 'Armed' : 'Disarmed',
+            label: context.l10n.sessionState,
+            status: hid.sessionArmed ? context.l10n.armed : context.l10n.disarmed,
             isOk: hid.sessionArmed,
             description: hid.sessionArmed
-                ? 'USB gadget is active and ready'
-                : 'Activate session to enable HID operations',
+                ? context.l10n.usbGadgetIsActiveAndReady
+                : context.l10n.activateSessionToEnableHIDOperations,
           ),
           const Divider(height: 1),
           _StatusRow(
             icon: hid.deviceConnected ? Icons.usb : Icons.usb_off,
-            label: 'Target Connection',
-            status: hid.deviceConnected ? 'Connected' : 'Disconnected',
+            label: context.l10n.targetConnection,
+            status: hid.deviceConnected ? context.l10n.connected : context.l10n.disconnected,
             isOk: hid.deviceConnected,
             description: hid.deviceConnected
-                ? 'USB cable connected to target host'
-                : 'Connect USB cable to target device',
+                ? context.l10n.usbCableConnectedToTargetHost
+                : context.l10n.connectUSBCableToTargetDevice,
           ),
           if (hid.udcList.isNotEmpty) ...[
             const Divider(height: 1),
@@ -342,8 +344,8 @@ class _HidReadinessCard extends StatelessWidget {
                     children: [
                       Icon(Icons.developer_board, size: 18, color: cs.primary),
                       const SizedBox(width: 8),
-                      const Text(
-                        'Available UDC Controllers',
+                      Text(
+                        context.l10n.availableUDCControllers,
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 13,
@@ -515,22 +517,22 @@ class _UdcStateCard extends StatelessWidget {
     }
   }
 
-  String _getStateDescription(String state) {
+  String _getStateDescription(String state, BuildContext context) {
     switch (state.toLowerCase()) {
       case 'configured':
-        return 'Host has enumerated the device. Ready for HID communication.';
+        return context.l10n.hostHasEnumeratedTheDeviceReadyForHIDCommunication;
       case 'not attached':
-        return 'No USB cable connected or host is powered off.';
+        return context.l10n.noUSBCableConnectedOrHostIsPoweredOff;
       case 'attached':
-        return 'USB cable connected, waiting for power negotiation.';
+        return context.l10n.usbCableConnectedWaitingForPowerNegotiation;
       case 'powered':
-        return 'Device is powered, waiting for enumeration.';
+        return context.l10n.deviceIsPoweredWaitingForEnumeration;
       case 'default':
-        return 'Enumeration started, device is being configured.';
+        return context.l10n.enumerationStartedDeviceIsBeingConfigured;
       case 'addressed':
-        return 'Device has been addressed by host, configuration in progress.';
+        return context.l10n.deviceHasBeenAddressedByHostConfigurationInProgress;
       default:
-        return 'Unknown UDC state: $state';
+        return context.l10n.unknownUDCState(state);
     }
   }
 
@@ -578,7 +580,7 @@ class _UdcStateCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          _getStateDescription(state),
+                          _getStateDescription(state, context),
                           style: TextStyle(
                             fontSize: 13,
                             color: cs.onSurfaceVariant,
@@ -604,7 +606,7 @@ class _UdcStateCard extends StatelessWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      'UDC state is polled every 2 seconds when session is active',
+                      context.l10n.udcStateIsPolledEvery2SecondsWhenSessionIsActive,
                       style: TextStyle(
                         fontSize: 11,
                         color: cs.onSurfaceVariant,
@@ -764,7 +766,7 @@ class _DiagnosticsCardState extends State<_DiagnosticsCard> {
             if (rootId != null) ...[
               _DiagnosticItem(
                 icon: Icons.admin_panel_settings,
-                label: 'Root Shell ID',
+                label: context.l10n.rootShellID,
                 value: rootId,
                 isMonospace: true,
               ),
@@ -773,7 +775,7 @@ class _DiagnosticsCardState extends State<_DiagnosticsCard> {
             if (udcList.isNotEmpty) ...[
               _DiagnosticList(
                 icon: Icons.developer_board,
-                label: 'UDC Controllers',
+                label: context.l10n.udcControllers,
                 items: udcList,
               ),
               const SizedBox(height: 16),
@@ -781,7 +783,7 @@ class _DiagnosticsCardState extends State<_DiagnosticsCard> {
             if (configfsBases.isNotEmpty) ...[
               _DiagnosticList(
                 icon: Icons.folder_open,
-                label: 'ConfigFS Mount Points',
+                label: context.l10n.configfsMountPoints,
                 items: configfsBases,
               ),
               const SizedBox(height: 16),
@@ -789,14 +791,14 @@ class _DiagnosticsCardState extends State<_DiagnosticsCard> {
             if (existingGadgets.isNotEmpty) ...[
               _DiagnosticList(
                 icon: Icons.usb,
-                label: 'Active Gadget Directories',
+                label: context.l10n.activeGadgetDirectories,
                 items: existingGadgets,
               ),
               const SizedBox(height: 16),
             ],
             if (kernelConfig != null && kernelConfig.isNotEmpty) ...[
               _ExpandableSection(
-                title: 'Kernel Config Flags (${kernelConfig.length})',
+                title: context.l10n.kernelConfigFlags(kernelConfig.length),
                 icon: Icons.settings_system_daydream,
                 isExpanded: _kernelExpanded,
                 onToggle: () => setState(() => _kernelExpanded = !_kernelExpanded),
@@ -813,7 +815,7 @@ class _DiagnosticsCardState extends State<_DiagnosticsCard> {
             ],
             if (paths != null && paths.isNotEmpty) ...[
               _ExpandableSection(
-                title: 'System Paths',
+                title: context.l10n.systemPaths,
                 icon: Icons.folder_special,
                 isExpanded: _pathsExpanded,
                 onToggle: () => setState(() => _pathsExpanded = !_pathsExpanded),
@@ -830,7 +832,7 @@ class _DiagnosticsCardState extends State<_DiagnosticsCard> {
             ],
             if (rawLines.isNotEmpty) ...[
               _ExpandableSection(
-                title: 'Raw Kernel Config (${rawLines.length} lines)',
+                title: context.l10n.rawKernelConfig(rawLines.length),
                 icon: Icons.code,
                 isExpanded: _rawExpanded,
                 onToggle: () => setState(() => _rawExpanded = !_rawExpanded),
@@ -1193,7 +1195,7 @@ class _CompatibilityCard extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    isPhysical ? 'Physical Device Detected' : 'Emulator Detected',
+                    isPhysical ? context.l10n.physicalDeviceDetected : context.l10n.emulatorDetected,
                     style: TextStyle(
                       fontWeight: FontWeight.w900,
                       fontSize: 15,
@@ -1206,8 +1208,8 @@ class _CompatibilityCard extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               isPhysical
-                  ? 'This is a physical device - the recommended environment for USB gadget operations. All HID features should work as expected.'
-                  : 'This appears to be an emulator. Emulators typically cannot validate USB gadget/ConfigFS behavior. Use a physical rooted device for real HID operations.',
+                  ? context.l10n.thisIsAPhysicalDevice
+                  : context.l10n.thisIsAnEmulator,
               style: TextStyle(
                 fontSize: 13,
                 color: isPhysical
@@ -1230,8 +1232,8 @@ class _CompatibilityCard extends StatelessWidget {
                     children: [
                       Icon(Icons.checklist, size: 16, color: cs.primary),
                       const SizedBox(width: 8),
-                      const Text(
-                        'Requirements for Real HID',
+                      Text(
+                        context.l10n.requirementsForRealHID,
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 12,
@@ -1242,22 +1244,22 @@ class _CompatibilityCard extends StatelessWidget {
                   const SizedBox(height: 10),
                   _RequirementBullet(
                     icon: Icons.security,
-                    text: 'Root access (Magisk, KernelSU, or SuperSU)',
+                    text: context.l10n.rootAccessMagiskKernelSUOrSuperSU,
                   ),
                   const SizedBox(height: 6),
                   _RequirementBullet(
                     icon: Icons.usb,
-                    text: 'USB gadget / ConfigFS kernel support',
+                    text: context.l10n.usbGadgetConfigFSKernelSupport,
                   ),
                   const SizedBox(height: 6),
                   _RequirementBullet(
                     icon: Icons.cable,
-                    text: 'USB OTG cable or USB-C data cable',
+                    text: context.l10n.usbOTGCableOrUSBCDataCable,
                   ),
                   const SizedBox(height: 6),
                   _RequirementBullet(
                     icon: Icons.computer,
-                    text: 'Target host with USB HID support',
+                    text: context.l10n.targetHostWithUSBHIDSupport,
                   ),
                 ],
               ),
@@ -1373,7 +1375,7 @@ class _ErrorView extends StatelessWidget {
             Icon(Icons.error_outline, size: 64, color: cs.error),
             const SizedBox(height: 16),
             Text(
-              'Failed to Load Device Info',
+              context.l10n.failedToLoadDeviceInfo,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
@@ -1413,7 +1415,7 @@ class _ErrorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Failed to Load Diagnostics',
+                    context.l10n.failedToLoadDiagnostics,
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: cs.onErrorContainer,

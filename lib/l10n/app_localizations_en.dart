@@ -211,4 +211,212 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get rootNotAvailableCheckDeviceScreenForDiagnostics =>
       'Root not available. Check Device screen for diagnostics.';
+
+  @override
+  String labelCopiedToClipboard(String label) {
+    return '$label copied to clipboard';
+  }
+
+  @override
+  String get deviceInformation => 'Device Information';
+
+  @override
+  String get refreshDiagnostics => 'Refresh diagnostics';
+
+  @override
+  String get hidReadiness => 'HID Readiness';
+
+  @override
+  String get usbGadgetSystemStatus => 'USB gadget system status';
+
+  @override
+  String get usbDeviceController => 'USB Device Controller';
+
+  @override
+  String get realTimeConnectionState => 'Real-time connection state';
+
+  @override
+  String get hardwareAndSoftwareDetails => 'Hardware & software details';
+
+  @override
+  String get backendDiagnostics => 'Backend Diagnostics';
+
+  @override
+  String get kernelAndSysytemConfiguration => 'Kernel & system configuration';
+
+  @override
+  String get compatibilityNotes => 'Compatibility Notes';
+
+  @override
+  String get requirementsAndRecommendations => 'Requirements & recommendations';
+
+  @override
+  String get systemReady => 'System Ready';
+
+  @override
+  String get allRequirementsMetForHIDOperations =>
+      'All requirements met for HID operations';
+
+  @override
+  String get missingRequiredComponents => 'Missing required components';
+
+  @override
+  String get rootAccess => 'Root Access';
+
+  @override
+  String get avaible => 'Available';
+
+  @override
+  String get unavailable => 'Unavailable';
+
+  @override
+  String get superUserPermissionsGranted => 'Superuser permissions granted';
+
+  @override
+  String get rootAccessRequiredForUSBGadgetControl =>
+      'Root access required for USB gadget control';
+
+  @override
+  String get usbGadgetSupport => 'USB Gadget Support';
+
+  @override
+  String get supported => 'Supported';
+
+  @override
+  String get unsupported => 'Unsupported';
+
+  @override
+  String get kernelSupportsConfigFSUSBGadgets =>
+      'Kernel supports ConfigFS USB gadgets';
+
+  @override
+  String get kernelMissingUSBGadgetConfigFSSupport =>
+      'Kernel missing USB gadget/ConfigFS support';
+
+  @override
+  String get sessionState => 'Session State';
+
+  @override
+  String get armed => 'Armed';
+
+  @override
+  String get disarmed => 'Disarmed';
+
+  @override
+  String get usbGadgetIsActiveAndReady => 'USB gadget is active and ready';
+
+  @override
+  String get activateSessionToEnableHIDOperations =>
+      'Activate session to enable HID operations';
+
+  @override
+  String get targetConnection => 'Target Connection';
+
+  @override
+  String get connected => 'Connected';
+
+  @override
+  String get disconnected => 'Disconnected';
+
+  @override
+  String get usbCableConnectedToTargetHost =>
+      'USB cable connected to target host';
+
+  @override
+  String get availableUDCControllers => 'Available UDC Controllers';
+
+  @override
+  String get hostHasEnumeratedTheDeviceReadyForHIDCommunication =>
+      'Host has enumerated the device. Ready for HID communication.';
+
+  @override
+  String get noUSBCableConnectedOrHostIsPoweredOff =>
+      'No USB cable connected or host is powered off.';
+
+  @override
+  String get usbCableConnectedWaitingForPowerNegotiation =>
+      'USB cable connected, waiting for power negotiation.';
+
+  @override
+  String get deviceIsPoweredWaitingForEnumeration =>
+      'Device is powered, waiting for enumeration.';
+
+  @override
+  String get enumerationStartedDeviceIsBeingConfigured =>
+      'Enumeration started, device is being configured.';
+
+  @override
+  String get deviceHasBeenAddressedByHostConfigurationInProgress =>
+      'Device has been addressed by host, configuration in progress.';
+
+  @override
+  String unknownUDCState(String state) {
+    return 'Unknown UDC state: $state';
+  }
+
+  @override
+  String get udcStateIsPolledEvery2SecondsWhenSessionIsActive =>
+      'UDC state is polled every 2 seconds when session is active';
+
+  @override
+  String get rootShellID => 'Root Shell ID';
+
+  @override
+  String get udcControllers => 'UDC Controllers';
+
+  @override
+  String get configfsMountPoints => 'ConfigFS Mount Points';
+
+  @override
+  String get activeGadgetDirectories => 'Active Gadget Directories';
+
+  @override
+  String kernelConfigFlags(int length) {
+    return 'Kernel Config Flags ($length)';
+  }
+
+  @override
+  String get systemPaths => 'System Paths';
+
+  @override
+  String rawKernelConfig(int length) {
+    return 'Raw Kernel Config ($length lines)';
+  }
+
+  @override
+  String get physicalDeviceDetected => 'Physical device detected';
+
+  @override
+  String get emulatorDetected => 'Emulator detected';
+
+  @override
+  String get thisIsAPhysicalDevice =>
+      'This is a physical device - the recommended environment for USB gadget operations. All HID features should work as expected.';
+
+  @override
+  String get thisIsAnEmulator =>
+      'This appears to be an emulator. Emulators typically cannot validate USB gadget/ConfigFS behavior. Use a physical rooted device for real HID operations.';
+
+  @override
+  String get requirementsForRealHID => 'Requirements for Real HID';
+
+  @override
+  String get rootAccessMagiskKernelSUOrSuperSU =>
+      'Root access (Magisk, Kernel SU, or SuperSU)';
+
+  @override
+  String get usbGadgetConfigFSKernelSupport =>
+      'USB gadget / ConfigFS kernel support';
+
+  @override
+  String get usbOTGCableOrUSBCDataCable => 'USB OTG cable or USB-C data cable';
+
+  @override
+  String get targetHostWithUSBHIDSupport => 'Target host with USB HID support';
+
+  @override
+  String get failedToLoadDeviceInfo => 'Failed to Load Device Info';
+
+  @override
+  String get failedToLoadDiagnostics => 'Failed to Load Diagnostics';
 }
