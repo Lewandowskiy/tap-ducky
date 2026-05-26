@@ -97,6 +97,36 @@ abstract class AppLocalizations {
     Locale('en'),
     Locale('ru'),
   ];
+
+  /// No description provided for @dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
+  /// No description provided for @payloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Payloads'**
+  String get payloads;
+
+  /// No description provided for @execute.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute'**
+  String get execute;
+
+  /// No description provided for @schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'schedule'**
+  String get schedule;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
 }
 
 class _AppLocalizationsDelegate

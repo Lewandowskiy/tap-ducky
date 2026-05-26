@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tap_ducky/l10n/app_localizations.dart';
 import '../app/router.dart';
 import '../data/models/payload.dart';
 import '../data/services/hardware_keys_service.dart';
@@ -13,6 +14,8 @@ import '../state/controllers/scheduler_controller.dart';
 import '../state/controllers/selection_controller.dart';
 import '../state/providers.dart';
 import 'task_bar.dart';
+
+import 'package:tap_ducky/extension/context_extensions.dart';
 
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key, required this.child});
@@ -28,7 +31,8 @@ class _TapState {
   Timer? timer;
 }
 
-class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver {
+class _AppShellState extends ConsumerState<AppShell>
+    with WidgetsBindingObserver {
   StreamSubscription<HardwareKeyEvent>? _keysSub;
   bool _isForeground = true;
 
@@ -65,7 +69,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     if (state == AppLifecycleState.resumed) {
       _isForeground = true;
       ref.read(schedulerControllerProvider.notifier).onAppResumed();
-    } else if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive || state == AppLifecycleState.detached) {
+    } else if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.detached) {
       _isForeground = false;
     }
   }
@@ -84,7 +90,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
     if (!e.isUp) return;
 
-    final down = _downAtMs.remove(e.keyCode) ?? (e.downTimeMs != 0 ? e.downTimeMs : e.eventTimeMs);
+    final down =
+        _downAtMs.remove(e.keyCode) ??
+        (e.downTimeMs != 0 ? e.downTimeMs : e.eventTimeMs);
     final duration = (e.eventTimeMs - down).abs();
 
     if (duration >= _longPressMinMs) {
@@ -134,7 +142,10 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     s?.timer?.cancel();
   }
 
-  bool _tryEmergencyPanicByVolumeCombo(HardwareKeyEvent e, int releasedKeyHeldMs) {
+  bool _tryEmergencyPanicByVolumeCombo(
+    HardwareKeyEvent e,
+    int releasedKeyHeldMs,
+  ) {
     final exec = ref.read(executionControllerProvider);
     if (!exec.isRunning) return false;
     if (e.keyCode != 24 && e.keyCode != 25) return false;
@@ -165,7 +176,12 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     if (settings == null) return;
 
     final hotkeys = settings.hotkeys;
-    final order = <String>['stop_execution', 'arm_toggle', 'execute_recent', 'execute_selected'];
+    final order = <String>[
+      'stop_execution',
+      'arm_toggle',
+      'execute_recent',
+      'execute_selected',
+    ];
 
     for (final action in order) {
       final binding = hotkeys[action] ?? '';
@@ -189,16 +205,25 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     final g = gestureToken.toLowerCase();
 
     bool hasAll(List<String> tokens) => tokens.every((t) => b.contains(t));
-    bool isDouble() => b.contains('double') || b.contains('2x') || b.contains('twice');
-    bool isTriple() => b.contains('triple') || b.contains('3x') || b.contains('thrice');
-    bool isLong() => b.contains('long') || b.contains('hold') || b.contains('press');
+    bool isDouble() =>
+        b.contains('double') || b.contains('2x') || b.contains('twice');
+    bool isTriple() =>
+        b.contains('triple') || b.contains('3x') || b.contains('thrice');
+    bool isLong() =>
+        b.contains('long') || b.contains('hold') || b.contains('press');
 
-    if (g == 'volume_up_double_tap') return hasAll(['volume', 'up']) && isDouble();
-    if (g == 'volume_down_double_tap') return hasAll(['volume', 'down']) && isDouble();
-    if (g == 'volume_up_triple_tap') return hasAll(['volume', 'up']) && isTriple();
-    if (g == 'volume_down_triple_tap') return hasAll(['volume', 'down']) && isTriple();
-    if (g == 'volume_up_long_press') return hasAll(['volume', 'up']) && isLong();
-    if (g == 'volume_down_long_press') return hasAll(['volume', 'down']) && isLong();
+    if (g == 'volume_up_double_tap')
+      return hasAll(['volume', 'up']) && isDouble();
+    if (g == 'volume_down_double_tap')
+      return hasAll(['volume', 'down']) && isDouble();
+    if (g == 'volume_up_triple_tap')
+      return hasAll(['volume', 'up']) && isTriple();
+    if (g == 'volume_down_triple_tap')
+      return hasAll(['volume', 'down']) && isTriple();
+    if (g == 'volume_up_long_press')
+      return hasAll(['volume', 'up']) && isLong();
+    if (g == 'volume_down_long_press')
+      return hasAll(['volume', 'down']) && isLong();
 
     return false;
   }
@@ -257,14 +282,18 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     if (payloads == null || payloads.isEmpty) return;
 
     final selectedId = ref.read(selectedPayloadIdProvider);
-    final payload = selectedId != null ? _findPayloadById(payloads, selectedId) : payloads.first;
+    final payload = selectedId != null
+        ? _findPayloadById(payloads, selectedId)
+        : payloads.first;
     if (payload == null) return;
 
     final params = _defaultParamsOrNull(payload);
     if (params == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Selected payload requires parameters. Open Execute to configure and run.'),
+          content: Text(
+            'Selected payload requires parameters. Open Execute to configure and run.',
+          ),
           duration: Duration(seconds: 2),
         ),
       );
@@ -273,7 +302,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     }
 
     await _ensureArmed();
-    await ref.read(executionControllerProvider.notifier).runPayload(payload, params);
+    await ref
+        .read(executionControllerProvider.notifier)
+        .runPayload(payload, params);
   }
 
   Future<void> _executeMostRecentPayload() async {
@@ -293,7 +324,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     } catch (_) {}
 
     final selectedId = ref.read(selectedPayloadIdProvider);
-    final candidateId = (lastId != null && lastId.trim().isNotEmpty) ? lastId : selectedId;
+    final candidateId = (lastId != null && lastId.trim().isNotEmpty)
+        ? lastId
+        : selectedId;
 
     Payload? payload;
     if (candidateId != null) {
@@ -305,7 +338,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     if (params == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Most recent payload requires parameters. Open Execute to configure and run.'),
+          content: Text(
+            'Most recent payload requires parameters. Open Execute to configure and run.',
+          ),
           duration: Duration(seconds: 2),
         ),
       );
@@ -314,7 +349,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     }
 
     await _ensureArmed();
-    await ref.read(executionControllerProvider.notifier).runPayload(payload, params);
+    await ref
+        .read(executionControllerProvider.notifier)
+        .runPayload(payload, params);
   }
 
   @override
@@ -322,6 +359,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     ref.watch(schedulerControllerProvider);
     final location = GoRouterState.of(context).uri.toString();
     final index = _tabIndex(location);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: SafeArea(
@@ -351,31 +389,31 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
                     break;
                 }
               },
-              destinations: const [
+              destinations: [
                 NavigationDestination(
                   icon: Icon(Icons.dashboard_outlined),
                   selectedIcon: Icon(Icons.dashboard),
-                  label: 'Dashboard',
+                  label: l10n.dashboard,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.inventory_2_outlined),
                   selectedIcon: Icon(Icons.inventory_2),
-                  label: 'Payloads',
+                  label: l10n.payloads,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.play_circle_outline),
                   selectedIcon: Icon(Icons.play_circle),
-                  label: 'Execute',
+                  label: l10n.execute,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.schedule_outlined),
                   selectedIcon: Icon(Icons.schedule),
-                  label: 'Schedule',
+                  label: l10n.schedule,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.settings_outlined),
                   selectedIcon: Icon(Icons.settings),
-                  label: 'Settings',
+                  label: l10n.settings,
                 ),
               ],
             ),
