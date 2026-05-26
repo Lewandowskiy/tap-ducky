@@ -17,6 +17,8 @@ import '../../widgets/section_header.dart';
 import '../settings/profile_selector_dialog.dart';
 import '../../widgets/root_required_card.dart';
 
+import '../../extension/context_extensions.dart';
+
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -81,14 +83,14 @@ class DashboardScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 20),
               Text(
-                'Checking system status...',
+                context.l10n.checkingSystemStatus,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
               ),
               const SizedBox(height: 8),
               Text(
-                'Verifying root access and USB gadget support',
+                context.l10n.verifyingRootAccessAndUSBGadgetSupport,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.7),
                     ),
@@ -105,7 +107,7 @@ class DashboardScreen extends ConsumerWidget {
           title: const Text('TapDucky'),
           actions: [
             IconButton(
-              tooltip: 'Device Info',
+              tooltip: context.l10n.deviceInfo,
               onPressed: () => context.push(const DeviceRoute().location),
               icon: const Icon(Icons.phone_android),
             ),
@@ -123,18 +125,18 @@ class DashboardScreen extends ConsumerWidget {
         actions: [
           if (exec.isRunning)
             IconButton(
-              tooltip: 'Panic Stop',
+              tooltip: context.l10n.panicStop,
               onPressed: () => ref.read(executionControllerProvider.notifier).panicStop(),
               icon: const Icon(Icons.warning_amber_rounded),
               color: Theme.of(context).colorScheme.error,
             ),
           IconButton(
-            tooltip: 'Logs',
+            tooltip: context.l10n.logs,
             onPressed: () => context.push(const LogsRoute().location),
             icon: const Icon(Icons.list_alt),
           ),
           IconButton(
-            tooltip: 'Device',
+            tooltip: context.l10n.device,
             onPressed: () => context.push(const DeviceRoute().location),
             icon: const Icon(Icons.phone_android),
           ),
@@ -215,11 +217,11 @@ class DashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             SectionHeader(
-              title: 'Recent Payloads',
+              title: context.l10n.recentPayloads,
               trailing: TextButton.icon(
                 onPressed: () => context.go('${const PayloadsRoute().location}/new'),
                 icon: const Icon(Icons.add),
-                label: const Text('New'),
+                label: Text(context.l10n.createNew),
               ),
             ),
             payloadsAsync.when(
@@ -229,7 +231,7 @@ class DashboardScreen extends ConsumerWidget {
               ),
               error: (e, st) => Padding(
                 padding: const EdgeInsets.all(20),
-                child: Text('Failed to load payloads: $e'),
+                child: Text(context.l10n.failedToLoadPayloads(e.toString())),
               ),
               data: (payloads) {
                 final top = payloads.take(5).toList();
@@ -262,7 +264,7 @@ class DashboardScreen extends ConsumerWidget {
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
                       child: TextButton(
                         onPressed: () => context.go(const PayloadsRoute().location),
-                        child: const Text('View all payloads'),
+                        child: Text(context.l10n.viewAllPayloads),
                       ),
                     ),
                   ],
@@ -271,11 +273,11 @@ class DashboardScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             SectionHeader(
-              title: 'Quick Access',
+              title: context.l10n.quickAccess,
               trailing: IconButton(
                 onPressed: () => _showQuickActionsSheet(context, ref, exec),
                 icon: const Icon(Icons.more_horiz),
-                tooltip: 'More actions',
+                tooltip: context.l10n.moreActions,
               ),
             ),
             Padding(
@@ -289,7 +291,7 @@ class DashboardScreen extends ConsumerWidget {
             ),
             if (settings?.showPowerUserHints ?? true) ...[
               const SizedBox(height: 20),
-              const SectionHeader(title: 'System Status'),
+              SectionHeader(title: context.l10n.systemStatus),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                 child: _SystemStatusCard(isDebug: !kReleaseMode, hid: hid),
@@ -301,7 +303,7 @@ class DashboardScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go(const ExecuteRoute().location),
         icon: const Icon(Icons.play_arrow),
-        label: const Text('Execute'),
+        label: Text(context.l10n.execute),
       ),
     );
   }
@@ -325,8 +327,8 @@ class DashboardScreen extends ConsumerWidget {
             const SizedBox(height: 16),
             ListTile(
               leading: const Icon(Icons.inventory_2),
-              title: const Text('Payload Manager'),
-              subtitle: const Text('Create, edit, import, export'),
+              title: Text(context.l10n.payloadManager),
+              subtitle: Text(context.l10n.createEditImportExport),
               onTap: () {
                 Navigator.pop(context);
                 context.go(const PayloadsRoute().location);
@@ -334,8 +336,8 @@ class DashboardScreen extends ConsumerWidget {
             ),
             ListTile(
               leading: const Icon(Icons.schedule),
-              title: const Text('Scheduler'),
-              subtitle: const Text('Time windows & triggers'),
+              title: Text(context.l10n.scheduler),
+              subtitle: Text(context.l10n.timeWindowsAndTriggers),
               onTap: () {
                 Navigator.pop(context);
                 context.go(const ScheduleRoute().location);
@@ -343,8 +345,8 @@ class DashboardScreen extends ConsumerWidget {
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              subtitle: const Text('Theme, logging, HID config'),
+              title: Text(context.l10n.settings),
+              subtitle: Text(context.l10n.themeLoggingHIDConfig),
               onTap: () {
                 Navigator.pop(context);
                 context.go(const SettingsRoute().location);
@@ -352,8 +354,8 @@ class DashboardScreen extends ConsumerWidget {
             ),
             ListTile(
               leading: const Icon(Icons.list_alt),
-              title: const Text('Logs'),
-              subtitle: const Text('Execution history'),
+              title: Text(context.l10n.logs),
+              subtitle: Text(context.l10n.executionHistory),
               onTap: () {
                 Navigator.pop(context);
                 context.push(const LogsRoute().location);
@@ -361,8 +363,8 @@ class DashboardScreen extends ConsumerWidget {
             ),
             ListTile(
               leading: const Icon(Icons.phone_android),
-              title: const Text('Device Info'),
-              subtitle: const Text('Diagnostics & compatibility'),
+              title: Text(context.l10n.deviceInfo),
+              subtitle: Text(context.l10n.diagnosticsAndCompatibility),
               onTap: () {
                 Navigator.pop(context);
                 context.push(const DeviceRoute().location);
@@ -371,8 +373,8 @@ class DashboardScreen extends ConsumerWidget {
             if (exec.isRunning)
               ListTile(
                 leading: Icon(Icons.warning_amber_rounded, color: Theme.of(context).colorScheme.error),
-                title: const Text('Panic Stop'),
-                subtitle: const Text('Emergency stop and gadget teardown'),
+                title: Text(context.l10n.panicStop),
+                subtitle: Text(context.l10n.emergencyStopAndGadgetTeardown),
                 onTap: () async {
                   Navigator.pop(context);
                   await ref.read(executionControllerProvider.notifier).panicStop();
@@ -410,23 +412,23 @@ class _HeroStatusCard extends ConsumerWidget {
     Color statusColor;
 
     if (!hid.rootAvailable || !hid.hidSupported) {
-      statusText = 'System Not Ready';
+      statusText = context.l10n.systemNotReady;
       statusIcon = Icons.error_outline;
       statusColor = cs.error;
     } else if (!hid.sessionArmed) {
-      statusText = 'Session Disarmed';
+      statusText = context.l10n.sessionDisarmed;
       statusIcon = Icons.lock_outline;
       statusColor = cs.tertiary;
     } else if (!hid.deviceConnected) {
-      statusText = 'Waiting for Host';
+      statusText = context.l10n.waitingForHost;
       statusIcon = Icons.usb_off;
       statusColor = cs.warning;
     } else if (exec.isRunning) {
-      statusText = 'Executing';
+      statusText = context.l10n.executing;
       statusIcon = Icons.play_arrow;
       statusColor = cs.primary;
     } else {
-      statusText = 'Ready';
+      statusText = context.l10n.ready;
       statusIcon = Icons.check_circle;
       statusColor = cs.success;
     }
@@ -460,7 +462,7 @@ class _HeroStatusCard extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        _getStatusSubtitle(),
+                        _getStatusSubtitle(context),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: cs.onSurfaceVariant,
                             ),
@@ -479,7 +481,7 @@ class _HeroStatusCard extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        exec.payloadName ?? 'Running',
+                        exec.payloadName ?? context.l10n.running,
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Text(
@@ -508,7 +510,7 @@ class _HeroStatusCard extends ConsumerWidget {
                   child: FilledButton.icon(
                     onPressed: (hid.rootAvailable && hid.hidSupported) ? onArmToggle : null,
                     icon: Icon(hid.sessionArmed ? Icons.lock_open : Icons.lock_outline),
-                    label: Text(hid.sessionArmed ? 'Disarm' : 'Arm Session'),
+                    label: Text(hid.sessionArmed ? context.l10n.disarm : context.l10n.armSession),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                     ),
@@ -519,7 +521,7 @@ class _HeroStatusCard extends ConsumerWidget {
                   FilledButton.icon(
                     onPressed: onStop,
                     icon: const Icon(Icons.stop),
-                    label: const Text('Stop'),
+                    label: Text(context.l10n.stop),
                     style: FilledButton.styleFrom(
                       backgroundColor: cs.error,
                       foregroundColor: cs.onError,
@@ -536,7 +538,7 @@ class _HeroStatusCard extends ConsumerWidget {
                 child: OutlinedButton.icon(
                   onPressed: onPanicStop,
                   icon: const Icon(Icons.warning_amber_rounded),
-                  label: const Text('Panic Stop'),
+                  label: Text(context.l10n.panicStop),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: cs.error,
                     side: BorderSide(color: cs.error),
@@ -551,13 +553,13 @@ class _HeroStatusCard extends ConsumerWidget {
     );
   }
 
-  String _getStatusSubtitle() {
-    if (!hid.rootAvailable) return 'Root access required';
-    if (!hid.hidSupported) return 'USB gadget not supported';
-    if (!hid.sessionArmed) return 'Tap to activate USB gadget';
-    if (!hid.deviceConnected) return 'Connect USB cable to target';
-    if (exec.isRunning) return 'Payload in progress';
-    return 'System operational';
+  String _getStatusSubtitle(BuildContext context) {
+    if (!hid.rootAvailable) return context.l10n.rootAccessRequired;
+    if (!hid.hidSupported) return context.l10n.hidNotSupported;
+    if (!hid.sessionArmed) return context.l10n.tapToActivateUSBGadget;
+    if (!hid.deviceConnected) return context.l10n.connectUSBCableToTarget;
+    if (exec.isRunning) return context.l10n.payloadInProgress;
+    return context.l10n.systemOperational;
   }
 }
 
@@ -580,13 +582,13 @@ class _StatusChipsRow extends StatelessWidget {
     if (hid.activeProfileType != null) {
       switch (hid.activeProfileType!.toLowerCase()) {
         case 'keyboard':
-          profileDisplay = 'Keyboard';
+          profileDisplay = context.l10n.keyboard;
           break;
         case 'mouse':
-          profileDisplay = 'Mouse';
+          profileDisplay = context.l10n.mouse;
           break;
         case 'composite':
-          profileDisplay = 'Composite';
+          profileDisplay = context.l10n.composite;
           break;
         default:
           profileDisplay = hid.activeProfileType!;
@@ -611,20 +613,20 @@ class _StatusChipsRow extends StatelessWidget {
         ),
         _StatusChip(
           icon: Icons.devices,
-          label: 'Profile',
+          label: context.l10n.profile,
           value: profileDisplay,
           ok: hid.sessionArmed,
         ),
         _StatusChip(
           icon: Icons.schedule,
-          label: 'Schedules',
+          label: context.l10n.schedules,
           value: '$scheduleCount',
           ok: scheduleCount > 0,
         ),
         _StatusChip(
           icon: Icons.article_outlined,
-          label: 'Logging',
-          value: loggingEnabled ? 'ON' : 'OFF',
+          label: context.l10n.logging,
+          value: loggingEnabled ? context.l10n.on : context.l10n.off,
           ok: loggingEnabled,
         ),
       ],
@@ -776,7 +778,7 @@ class _PayloadCard extends StatelessWidget {
               IconButton.filledTonal(
                 onPressed: onRun,
                 icon: const Icon(Icons.play_arrow),
-                tooltip: 'Run',
+                tooltip: context.l10n.run,
               ),
             ],
           ),
@@ -804,14 +806,14 @@ class _EmptyPayloadsCard extends StatelessWidget {
             Icon(Icons.inventory_2_outlined, size: 48, color: cs.onSurfaceVariant),
             const SizedBox(height: 12),
             Text(
-              'No payloads yet',
+              context.l10n.noPayloadsYet,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),
             const SizedBox(height: 8),
             Text(
-              'Create your first payload to get started',
+              context.l10n.createYourFirstPayloadToGetStarted,
               style: TextStyle(color: cs.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
@@ -819,13 +821,13 @@ class _EmptyPayloadsCard extends StatelessWidget {
             FilledButton.icon(
               onPressed: onCreateTap,
               icon: const Icon(Icons.add),
-              label: const Text('Create Payload'),
+              label: Text(context.l10n.createPayload),
             ),
             const SizedBox(height: 8),
             OutlinedButton.icon(
               onPressed: onOpenStoreTap,
               icon: const Icon(Icons.cloud_download),
-              label: const Text('Import from GitHub Store'),
+              label: Text(context.l10n.importFromGitHubStore),
             ),
           ],
         ),
@@ -862,22 +864,22 @@ class _QuickAccessGrid extends StatelessWidget {
           children: [
             _QuickAccessTile(
               icon: Icons.schedule,
-              label: 'Schedule',
+              label: context.l10n.schedule,
               onTap: onScheduleTap,
             ),
             _QuickAccessTile(
               icon: Icons.settings,
-              label: 'Settings',
+              label: context.l10n.settings,
               onTap: onSettingsTap,
             ),
             _QuickAccessTile(
               icon: Icons.list_alt,
-              label: 'Logs',
+              label: context.l10n.logs,
               onTap: onLogsTap,
             ),
             _QuickAccessTile(
               icon: Icons.phone_android,
-              label: 'Device',
+              label: context.l10n.device,
               onTap: onDeviceTap,
             ),
           ],
@@ -949,8 +951,8 @@ class _SystemStatusCard extends StatelessWidget {
               children: [
                 Icon(Icons.info_outline, size: 20, color: cs.primary),
                 const SizedBox(width: 8),
-                const Text(
-                  'Operational Flow',
+                Text(
+                  context.l10n.operationalFlow,
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                 ),
               ],
@@ -958,25 +960,25 @@ class _SystemStatusCard extends StatelessWidget {
             const SizedBox(height: 12),
             _FlowStep(
               number: '1',
-              text: 'Arm HID session (activates USB gadget)',
+              text: context.l10n.armHIDSessionActivatesUSBGadget,
               completed: hid.sessionArmed,
             ),
             const SizedBox(height: 8),
             _FlowStep(
               number: '2',
-              text: 'Connect USB cable to target device',
+              text: context.l10n.connectUSBCableToTargetDevice,
               completed: hid.deviceConnected,
             ),
             const SizedBox(height: 8),
-            const _FlowStep(
+            _FlowStep(
               number: '3',
-              text: 'Select payload and configure parameters',
+              text: context.l10n.selectPayloadAndConfigureParameters,
               completed: false,
             ),
             const SizedBox(height: 8),
-            const _FlowStep(
+            _FlowStep(
               number: '4',
-              text: 'Execute and review logs',
+              text: context.l10n.executeAndReviewLogs,
               completed: false,
             ),
             const SizedBox(height: 16),
@@ -997,8 +999,8 @@ class _SystemStatusCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       hid.rootAvailable
-                          ? 'Root available. USB gadget backend is active.'
-                          : 'Root not available. Check Device screen for diagnostics.',
+                          ? context.l10n.rootAvailableUSBGadgetIsActive
+                          : context.l10n.rootNotAvailableCheckDeviceScreenForDiagnostics,
                       style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                     ),
                   ),

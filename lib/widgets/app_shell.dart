@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tap_ducky/l10n/app_localizations.dart';
 import '../app/router.dart';
 import '../data/models/payload.dart';
 import '../data/services/hardware_keys_service.dart';
@@ -15,7 +14,7 @@ import '../state/controllers/selection_controller.dart';
 import '../state/providers.dart';
 import 'task_bar.dart';
 
-import 'package:tap_ducky/extension/context_extensions.dart';
+import '../extension/context_extensions.dart';
 
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key, required this.child});
@@ -290,9 +289,9 @@ class _AppShellState extends ConsumerState<AppShell>
     final params = _defaultParamsOrNull(payload);
     if (params == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Selected payload requires parameters. Open Execute to configure and run.',
+            context.l10n.selectedPayloadRequiresParametersOpenExecuteToConfigureAndRun,
           ),
           duration: Duration(seconds: 2),
         ),
@@ -337,9 +336,9 @@ class _AppShellState extends ConsumerState<AppShell>
     final params = _defaultParamsOrNull(payload);
     if (params == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           content: Text(
-            'Most recent payload requires parameters. Open Execute to configure and run.',
+            context.l10n.mostRecentPayloadRequiresParametersOpenExecuteToConfigureAndRun,
           ),
           duration: Duration(seconds: 2),
         ),
@@ -359,7 +358,6 @@ class _AppShellState extends ConsumerState<AppShell>
     ref.watch(schedulerControllerProvider);
     final location = GoRouterState.of(context).uri.toString();
     final index = _tabIndex(location);
-    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: SafeArea(
@@ -393,27 +391,27 @@ class _AppShellState extends ConsumerState<AppShell>
                 NavigationDestination(
                   icon: Icon(Icons.dashboard_outlined),
                   selectedIcon: Icon(Icons.dashboard),
-                  label: l10n.dashboard,
+                  label: context.l10n.dashboard,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.inventory_2_outlined),
                   selectedIcon: Icon(Icons.inventory_2),
-                  label: l10n.payloads,
+                  label: context.l10n.payloads,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.play_circle_outline),
                   selectedIcon: Icon(Icons.play_circle),
-                  label: l10n.execute,
+                  label: context.l10n.execute,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.schedule_outlined),
                   selectedIcon: Icon(Icons.schedule),
-                  label: l10n.schedule,
+                  label: context.l10n.schedule,
                 ),
                 NavigationDestination(
                   icon: Icon(Icons.settings_outlined),
                   selectedIcon: Icon(Icons.settings),
-                  label: l10n.settings,
+                  label: context.l10n.settings,
                 ),
               ],
             ),

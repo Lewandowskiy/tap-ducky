@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// No description provided for @schedule.
   ///
   /// In en, this message translates to:
-  /// **'schedule'**
+  /// **'Schedule'**
   String get schedule;
 
   /// No description provided for @settings.
@@ -127,6 +127,360 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get settings;
+
+  /// No description provided for @selectedPayloadRequiresParametersOpenExecuteToConfigureAndRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected payload requires parameters. Open Execute to configure and run.'**
+  String get selectedPayloadRequiresParametersOpenExecuteToConfigureAndRun;
+
+  /// No description provided for @mostRecentPayloadRequiresParametersOpenExecuteToConfigureAndRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Most recent payload requires parameters. Open Execute to configure and run.'**
+  String get mostRecentPayloadRequiresParametersOpenExecuteToConfigureAndRun;
+
+  /// No description provided for @checkingSystemStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking system status...'**
+  String get checkingSystemStatus;
+
+  /// No description provided for @verifyingRootAccessAndUSBGadgetSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Verifying root access and USB gadget support'**
+  String get verifyingRootAccessAndUSBGadgetSupport;
+
+  /// No description provided for @deviceInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Device Info'**
+  String get deviceInfo;
+
+  /// No description provided for @panicStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Panic Stop'**
+  String get panicStop;
+
+  /// No description provided for @logs.
+  ///
+  /// In en, this message translates to:
+  /// **'Logs'**
+  String get logs;
+
+  /// No description provided for @device.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get device;
+
+  /// No description provided for @recentPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Payloads'**
+  String get recentPayloads;
+
+  /// No description provided for @createNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New'**
+  String get createNew;
+
+  /// No description provided for @failedToLoadPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load payloads: {error}'**
+  String failedToLoadPayloads(String error);
+
+  /// No description provided for @viewAllPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'View all payloads'**
+  String get viewAllPayloads;
+
+  /// No description provided for @moreActions.
+  ///
+  /// In en, this message translates to:
+  /// **'More actions'**
+  String get moreActions;
+
+  /// No description provided for @quickAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Access'**
+  String get quickAccess;
+
+  /// No description provided for @systemStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'System Status'**
+  String get systemStatus;
+
+  /// No description provided for @payloadManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload Manager'**
+  String get payloadManager;
+
+  /// No description provided for @createEditImportExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Create, edit, import, export'**
+  String get createEditImportExport;
+
+  /// No description provided for @scheduler.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduler'**
+  String get scheduler;
+
+  /// No description provided for @timeWindowsAndTriggers.
+  ///
+  /// In en, this message translates to:
+  /// **'Time windows & triggers'**
+  String get timeWindowsAndTriggers;
+
+  /// No description provided for @themeLoggingHIDConfig.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme, logging, HID config'**
+  String get themeLoggingHIDConfig;
+
+  /// No description provided for @executionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution history'**
+  String get executionHistory;
+
+  /// No description provided for @diagnosticsAndCompatibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics & compatibility'**
+  String get diagnosticsAndCompatibility;
+
+  /// No description provided for @emergencyStopAndGadgetTeardown.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency stop and gadget teardown'**
+  String get emergencyStopAndGadgetTeardown;
+
+  /// No description provided for @systemNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'System Not Ready'**
+  String get systemNotReady;
+
+  /// No description provided for @sessionDisarmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Disarmed'**
+  String get sessionDisarmed;
+
+  /// No description provided for @waitingForHost.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for Host'**
+  String get waitingForHost;
+
+  /// No description provided for @executing.
+  ///
+  /// In en, this message translates to:
+  /// **'Executing'**
+  String get executing;
+
+  /// No description provided for @ready.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get ready;
+
+  /// No description provided for @running.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get running;
+
+  /// No description provided for @disarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Disarm'**
+  String get disarm;
+
+  /// No description provided for @armSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm Session'**
+  String get armSession;
+
+  /// No description provided for @stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get stop;
+
+  /// No description provided for @rootAccessRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Root access required'**
+  String get rootAccessRequired;
+
+  /// No description provided for @hidNotSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget not supported'**
+  String get hidNotSupported;
+
+  /// No description provided for @tapToActivateUSBGadget.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to activate USB gadget'**
+  String get tapToActivateUSBGadget;
+
+  /// No description provided for @connectUSBCableToTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect USB cable to target'**
+  String get connectUSBCableToTarget;
+
+  /// No description provided for @payloadInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload in progress'**
+  String get payloadInProgress;
+
+  /// No description provided for @systemOperational.
+  ///
+  /// In en, this message translates to:
+  /// **'System operational'**
+  String get systemOperational;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// No description provided for @keyboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Keyboard'**
+  String get keyboard;
+
+  /// No description provided for @mouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Mouse'**
+  String get mouse;
+
+  /// No description provided for @composite.
+  ///
+  /// In en, this message translates to:
+  /// **'Composite'**
+  String get composite;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
+
+  /// No description provided for @schedules.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedules'**
+  String get schedules;
+
+  /// No description provided for @logging.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging'**
+  String get logging;
+
+  /// No description provided for @on.
+  ///
+  /// In en, this message translates to:
+  /// **'ON'**
+  String get on;
+
+  /// No description provided for @off.
+  ///
+  /// In en, this message translates to:
+  /// **'OFF'**
+  String get off;
+
+  /// No description provided for @run.
+  ///
+  /// In en, this message translates to:
+  /// **'Run'**
+  String get run;
+
+  /// No description provided for @noPayloadsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No payloads yet'**
+  String get noPayloadsYet;
+
+  /// No description provided for @createYourFirstPayloadToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first payload to get started.'**
+  String get createYourFirstPayloadToGetStarted;
+
+  /// No description provided for @createPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Payload'**
+  String get createPayload;
+
+  /// No description provided for @importFromGitHubStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from GitHub Store'**
+  String get importFromGitHubStore;
+
+  /// No description provided for @operationalFlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Operational Flow'**
+  String get operationalFlow;
+
+  /// No description provided for @armHIDSessionActivatesUSBGadget.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm HID session (activates USB gadget)'**
+  String get armHIDSessionActivatesUSBGadget;
+
+  /// No description provided for @connectUSBCableToTargetDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect USB cable to target device'**
+  String get connectUSBCableToTargetDevice;
+
+  /// No description provided for @selectPayloadAndConfigureParameters.
+  ///
+  /// In en, this message translates to:
+  /// **'Select payload and configure parameters'**
+  String get selectPayloadAndConfigureParameters;
+
+  /// No description provided for @executeAndReviewLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute and review logs'**
+  String get executeAndReviewLogs;
+
+  /// No description provided for @rootAvailableUSBGadgetIsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Root available. USB gadget backend is active.'**
+  String get rootAvailableUSBGadgetIsActive;
+
+  /// No description provided for @rootNotAvailableCheckDeviceScreenForDiagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Root not available. Check Device screen for diagnostics.'**
+  String get rootNotAvailableCheckDeviceScreenForDiagnostics;
 }
 
 class _AppLocalizationsDelegate
