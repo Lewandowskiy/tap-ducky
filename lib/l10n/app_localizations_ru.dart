@@ -57,7 +57,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get createNew => 'Создать';
 
   @override
-  String failedToLoadPayloads(String error) {
+  String failedToLoadPayloadsError(String error) {
     return 'Не удалось загрузить пейлоады: $error';
   }
 
@@ -266,7 +266,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get rootAccess => 'Root-доступ';
 
   @override
-  String get avaible => 'Доступно';
+  String get available => 'Available';
 
   @override
   String get unavailable => 'Недоступно';
@@ -423,4 +423,253 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get failedToLoadDiagnostics =>
       'Не удалось загрузить результаты диагностики';
+
+  @override
+  String get failedToLoadPayloads => 'Не удалось загрузить пейлоады';
+
+  @override
+  String get noPayloadsAvailable => 'Нет доступных пейлоадов';
+
+  @override
+  String get createOrImportAPayloadFirst =>
+      'Сначала создайте или импортируйте пейлоад.';
+
+  @override
+  String get executionSpeed => 'Скорость выполнения';
+
+  @override
+  String get ultra => 'Ультра';
+
+  @override
+  String get fast => 'Быстро';
+
+  @override
+  String get normal => 'Обычно';
+
+  @override
+  String get slow => 'Медленно';
+
+  @override
+  String get speedMultiplier => 'Множитель скорости';
+
+  @override
+  String get executionSpeedScalesScriptDelaysTypingSpeedIsSetInSettings =>
+      'Скорость выполнения увеличевает задержки в скрипте. Скорость ввода текста задается в настройках.';
+
+  @override
+  String get estimatedDuration => 'Оценочная длительность';
+
+  @override
+  String get original => 'Исходная: ';
+
+  @override
+  String get adjusted => 'Измененная: ';
+
+  @override
+  String basedOnCountCommandsAndSecOfDelays(int count, String sec) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count команд',
+      many: '$count команд',
+      few: '$count команд',
+      one: '$count команды',
+    );
+    return 'На основе $_temp0 и $sec сек задержек';
+  }
+
+  @override
+  String get slowerSpeedsFasterSpeeds =>
+      'Используйте меньшую скорость (2×–4×) для нестабильно работающих целей или при отладке. Более высокую скорость (0.25×–0.5×) — для быстрого тестирования.';
+
+  @override
+  String milisec(int ms) {
+    return '$msмс';
+  }
+
+  @override
+  String sec(String sec) {
+    return '$secс';
+  }
+
+  @override
+  String minAndSec(int min, int sec) {
+    return '$minм $secс';
+  }
+
+  @override
+  String get verySlow => 'Очень медленно';
+
+  @override
+  String get veryFast => 'Очень быстро';
+
+  @override
+  String get rootShellAvailable => 'Доступна Root-оболочка';
+
+  @override
+  String get usbHIDSupport => 'Поддержка USB HID';
+
+  @override
+  String get usbGadgetConfigfsDetected => 'Обнаружен USB-гаджет/configfs';
+
+  @override
+  String get deviceDoesNotSupportUSBGadgetMode =>
+      'Устройство не поддерживает режим USB-гаджета';
+
+  @override
+  String get hidSessionArmed => 'Сессия HID переведена в режим готовности';
+
+  @override
+  String get usbGadgetIsActive => 'USB-гаджет активен';
+
+  @override
+  String get armSessionFromDashboardToActivateUSBGadget =>
+      'Переведите сессию в режим готовности в «Дашборде» для активации USB-гаджета';
+
+  @override
+  String get targetDeviceConnected => 'Цель подключена';
+
+  @override
+  String get usbCableConnectedToTarget => 'USB-кабель подключен к цели';
+
+  @override
+  String get connectUSBCableToTargetDeviceOptionalForTesting =>
+      'Подключите USB-кабель к цели (необязательно для тестирования)';
+
+  @override
+  String get payloadSelected => 'Пейлоад выбран';
+
+  @override
+  String payloadName(String name) {
+    return 'Пейлоад: $name';
+  }
+
+  @override
+  String get requiredParameters => 'Обязательные параметры';
+
+  @override
+  String get fillInAllRequiredParametersAbove =>
+      'Заполните все обязательные параметры выше';
+
+  @override
+  String get allRequiredParametersProvided =>
+      'Все обязательные параметры указаны';
+
+  @override
+  String get preExecutionChecklist => 'Предварительный список проверки';
+
+  @override
+  String checksPassed(int passedCount, int totalCount) {
+    return 'Пройдено проверок: $passedCount из $totalCount';
+  }
+
+  @override
+  String get fixCriticalIssuesAboveBeforeExecuting =>
+      'Устраните критические проблемы выше перед выполнением';
+
+  @override
+  String get required => 'ОБЯЗАТЕЛЬНО';
+
+  @override
+  String get rootHIDUnavailable => 'Root/HID недоступны';
+
+  @override
+  String get noDeviceConnected => 'Устройство не подключено';
+
+  @override
+  String get executingThreePoints => 'Выполнение...';
+
+  @override
+  String get readyToExecute => 'Готово к запуску';
+
+  @override
+  String get selectedPayload => 'Выбранный пейлоад';
+
+  @override
+  String get payload => 'Пейлоад';
+
+  @override
+  String get editPayload => 'Редактировать пейлоад';
+
+  @override
+  String get parameters => 'Параметры';
+
+  @override
+  String get execution => 'Выполнение';
+
+  @override
+  String get runPayload => 'Запустить пейлоад';
+
+  @override
+  String get rootAccesNotAvailable => 'Нет Root-доступа';
+
+  @override
+  String get usbHIDNotSupported => 'USB HID не поддерживается';
+
+  @override
+  String get sessionIsDisarmedArmItFromDashboardFirst =>
+      'Сессия отключена. Сначала переведите ее в режим готовности в «Дашборде».';
+
+  @override
+  String get cannotExecute => 'Невозможно выполнить';
+
+  @override
+  String get console => 'Консоль';
+
+  @override
+  String get events => 'События';
+
+  @override
+  String get sendRawHIDCommands => 'Отправка необработанных команд HID';
+
+  @override
+  String get saveAsPreset => 'Сохранить как пресет';
+
+  @override
+  String get quickCommands => 'Быстрые команды';
+
+  @override
+  String get selectAPreset => 'Выберите пресет...';
+
+  @override
+  String get examples => 'Примеры';
+
+  @override
+  String get enterACommandFirstBeforeSavingAsPreset =>
+      'Сначала введите команду перед сохранением в качестве пресета';
+
+  @override
+  String get presetNameOptional => 'Название пресета (необязательно)';
+
+  @override
+  String get egOpenNotepad => 'Пр., Открывает блокнот';
+
+  @override
+  String get command => 'Команда';
+
+  @override
+  String get cancel => 'Отмена';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get presetSavedSuccessfully => 'Пресет успешно сохранен';
+
+  @override
+  String get runAPayloadToSeeExecutionEvents =>
+      'Запустите пейлоад, чтобы увидеть события выполнения';
+
+  @override
+  String get noEventsYet => 'Событий пока нет';
+
+  @override
+  String secAgo(int sec) {
+    return '$secс назад';
+  }
+
+  @override
+  String minAgo(int min) {
+    return '$minм назад';
+  }
 }

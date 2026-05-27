@@ -231,7 +231,7 @@ class DashboardScreen extends ConsumerWidget {
               ),
               error: (e, st) => Padding(
                 padding: const EdgeInsets.all(20),
-                child: Text(context.l10n.failedToLoadPayloads(e.toString())),
+                child: Text(context.l10n.failedToLoadPayloadsError(e.toString())),
               ),
               data: (payloads) {
                 final top = payloads.take(5).toList();

@@ -57,7 +57,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createNew => 'New';
 
   @override
-  String failedToLoadPayloads(String error) {
+  String failedToLoadPayloadsError(String error) {
     return 'Failed to load payloads: $error';
   }
 
@@ -264,7 +264,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rootAccess => 'Root Access';
 
   @override
-  String get avaible => 'Available';
+  String get available => 'Available';
 
   @override
   String get unavailable => 'Unavailable';
@@ -419,4 +419,250 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get failedToLoadDiagnostics => 'Failed to Load Diagnostics';
+
+  @override
+  String get failedToLoadPayloads => 'Failed to Load Payloads';
+
+  @override
+  String get noPayloadsAvailable => 'No payloads available';
+
+  @override
+  String get createOrImportAPayloadFirst => 'Create or import a payload first.';
+
+  @override
+  String get executionSpeed => 'Execution Speed';
+
+  @override
+  String get ultra => 'Ultra';
+
+  @override
+  String get fast => 'Fast';
+
+  @override
+  String get normal => 'Normal';
+
+  @override
+  String get slow => 'Slow';
+
+  @override
+  String get speedMultiplier => 'Speed Multiplier';
+
+  @override
+  String get executionSpeedScalesScriptDelaysTypingSpeedIsSetInSettings =>
+      'Execution speed scales script delays. Typing speed is set in Settings.';
+
+  @override
+  String get estimatedDuration => 'Estimated Duration';
+
+  @override
+  String get original => 'Original: ';
+
+  @override
+  String get adjusted => 'Adjusted: ';
+
+  @override
+  String basedOnCountCommandsAndSecOfDelays(int count, String sec) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count commands',
+      one: '1 command',
+    );
+    return 'Based on$_temp0 and $sec sec of delays';
+  }
+
+  @override
+  String get slowerSpeedsFasterSpeeds =>
+      'Use slower speeds (2×-4×) for unreliable targets or debugging. Faster speeds (0.25×-0.5×) for quick testing.';
+
+  @override
+  String milisec(int ms) {
+    return '${ms}ms';
+  }
+
+  @override
+  String sec(String sec) {
+    return '${sec}s';
+  }
+
+  @override
+  String minAndSec(int min, int sec) {
+    return '${min}m ${sec}s';
+  }
+
+  @override
+  String get verySlow => 'Very Slow';
+
+  @override
+  String get veryFast => 'Very Fast';
+
+  @override
+  String get rootShellAvailable => 'Root shell available';
+
+  @override
+  String get usbHIDSupport => 'USB HID support';
+
+  @override
+  String get usbGadgetConfigfsDetected => 'USB gadget/configfs detected';
+
+  @override
+  String get deviceDoesNotSupportUSBGadgetMode =>
+      'Device does not support USB gadget mode';
+
+  @override
+  String get hidSessionArmed => 'HID session armed';
+
+  @override
+  String get usbGadgetIsActive => 'USB gadget is active';
+
+  @override
+  String get armSessionFromDashboardToActivateUSBGadget =>
+      'Arm session from Dashboard to activate USB gadget';
+
+  @override
+  String get targetDeviceConnected => 'Target device connected';
+
+  @override
+  String get usbCableConnectedToTarget => 'USB cable connected to target';
+
+  @override
+  String get connectUSBCableToTargetDeviceOptionalForTesting =>
+      'Connect USB cable to target device (optional for testing)';
+
+  @override
+  String get payloadSelected => 'Payload selected';
+
+  @override
+  String payloadName(String name) {
+    return 'Payload: $name';
+  }
+
+  @override
+  String get requiredParameters => 'Required parameters';
+
+  @override
+  String get fillInAllRequiredParametersAbove =>
+      'Fill in all required parameters above';
+
+  @override
+  String get allRequiredParametersProvided =>
+      'All required parameters provided';
+
+  @override
+  String get preExecutionChecklist => 'Pre-Execution Checklist';
+
+  @override
+  String checksPassed(int passedCount, int totalCount) {
+    return '$passedCount of $totalCount checks passed';
+  }
+
+  @override
+  String get fixCriticalIssuesAboveBeforeExecuting =>
+      'Fix critical issues above before executing';
+
+  @override
+  String get required => 'REQUIRED';
+
+  @override
+  String get rootHIDUnavailable => 'Root/HID unavailable';
+
+  @override
+  String get noDeviceConnected => 'No device connected';
+
+  @override
+  String get executingThreePoints => 'Executing...';
+
+  @override
+  String get readyToExecute => 'Ready to execute';
+
+  @override
+  String get selectedPayload => 'Selected Payload';
+
+  @override
+  String get payload => 'Payload';
+
+  @override
+  String get editPayload => 'Edit Payload';
+
+  @override
+  String get parameters => 'Parameters';
+
+  @override
+  String get execution => 'Execution';
+
+  @override
+  String get runPayload => 'Run Payload';
+
+  @override
+  String get rootAccesNotAvailable => 'Root access not available';
+
+  @override
+  String get usbHIDNotSupported => 'USB HID not supported';
+
+  @override
+  String get sessionIsDisarmedArmItFromDashboardFirst =>
+      'Session is disarmed. Arm it from Dashboard first.';
+
+  @override
+  String get cannotExecute => 'Cannot execute';
+
+  @override
+  String get console => 'Console';
+
+  @override
+  String get events => 'Events';
+
+  @override
+  String get sendRawHIDCommands => 'Send raw HID commands';
+
+  @override
+  String get saveAsPreset => 'Save as Preset';
+
+  @override
+  String get quickCommands => 'Quick Commands';
+
+  @override
+  String get selectAPreset => 'Select a preset...';
+
+  @override
+  String get examples => 'Examples';
+
+  @override
+  String get enterACommandFirstBeforeSavingAsPreset =>
+      'Enter a command first before saving as preset';
+
+  @override
+  String get presetNameOptional => 'Preset Name (optional)';
+
+  @override
+  String get egOpenNotepad => 'e.g., Open Notepad';
+
+  @override
+  String get command => 'Command';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get presetSavedSuccessfully => 'Preset saved successfully';
+
+  @override
+  String get runAPayloadToSeeExecutionEvents =>
+      'Run a payload to see execution events';
+
+  @override
+  String get noEventsYet => 'No events yet';
+
+  @override
+  String secAgo(int sec) {
+    return '${sec}s ago';
+  }
+
+  @override
+  String minAgo(int min) {
+    return '${min}m ago';
+  }
 }

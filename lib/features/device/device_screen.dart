@@ -27,7 +27,7 @@ class DeviceScreen extends ConsumerWidget {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(context.l10n.labelCopiedToClipboard(label.toString())),
+        content: Text(context.l10n.labelCopiedToClipboard(label)),
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 2),
       ),
@@ -297,7 +297,7 @@ class _HidReadinessCard extends StatelessWidget {
           _StatusRow(
             icon: Icons.security,
             label: context.l10n.rootAccess,
-            status: hid.rootAvailable ? context.l10n.avaible : context.l10n.unavailable,
+            status: hid.rootAvailable ? context.l10n.available : context.l10n.unavailable,
             isOk: hid.rootAvailable,
             description: hid.rootAvailable
                 ? context.l10n.superUserPermissionsGranted

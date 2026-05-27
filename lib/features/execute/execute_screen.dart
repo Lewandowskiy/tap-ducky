@@ -16,6 +16,8 @@ import '../../state/controllers/selection_controller.dart';
 import '../../state/providers.dart';
 import '../../widgets/empty_state.dart';
 
+import '../../extension/context_extensions.dart';
+
 class ExecuteScreen extends ConsumerStatefulWidget {
   const ExecuteScreen({super.key});
 
@@ -55,11 +57,11 @@ class _ExecuteScreenState extends ConsumerState<ExecuteScreen> with SingleTicker
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Execute'),
+        title: Text(context.l10n.execute),
         actions: [
           if (exec.isRunning)
             IconButton(
-              tooltip: 'Panic Stop',
+              tooltip: context.l10n.panicStop,
               onPressed: () => ref.read(executionControllerProvider.notifier).panicStop(),
               icon: const Icon(Icons.warning_amber_rounded),
               color: Theme.of(context).colorScheme.error,
@@ -72,30 +74,30 @@ class _ExecuteScreenState extends ConsumerState<ExecuteScreen> with SingleTicker
                 label: Text('$recent24h'),
                 isLabelVisible: recent24h > 0,
                 child: IconButton(
-                  tooltip: 'Execution history',
+                  tooltip: context.l10n.executionHistory,
                   onPressed: () => context.push(const ExecutionHistoryRoute().location),
                   icon: const Icon(Icons.history),
                 ),
               );
             },
             loading: () => IconButton(
-              tooltip: 'Execution history',
+              tooltip: context.l10n.executionHistory,
               onPressed: () => context.push(const ExecutionHistoryRoute().location),
               icon: const Icon(Icons.history),
             ),
             error: (_, __) => IconButton(
-              tooltip: 'Execution history',
+              tooltip: context.l10n.executionHistory,
               onPressed: () => context.push(const ExecutionHistoryRoute().location),
               icon: const Icon(Icons.history),
             ),
           ),
           IconButton(
-            tooltip: 'Logs',
+            tooltip: context.l10n.logs,
             onPressed: () => context.push(const LogsRoute().location),
             icon: const Icon(Icons.list_alt),
           ),
           IconButton(
-            tooltip: 'Device',
+            tooltip: context.l10n.device,
             onPressed: () => context.push(const DeviceRoute().location),
             icon: const Icon(Icons.phone_android),
           ),
@@ -111,7 +113,7 @@ class _ExecuteScreenState extends ConsumerState<ExecuteScreen> with SingleTicker
               children: [
                 Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.error),
                 const SizedBox(height: 16),
-                Text('Failed to load payloads', style: Theme.of(context).textTheme.titleLarge),
+                Text(context.l10n.failedToLoadPayloads, style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text('$e', textAlign: TextAlign.center),
               ],
@@ -121,8 +123,8 @@ class _ExecuteScreenState extends ConsumerState<ExecuteScreen> with SingleTicker
         data: (payloads) {
           if (payloads.isEmpty) {
             return EmptyState(
-              title: 'No payloads available',
-              subtitle: 'Create or import a payload first.',
+              title: context.l10n.noPayloadsAvailable,
+              subtitle: context.l10n.createOrImportAPayloadFirst,
               icon: Icons.inventory_2_outlined,
               action: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -132,7 +134,7 @@ class _ExecuteScreenState extends ConsumerState<ExecuteScreen> with SingleTicker
                     child: FilledButton.icon(
                       onPressed: () => context.go('${const PayloadsRoute().location}/new'),
                       icon: const Icon(Icons.add),
-                      label: const Text('Create payload'),
+                      label: Text(context.l10n.createPayload),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -141,7 +143,7 @@ class _ExecuteScreenState extends ConsumerState<ExecuteScreen> with SingleTicker
                     child: OutlinedButton.icon(
                       onPressed: () => context.go(const PayloadsStoreRoute().location),
                       icon: const Icon(Icons.cloud_download),
-                      label: const Text('Import from GitHub Store'),
+                      label: Text(context.l10n.importFromGitHubStore),
                     ),
                   ),
                 ],
@@ -332,8 +334,8 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                   children: [
                     Icon(Icons.speed, color: cs.primary, size: 20),
                     const SizedBox(width: 8),
-                    const Text(
-                      'Execution Speed',
+                    Text(
+                      context.l10n.executionSpeed,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
@@ -347,7 +349,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                   runSpacing: 8,
                   children: [
                     _SpeedPresetChip(
-                      label: 'Ultra',
+                      label: context.l10n.ultra,
                       multiplier: 0.1,
                       icon: Icons.bolt,
                       currentMultiplier: currentMultiplier,
@@ -355,21 +357,21 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                       tooltip: 'Ultra fast may be unreliable on some hosts.',
                     ),
                     _SpeedPresetChip(
-                      label: 'Fast',
+                      label: context.l10n.fast,
                       multiplier: 0.5,
                       icon: Icons.fast_forward,
                       currentMultiplier: currentMultiplier,
                       onTap: () => ref.read(appSettingsControllerProvider.notifier).setDelayMultiplier(0.5),
                     ),
                     _SpeedPresetChip(
-                      label: 'Normal',
+                      label: context.l10n.normal,
                       multiplier: 1.0,
                       icon: Icons.play_arrow,
                       currentMultiplier: currentMultiplier,
                       onTap: () => ref.read(appSettingsControllerProvider.notifier).setDelayMultiplier(1.0),
                     ),
                     _SpeedPresetChip(
-                      label: 'Slow',
+                      label: context.l10n.slow,
                       multiplier: 2.0,
                       icon: Icons.speed,
                       currentMultiplier: currentMultiplier,
@@ -385,7 +387,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Speed Multiplier',
+                            context.l10n.speedMultiplier,
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w600,
@@ -426,7 +428,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                   },
                 ),
                 Text(
-                  'Execution speed scales script delays. Typing speed is set in Settings.',
+                  context.l10n.executionSpeedScalesScriptDelaysTypingSpeedIsSetInSettings,
                   style: TextStyle(fontSize: 11, color: cs.onSurfaceVariant),
                 ),
                 const SizedBox(height: 12),
@@ -444,7 +446,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                           Icon(Icons.timer, size: 16, color: cs.onSurfaceVariant),
                           const SizedBox(width: 8),
                           Text(
-                            'Estimated Duration',
+                            context.l10n.estimatedDuration,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -467,7 +469,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                         Row(
                           children: [
                             Text(
-                              'Original: ',
+                              context.l10n.original,
                               style: TextStyle(
                                 fontSize: 13,
                                 color: cs.onSurfaceVariant,
@@ -487,7 +489,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                         Row(
                           children: [
                             Text(
-                              'Adjusted: ',
+                              context.l10n.adjusted,
                               style: TextStyle(
                                 fontSize: 13,
                                 color: cs.onSurfaceVariant,
@@ -515,7 +517,10 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                       ],
                       const SizedBox(height: 8),
                       Text(
-                        'Based on ${validationResult.commandCount} commands and ${(validationResult.totalDelayMs / 1000).toStringAsFixed(1)}s of delays',
+                        context.l10n.basedOnCountCommandsAndSecOfDelays(
+                          validationResult.commandCount,
+                          (validationResult.totalDelayMs / 1000).toStringAsFixed(1),
+                        ),
                         style: TextStyle(
                           fontSize: 11,
                           color: cs.onSurfaceVariant,
@@ -538,7 +543,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          'Use slower speeds (2×-4×) for unreliable targets or debugging. Faster speeds (0.25×-0.5×) for quick testing.',
+                          context.l10n.slowerSpeedsFasterSpeeds,
                           style: TextStyle(
                             fontSize: 11,
                             color: cs.onSurfaceVariant,
@@ -558,19 +563,19 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
 
   String _formatDuration(int ms) {
     final seconds = ms / 1000;
-    if (seconds < 1) return '${ms}ms';
-    if (seconds < 60) return '${seconds.toStringAsFixed(1)}s';
+    if (seconds < 1) return context.l10n.milisec(ms);
+    if (seconds < 60) return context.l10n.sec(seconds.toStringAsFixed(1));
     final minutes = seconds ~/ 60;
     final remainingSeconds = (seconds % 60).round();
-    return '${minutes}m ${remainingSeconds}s';
+    return context.l10n.minAndSec(minutes, remainingSeconds);
   }
 
   String _getSpeedLabel(double multiplier) {
-    if (multiplier >= 3.0) return 'Very Slow';
-    if (multiplier >= 1.5) return 'Slow';
-    if (multiplier >= 0.9 && multiplier <= 1.1) return 'Normal';
-    if (multiplier >= 0.5) return 'Fast';
-    return 'Very Fast';
+    if (multiplier >= 3.0) return context.l10n.verySlow;
+    if (multiplier >= 1.5) return context.l10n.slow;
+    if (multiplier >= 0.9 && multiplier <= 1.1) return context.l10n.normal;
+    if (multiplier >= 0.5) return context.l10n.fast;
+    return context.l10n.veryFast;
   }
 }
 
@@ -675,51 +680,51 @@ class _PreExecutionChecklistState extends State<_PreExecutionChecklist> {
 
     final checks = [
       _CheckItem(
-        label: 'Root access',
+        label: context.l10n.rootAccess,
         passed: widget.hid.rootAvailable,
         critical: true,
         message: widget.hid.rootAvailable
-            ? 'Root shell available'
-            : 'Root access required for USB gadget control',
+            ? context.l10n.rootShellAvailable
+            : context.l10n.rootAccessRequiredForUSBGadgetControl,
       ),
       _CheckItem(
-        label: 'USB HID support',
+        label: context.l10n.usbHIDSupport,
         passed: widget.hid.hidSupported,
         critical: true,
         message: widget.hid.hidSupported
-            ? 'USB gadget/configfs detected'
-            : 'Device does not support USB gadget mode',
+            ? context.l10n.usbGadgetConfigfsDetected
+            : context.l10n.deviceDoesNotSupportUSBGadgetMode,
       ),
       _CheckItem(
-        label: 'HID session armed',
+        label: context.l10n.hidSessionArmed,
         passed: widget.hid.sessionArmed,
         critical: true,
         message: widget.hid.sessionArmed
-            ? 'USB gadget is active'
-            : 'Arm session from Dashboard to activate USB gadget',
+            ? context.l10n.usbGadgetIsActive
+            : context.l10n.armSessionFromDashboardToActivateUSBGadget,
       ),
       _CheckItem(
-        label: 'Target device connected',
+        label: context.l10n.targetDeviceConnected,
         passed: widget.hid.deviceConnected,
         critical: false,
         message: widget.hid.deviceConnected
-            ? 'USB cable connected to target'
-            : 'Connect USB cable to target device (optional for testing)',
+            ? context.l10n.usbCableConnectedToTarget
+            : context.l10n.connectUSBCableToTargetDeviceOptionalForTesting,
       ),
       _CheckItem(
-        label: 'Payload selected',
+        label: context.l10n.payloadSelected,
         passed: true,
         critical: true,
-        message: 'Payload: ${widget.payload.name}',
+        message: context.l10n.payloadName(widget.payload.name),
       ),
       if (widget.payload.parameters.isNotEmpty)
         _CheckItem(
-          label: 'Required parameters',
+          label: context.l10n.requiredParameters,
           passed: !_hasInvalidRequiredParams(),
           critical: true,
           message: _hasInvalidRequiredParams()
-              ? 'Fill in all required parameters above'
-              : 'All required parameters provided',
+              ? context.l10n.fillInAllRequiredParametersAbove
+              : context.l10n.allRequiredParametersProvided,
         ),
     ];
 
@@ -771,7 +776,7 @@ class _PreExecutionChecklistState extends State<_PreExecutionChecklist> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Pre-Execution Checklist',
+                          context.l10n.preExecutionChecklist,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -780,7 +785,7 @@ class _PreExecutionChecklistState extends State<_PreExecutionChecklist> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          '$passedCount of $totalCount checks passed',
+                          context.l10n.checksPassed(passedCount, totalCount),
                           style: TextStyle(
                             fontSize: 13,
                             color: cs.onSurfaceVariant,
@@ -823,7 +828,7 @@ class _PreExecutionChecklistState extends State<_PreExecutionChecklist> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              'Fix critical issues above before executing',
+                              context.l10n.fixCriticalIssuesAboveBeforeExecuting,
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
@@ -913,7 +918,7 @@ class _CheckRow extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        'REQUIRED',
+                        context.l10n.required,
                         style: TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.w700,
@@ -956,23 +961,23 @@ class _StatusBanner extends StatelessWidget {
     if (!hid.rootAvailable || !hid.hidSupported) {
       icon = Icons.error_outline;
       color = cs.error;
-      message = 'Root/HID unavailable';
+      message = context.l10n.rootHIDUnavailable;
     } else if (!hid.sessionArmed) {
       icon = Icons.lock_outline;
       color = cs.tertiary;
-      message = 'Session disarmed';
+      message = context.l10n.sessionDisarmed;
     } else if (!hid.deviceConnected) {
       icon = Icons.usb_off;
       color = cs.tertiary;
-      message = 'No device connected';
+      message = context.l10n.noDeviceConnected;
     } else if (exec.isRunning) {
       icon = Icons.play_circle;
       color = cs.primary;
-      message = 'Executing...';
+      message = context.l10n.executingThreePoints;
     } else {
       icon = Icons.check_circle;
       color = cs.primary;
-      message = 'Ready to execute';
+      message = context.l10n.readyToExecute;
     }
 
     return Container(
@@ -1042,8 +1047,8 @@ class _PayloadSelectionCard extends StatelessWidget {
                   child: Icon(Icons.inventory_2, color: cs.onPrimaryContainer, size: 20),
                 ),
                 const SizedBox(width: 12),
-                const Text(
-                  'Selected Payload',
+                Text(
+                  context.l10n.selectedPayload,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -1055,8 +1060,8 @@ class _PayloadSelectionCard extends StatelessWidget {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               value: selectedPayload.id,
-              decoration: const InputDecoration(
-                labelText: 'Payload',
+              decoration: InputDecoration(
+                labelText: context.l10n.payload,
                 border: OutlineInputBorder(),
                 contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
@@ -1110,7 +1115,7 @@ class _PayloadSelectionCard extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: onEdit,
                 icon: const Icon(Icons.edit, size: 18),
-                label: const Text('Edit Payload'),
+                label: Text(context.l10n.editPayload),
               ),
             ),
           ],
@@ -1143,8 +1148,8 @@ class _ParametersCard extends StatelessWidget {
               children: [
                 Icon(Icons.tune, color: cs.primary, size: 20),
                 const SizedBox(width: 8),
-                const Text(
-                  'Parameters',
+                Text(
+                  context.l10n.parameters,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -1225,8 +1230,8 @@ class _ExecutionControlCard extends StatelessWidget {
                   size: 20,
                 ),
                 const SizedBox(width: 8),
-                const Text(
-                  'Execution',
+                Text(
+                  context.l10n.execution,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
@@ -1258,7 +1263,7 @@ class _ExecutionControlCard extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        _getBlockReason(hid),
+                        _getBlockReason(hid, context),
                         style: TextStyle(
                           fontSize: 12,
                           color: cs.onErrorContainer,
@@ -1276,7 +1281,7 @@ class _ExecutionControlCard extends StatelessWidget {
                   child: FilledButton.icon(
                     onPressed: canRun ? onRun : null,
                     icon: const Icon(Icons.play_arrow),
-                    label: const Text('Run Payload'),
+                    label: Text(context.l10n.runPayload),
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       disabledBackgroundColor: cs.surfaceContainerHighest,
@@ -1289,7 +1294,7 @@ class _ExecutionControlCard extends StatelessWidget {
                   FilledButton.icon(
                     onPressed: onStop,
                     icon: const Icon(Icons.stop),
-                    label: const Text('Stop'),
+                    label: Text(context.l10n.stop),
                     style: FilledButton.styleFrom(
                       backgroundColor: cs.error,
                       foregroundColor: cs.onError,
@@ -1306,7 +1311,7 @@ class _ExecutionControlCard extends StatelessWidget {
                 child: OutlinedButton.icon(
                   onPressed: onPanicStop,
                   icon: const Icon(Icons.warning_amber_rounded),
-                  label: const Text('Panic Stop'),
+                  label: Text(context.l10n.panicStop),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: cs.error,
                     side: BorderSide(color: cs.error),
@@ -1321,11 +1326,11 @@ class _ExecutionControlCard extends StatelessWidget {
     );
   }
 
-  String _getBlockReason(HidStatus hid) {
-    if (!hid.rootAvailable) return 'Root access not available';
-    if (!hid.hidSupported) return 'USB HID not supported';
-    if (!hid.sessionArmed) return 'Session is disarmed. Arm it from Dashboard first.';
-    return 'Cannot execute';
+  String _getBlockReason(HidStatus hid, BuildContext context) {
+    if (!hid.rootAvailable) return context.l10n.rootAccesNotAvailable;
+    if (!hid.hidSupported) return context.l10n.usbHIDNotSupported;
+    if (!hid.sessionArmed) return context.l10n.sessionIsDisarmedArmItFromDashboardFirst;
+    return context.l10n.cannotExecute;
   }
 }
 
@@ -1349,9 +1354,9 @@ class _ConsoleTabs extends StatelessWidget {
         children: [
           TabBar(
             controller: tabController,
-            tabs: const [
-              Tab(text: 'Console', icon: Icon(Icons.terminal, size: 18)),
-              Tab(text: 'Events', icon: Icon(Icons.list, size: 18)),
+            tabs: [
+              Tab(text: context.l10n.console, icon: Icon(Icons.terminal, size: 18)),
+              Tab(text: context.l10n.events, icon: Icon(Icons.list, size: 18)),
             ],
           ),
           SizedBox(
@@ -1401,16 +1406,16 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
         children: [
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Send raw HID commands',
+                  context.l10n.sendRawHIDCommands,
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
                 ),
               ),
               TextButton.icon(
                 onPressed: () => _showSavePresetDialog(context),
                 icon: const Icon(Icons.bookmark_add, size: 16),
-                label: const Text('Save as Preset'),
+                label: Text(context.l10n.saveAsPreset),
                 style: TextButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 ),
@@ -1430,7 +1435,7 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Quick Commands',
+                    context.l10n.quickCommands,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
@@ -1454,7 +1459,7 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
                               Icon(Icons.code, size: 16, color: cs.onSurfaceVariant),
                               const SizedBox(width: 8),
                               Text(
-                                'Select a preset...',
+                                context.l10n.selectAPreset,
                                 style: TextStyle(color: cs.onSurfaceVariant),
                               ),
                             ],
@@ -1528,7 +1533,7 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
           ),
           const SizedBox(height: 12),
           Text(
-            'Examples: STRING text, ENTER, DELAY 500, GUI r',
+            context.l10n.examples + ': STRING text, ENTER, DELAY 500, GUI r',
             style: TextStyle(
               fontSize: 11,
               color: cs.onSurfaceVariant,
@@ -1549,8 +1554,8 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
     final currentText = widget.controller.text.trim();
     if (currentText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Enter a command first before saving as preset'),
+        SnackBar(
+          content: Text(context.l10n.enterACommandFirstBeforeSavingAsPreset),
           duration: Duration(seconds: 2),
         ),
       );
@@ -1563,7 +1568,7 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Save as Preset'),
+        title: Text(context.l10n.saveAsPreset),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -1571,15 +1576,15 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
             children: [
               TextField(
                 controller: nameCtrl,
-                decoration: const InputDecoration(
-                  labelText: 'Preset Name (optional)',
-                  hintText: 'e.g., Open Notepad',
+                decoration: InputDecoration(
+                  labelText: context.l10n.presetNameOptional,
+                  hintText: context.l10n.egOpenNotepad,
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Command:',
+              Text(
+                context.l10n.command,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
               ),
               const SizedBox(height: 8),
@@ -1598,11 +1603,11 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Save'),
+            child: Text(context.l10n.save),
           ),
         ],
       ),
@@ -1614,8 +1619,8 @@ class _ConsoleTabState extends ConsumerState<_ConsoleTab> {
         await ref.read(advancedSettingsControllerProvider.notifier).addCommandPreset(presetText);
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Preset saved successfully'),
+            SnackBar(
+              content: Text(context.l10n.presetSavedSuccessfully),
               duration: Duration(seconds: 2),
             ),
           );
@@ -1639,10 +1644,10 @@ class _EventsTab extends StatelessWidget {
           children: [
             Icon(Icons.article_outlined, size: 48, color: Theme.of(context).colorScheme.onSurfaceVariant),
             const SizedBox(height: 12),
-            const Text('No events yet'),
+            Text(context.l10n.noEventsYet),
             const SizedBox(height: 4),
             Text(
-              'Run a payload to see execution events',
+              context.l10n.runAPayloadToSeeExecutionEvents,
               style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ],
@@ -1661,7 +1666,7 @@ class _EventsTab extends StatelessWidget {
           leading: Icon(_iconFor(e.level, e.success), size: 20),
           title: Text(e.message, maxLines: 2, overflow: TextOverflow.ellipsis),
           subtitle: Text(
-            _formatTime(e.timestamp),
+            _formatTime(e.timestamp, context),
             style: const TextStyle(fontSize: 11),
           ),
         );
@@ -1683,11 +1688,11 @@ class _EventsTab extends StatelessWidget {
     }
   }
 
-  String _formatTime(DateTime dt) {
+  String _formatTime(DateTime dt, BuildContext context) {
     final now = DateTime.now();
     final diff = now.difference(dt);
-    if (diff.inSeconds < 60) return '${diff.inSeconds}s ago';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
+    if (diff.inSeconds < 60) return context.l10n.secAgo(diff.inSeconds);
+    if (diff.inMinutes < 60) return context.l10n.minAgo(diff.inMinutes);
     return '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 }

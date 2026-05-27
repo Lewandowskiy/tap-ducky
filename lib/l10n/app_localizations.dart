@@ -188,11 +188,11 @@ abstract class AppLocalizations {
   /// **'New'**
   String get createNew;
 
-  /// No description provided for @failedToLoadPayloads.
+  /// No description provided for @failedToLoadPayloadsError.
   ///
   /// In en, this message translates to:
   /// **'Failed to load payloads: {error}'**
-  String failedToLoadPayloads(String error);
+  String failedToLoadPayloadsError(String error);
 
   /// No description provided for @viewAllPayloads.
   ///
@@ -578,11 +578,11 @@ abstract class AppLocalizations {
   /// **'Root Access'**
   String get rootAccess;
 
-  /// No description provided for @avaible.
+  /// No description provided for @available.
   ///
   /// In en, this message translates to:
   /// **'Available'**
-  String get avaible;
+  String get available;
 
   /// No description provided for @unavailable.
   ///
@@ -847,6 +847,432 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to Load Diagnostics'**
   String get failedToLoadDiagnostics;
+
+  /// No description provided for @failedToLoadPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to Load Payloads'**
+  String get failedToLoadPayloads;
+
+  /// No description provided for @noPayloadsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No payloads available'**
+  String get noPayloadsAvailable;
+
+  /// No description provided for @createOrImportAPayloadFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Create or import a payload first.'**
+  String get createOrImportAPayloadFirst;
+
+  /// No description provided for @executionSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution Speed'**
+  String get executionSpeed;
+
+  /// No description provided for @ultra.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultra'**
+  String get ultra;
+
+  /// No description provided for @fast.
+  ///
+  /// In en, this message translates to:
+  /// **'Fast'**
+  String get fast;
+
+  /// No description provided for @normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get normal;
+
+  /// No description provided for @slow.
+  ///
+  /// In en, this message translates to:
+  /// **'Slow'**
+  String get slow;
+
+  /// No description provided for @speedMultiplier.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Multiplier'**
+  String get speedMultiplier;
+
+  /// No description provided for @executionSpeedScalesScriptDelaysTypingSpeedIsSetInSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution speed scales script delays. Typing speed is set in Settings.'**
+  String get executionSpeedScalesScriptDelaysTypingSpeedIsSetInSettings;
+
+  /// No description provided for @estimatedDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated Duration'**
+  String get estimatedDuration;
+
+  /// No description provided for @original.
+  ///
+  /// In en, this message translates to:
+  /// **'Original: '**
+  String get original;
+
+  /// No description provided for @adjusted.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjusted: '**
+  String get adjusted;
+
+  /// No description provided for @basedOnCountCommandsAndSecOfDelays.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on{count,plural, one{1 command} other{{count} commands}} and {sec} sec of delays'**
+  String basedOnCountCommandsAndSecOfDelays(int count, String sec);
+
+  /// No description provided for @slowerSpeedsFasterSpeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Use slower speeds (2×-4×) for unreliable targets or debugging. Faster speeds (0.25×-0.5×) for quick testing.'**
+  String get slowerSpeedsFasterSpeeds;
+
+  /// No description provided for @milisec.
+  ///
+  /// In en, this message translates to:
+  /// **'{ms}ms'**
+  String milisec(int ms);
+
+  /// No description provided for @sec.
+  ///
+  /// In en, this message translates to:
+  /// **'{sec}s'**
+  String sec(String sec);
+
+  /// No description provided for @minAndSec.
+  ///
+  /// In en, this message translates to:
+  /// **'{min}m {sec}s'**
+  String minAndSec(int min, int sec);
+
+  /// No description provided for @verySlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Very Slow'**
+  String get verySlow;
+
+  /// No description provided for @veryFast.
+  ///
+  /// In en, this message translates to:
+  /// **'Very Fast'**
+  String get veryFast;
+
+  /// No description provided for @rootShellAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Root shell available'**
+  String get rootShellAvailable;
+
+  /// No description provided for @usbHIDSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'USB HID support'**
+  String get usbHIDSupport;
+
+  /// No description provided for @usbGadgetConfigfsDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget/configfs detected'**
+  String get usbGadgetConfigfsDetected;
+
+  /// No description provided for @deviceDoesNotSupportUSBGadgetMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Device does not support USB gadget mode'**
+  String get deviceDoesNotSupportUSBGadgetMode;
+
+  /// No description provided for @hidSessionArmed.
+  ///
+  /// In en, this message translates to:
+  /// **'HID session armed'**
+  String get hidSessionArmed;
+
+  /// No description provided for @usbGadgetIsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget is active'**
+  String get usbGadgetIsActive;
+
+  /// No description provided for @armSessionFromDashboardToActivateUSBGadget.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm session from Dashboard to activate USB gadget'**
+  String get armSessionFromDashboardToActivateUSBGadget;
+
+  /// No description provided for @targetDeviceConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Target device connected'**
+  String get targetDeviceConnected;
+
+  /// No description provided for @usbCableConnectedToTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'USB cable connected to target'**
+  String get usbCableConnectedToTarget;
+
+  /// No description provided for @connectUSBCableToTargetDeviceOptionalForTesting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect USB cable to target device (optional for testing)'**
+  String get connectUSBCableToTargetDeviceOptionalForTesting;
+
+  /// No description provided for @payloadSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload selected'**
+  String get payloadSelected;
+
+  /// No description provided for @payloadName.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload: {name}'**
+  String payloadName(String name);
+
+  /// No description provided for @requiredParameters.
+  ///
+  /// In en, this message translates to:
+  /// **'Required parameters'**
+  String get requiredParameters;
+
+  /// No description provided for @fillInAllRequiredParametersAbove.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in all required parameters above'**
+  String get fillInAllRequiredParametersAbove;
+
+  /// No description provided for @allRequiredParametersProvided.
+  ///
+  /// In en, this message translates to:
+  /// **'All required parameters provided'**
+  String get allRequiredParametersProvided;
+
+  /// No description provided for @preExecutionChecklist.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-Execution Checklist'**
+  String get preExecutionChecklist;
+
+  /// No description provided for @checksPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'{passedCount} of {totalCount} checks passed'**
+  String checksPassed(int passedCount, int totalCount);
+
+  /// No description provided for @fixCriticalIssuesAboveBeforeExecuting.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix critical issues above before executing'**
+  String get fixCriticalIssuesAboveBeforeExecuting;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'REQUIRED'**
+  String get required;
+
+  /// No description provided for @rootHIDUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Root/HID unavailable'**
+  String get rootHIDUnavailable;
+
+  /// No description provided for @noDeviceConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'No device connected'**
+  String get noDeviceConnected;
+
+  /// No description provided for @executingThreePoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Executing...'**
+  String get executingThreePoints;
+
+  /// No description provided for @readyToExecute.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to execute'**
+  String get readyToExecute;
+
+  /// No description provided for @selectedPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected Payload'**
+  String get selectedPayload;
+
+  /// No description provided for @payload.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload'**
+  String get payload;
+
+  /// No description provided for @editPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Payload'**
+  String get editPayload;
+
+  /// No description provided for @parameters.
+  ///
+  /// In en, this message translates to:
+  /// **'Parameters'**
+  String get parameters;
+
+  /// No description provided for @execution.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution'**
+  String get execution;
+
+  /// No description provided for @runPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Run Payload'**
+  String get runPayload;
+
+  /// No description provided for @rootAccesNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Root access not available'**
+  String get rootAccesNotAvailable;
+
+  /// No description provided for @usbHIDNotSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'USB HID not supported'**
+  String get usbHIDNotSupported;
+
+  /// No description provided for @sessionIsDisarmedArmItFromDashboardFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Session is disarmed. Arm it from Dashboard first.'**
+  String get sessionIsDisarmedArmItFromDashboardFirst;
+
+  /// No description provided for @cannotExecute.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot execute'**
+  String get cannotExecute;
+
+  /// No description provided for @console.
+  ///
+  /// In en, this message translates to:
+  /// **'Console'**
+  String get console;
+
+  /// No description provided for @events.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get events;
+
+  /// No description provided for @sendRawHIDCommands.
+  ///
+  /// In en, this message translates to:
+  /// **'Send raw HID commands'**
+  String get sendRawHIDCommands;
+
+  /// No description provided for @saveAsPreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as Preset'**
+  String get saveAsPreset;
+
+  /// No description provided for @quickCommands.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Commands'**
+  String get quickCommands;
+
+  /// No description provided for @selectAPreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a preset...'**
+  String get selectAPreset;
+
+  /// No description provided for @examples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get examples;
+
+  /// No description provided for @enterACommandFirstBeforeSavingAsPreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a command first before saving as preset'**
+  String get enterACommandFirstBeforeSavingAsPreset;
+
+  /// No description provided for @presetNameOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Preset Name (optional)'**
+  String get presetNameOptional;
+
+  /// No description provided for @egOpenNotepad.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Open Notepad'**
+  String get egOpenNotepad;
+
+  /// No description provided for @command.
+  ///
+  /// In en, this message translates to:
+  /// **'Command'**
+  String get command;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @presetSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Preset saved successfully'**
+  String get presetSavedSuccessfully;
+
+  /// No description provided for @runAPayloadToSeeExecutionEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a payload to see execution events'**
+  String get runAPayloadToSeeExecutionEvents;
+
+  /// No description provided for @noEventsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No events yet'**
+  String get noEventsYet;
+
+  /// No description provided for @secAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{sec}s ago'**
+  String secAgo(int sec);
+
+  /// No description provided for @minAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{min}m ago'**
+  String minAgo(int min);
 }
 
 class _AppLocalizationsDelegate
