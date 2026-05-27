@@ -1327,7 +1327,7 @@ class _ExecutionControlCard extends StatelessWidget {
   }
 
   String _getBlockReason(HidStatus hid, BuildContext context) {
-    if (!hid.rootAvailable) return context.l10n.rootAccesNotAvailable;
+    if (!hid.rootAvailable) return context.l10n.rootAccessNotAvailable;
     if (!hid.hidSupported) return context.l10n.usbHIDNotSupported;
     if (!hid.sessionArmed) return context.l10n.sessionIsDisarmedArmItFromDashboardFirst;
     return context.l10n.cannotExecute;

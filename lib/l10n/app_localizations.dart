@@ -1148,11 +1148,11 @@ abstract class AppLocalizations {
   /// **'Run Payload'**
   String get runPayload;
 
-  /// No description provided for @rootAccesNotAvailable.
+  /// No description provided for @rootAccessNotAvailable.
   ///
   /// In en, this message translates to:
   /// **'Root access not available'**
-  String get rootAccesNotAvailable;
+  String get rootAccessNotAvailable;
 
   /// No description provided for @usbHIDNotSupported.
   ///
@@ -1279,6 +1279,528 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{min}m ago'**
   String minAgo(int min);
+
+  /// No description provided for @noBrowserAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No browser available'**
+  String get noBrowserAvailable;
+
+  /// No description provided for @failedToOpenError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to open: {error}'**
+  String failedToOpenError(String error);
+
+  /// No description provided for @resetAllSettingsQuestionMark.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all settings?'**
+  String get resetAllSettingsQuestionMark;
+
+  /// No description provided for @thisWillRestoreAllSettingsToTheirDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'This will restore all settings to their defaults.'**
+  String get thisWillRestoreAllSettingsToTheirDefaults;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @settingsResetToDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings reset to defaults'**
+  String get settingsResetToDefaults;
+
+  /// No description provided for @failedToLoadSettingsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load settings: {error}'**
+  String failedToLoadSettingsError(String error);
+
+  /// No description provided for @resetAllSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all settings'**
+  String get resetAllSettings;
+
+  /// No description provided for @supportDevelopment.
+  ///
+  /// In en, this message translates to:
+  /// **'Support Development'**
+  String get supportDevelopment;
+
+  /// No description provided for @keepThisAppFastFreeAndMaintained.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep this app fast, free, and maintained'**
+  String get keepThisAppFastFreeAndMaintained;
+
+  /// No description provided for @supportDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No ads, no tracking, no locked features. Your support keeps this Rubber Ducky alternative independent and freely available to penetration testers worldwide.'**
+  String get supportDescription;
+
+  /// No description provided for @donate.
+  ///
+  /// In en, this message translates to:
+  /// **'Donate'**
+  String get donate;
+
+  /// No description provided for @repositoryLinkCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository link copied'**
+  String get repositoryLinkCopied;
+
+  /// No description provided for @starRepo.
+  ///
+  /// In en, this message translates to:
+  /// **'Star Repo'**
+  String get starRepo;
+
+  /// No description provided for @localOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Local-only'**
+  String get localOnly;
+
+  /// No description provided for @noTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'No Tracking'**
+  String get noTracking;
+
+  /// No description provided for @lightweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Lightweight'**
+  String get lightweight;
+
+  /// No description provided for @openSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Source'**
+  String get openSource;
+
+  /// No description provided for @appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get appearance;
+
+  /// No description provided for @customizeYourVisualExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Customize your visual experience'**
+  String get customizeYourVisualExperience;
+
+  /// No description provided for @auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto'**
+  String get auto;
+
+  /// No description provided for @light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get light;
+
+  /// No description provided for @dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get dark;
+
+  /// No description provided for @controlPayloadBehaviorAndTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Control payload behavior and timing'**
+  String get controlPayloadBehaviorAndTiming;
+
+  /// No description provided for @speedAndTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed & timing'**
+  String get speedAndTiming;
+
+  /// No description provided for @resetDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset defaults'**
+  String get resetDefaults;
+
+  /// No description provided for @adjustScriptDelaysAndRawKeyPressTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust script delays and raw key press timing.'**
+  String get adjustScriptDelaysAndRawKeyPressTiming;
+
+  /// No description provided for @executionSpeedMultiplier.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} • {multiplier}×'**
+  String executionSpeedMultiplier(String label, String multiplier);
+
+  /// No description provided for @typingSpeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Typing speed'**
+  String get typingSpeed;
+
+  /// No description provided for @typingSpeedMultiplier.
+  ///
+  /// In en, this message translates to:
+  /// **'{label} • {multiplier}×'**
+  String typingSpeedMultiplier(String label, String multiplier);
+
+  /// No description provided for @lowerIsFaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower is faster. Controls raw key press timing (STRING typing).'**
+  String get lowerIsFaster;
+
+  /// No description provided for @ultraFast.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultra Fast'**
+  String get ultraFast;
+
+  /// No description provided for @ultraFastDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Ultra fast may be unreliable on some hosts.'**
+  String get ultraFastDescription;
+
+  /// No description provided for @advancedExecution.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced execution'**
+  String get advancedExecution;
+
+  /// No description provided for @loggingHIDReliabilityUnicodeFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging, HID reliability, Unicode fallback'**
+  String get loggingHIDReliabilityUnicodeFallback;
+
+  /// No description provided for @enableLogging.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable logging'**
+  String get enableLogging;
+
+  /// No description provided for @recordExecutionEventsAndOutcomes.
+  ///
+  /// In en, this message translates to:
+  /// **'Record execution events and outcomes'**
+  String get recordExecutionEventsAndOutcomes;
+
+  /// No description provided for @randomizeTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Randomize timing'**
+  String get randomizeTiming;
+
+  /// No description provided for @addsSmallJitterToMimicRealTyping.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds small jitter to mimic real typing'**
+  String get addsSmallJitterToMimicRealTyping;
+
+  /// No description provided for @hidGraceWindow.
+  ///
+  /// In en, this message translates to:
+  /// **'HID grace window'**
+  String get hidGraceWindow;
+
+  /// No description provided for @hidGraceWindowMS.
+  ///
+  /// In en, this message translates to:
+  /// **'{ms} ms'**
+  String hidGraceWindowMS(int ms);
+
+  /// No description provided for @waitBrieflyForHIDToBecomeActiveBeforeFailingAWrite.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait briefly for HID to become active before failing a write.'**
+  String get waitBrieflyForHIDToBecomeActiveBeforeFailingAWrite;
+
+  /// No description provided for @unicodeFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Unicode fallback'**
+  String get unicodeFallback;
+
+  /// No description provided for @warnAndSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Warn & skip'**
+  String get warnAndSkip;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @asciiTransliterate.
+  ///
+  /// In en, this message translates to:
+  /// **'ASCII transliterate'**
+  String get asciiTransliterate;
+
+  /// No description provided for @controlsHowUnsupportedCharactersAreHandledDuringTyping.
+  ///
+  /// In en, this message translates to:
+  /// **'Controls how unsupported characters are handled during typing.'**
+  String get controlsHowUnsupportedCharactersAreHandledDuringTyping;
+
+  /// No description provided for @riskyFastModeCanCauseMissedOrStuckKeysOnSomeHosts.
+  ///
+  /// In en, this message translates to:
+  /// **'Risky fast mode can cause missed or stuck keys on some hosts.'**
+  String get riskyFastModeCanCauseMissedOrStuckKeysOnSomeHosts;
+
+  /// No description provided for @riskyFastMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Risky fast mode'**
+  String get riskyFastMode;
+
+  /// No description provided for @allowsShorterKeyHoldAndInterKeyDelaysMayBeUnreliable.
+  ///
+  /// In en, this message translates to:
+  /// **'Allows shorter key hold and inter-key delays. May be unreliable.'**
+  String get allowsShorterKeyHoldAndInterKeyDelaysMayBeUnreliable;
+
+  /// No description provided for @keepScreenOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep screen on'**
+  String get keepScreenOn;
+
+  /// No description provided for @preventsScreenFromSleepingDuringExecution.
+  ///
+  /// In en, this message translates to:
+  /// **'Prevents screen from sleeping during execution'**
+  String get preventsScreenFromSleepingDuringExecution;
+
+  /// No description provided for @mayIncreaseBatteryUsageScreenWillStayOnEvenWhenAppIsInBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'May increase battery usage. Screen will stay on even when app is in background.'**
+  String get mayIncreaseBatteryUsageScreenWillStayOnEvenWhenAppIsInBackground;
+
+  /// No description provided for @stealthMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Stealth Mode'**
+  String get stealthMode;
+
+  /// No description provided for @covertOperationCapabilities.
+  ///
+  /// In en, this message translates to:
+  /// **'Covert operation capabilities'**
+  String get covertOperationCapabilities;
+
+  /// No description provided for @hiddenExecution.
+  ///
+  /// In en, this message translates to:
+  /// **'Hidden Execution'**
+  String get hiddenExecution;
+
+  /// No description provided for @hiddenExecutionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'When \"Keep screen on\" is disabled, payloads can execute while the screen is off. This allows for covert operation where the device appears idle.'**
+  String get hiddenExecutionDescription;
+
+  /// No description provided for @useCases.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Cases'**
+  String get useCases;
+
+  /// No description provided for @useCasesDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'• Screen ON: Interactive testing, debugging, demonstrations\n• Screen OFF: Scheduled tasks, automated operations, covert execution'**
+  String get useCasesDescription;
+
+  /// No description provided for @payloadsStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Payloads Store'**
+  String get payloadsStore;
+
+  /// No description provided for @browseGitHubRepositoriesAndImportPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse GitHub repositories and import payloads'**
+  String get browseGitHubRepositoriesAndImportPayloads;
+
+  /// No description provided for @openPayloadsStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Payloads Store'**
+  String get openPayloadsStore;
+
+  /// No description provided for @manageAndImportFromMultipleRepos.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage and import from multiple repos'**
+  String get manageAndImportFromMultipleRepos;
+
+  /// No description provided for @advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get advanced;
+
+  /// No description provided for @usbGadgetPresetsAndHotkeys.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget, presets, and hotkeys'**
+  String get usbGadgetPresetsAndHotkeys;
+
+  /// No description provided for @advancedSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced settings'**
+  String get advancedSettings;
+
+  /// No description provided for @commandPresetsHotkeysDefaultVidPid.
+  ///
+  /// In en, this message translates to:
+  /// **'Command presets, hotkeys, default VID/PID'**
+  String get commandPresetsHotkeysDefaultVidPid;
+
+  /// No description provided for @hidControl.
+  ///
+  /// In en, this message translates to:
+  /// **'HID Control'**
+  String get hidControl;
+
+  /// No description provided for @usbGadgetSessionStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget session status'**
+  String get usbGadgetSessionStatus;
+
+  /// No description provided for @rootAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Root available'**
+  String get rootAvailable;
+
+  /// No description provided for @hidSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'HID supported'**
+  String get hidSupported;
+
+  /// No description provided for @hidSession.
+  ///
+  /// In en, this message translates to:
+  /// **'HID session'**
+  String get hidSession;
+
+  /// No description provided for @hidSessionDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'HID session control activates/deactivates the USB gadget. Check Device screen for detailed diagnostics.'**
+  String get hidSessionDescription;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// No description provided for @appInformationAndLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'App information and legal'**
+  String get appInformationAndLegal;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String version(String version);
+
+  /// No description provided for @licences.
+  ///
+  /// In en, this message translates to:
+  /// **'Licenses'**
+  String get licences;
+
+  /// No description provided for @openSourceLicenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Open source licenses'**
+  String get openSourceLicenses;
+
+  /// No description provided for @autoTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto Theme'**
+  String get autoTheme;
+
+  /// No description provided for @lightTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Theme'**
+  String get lightTheme;
+
+  /// No description provided for @darkTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Theme'**
+  String get darkTheme;
+
+  /// No description provided for @followsYourDeviceSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Follows your device settings'**
+  String get followsYourDeviceSettings;
+
+  /// No description provided for @alwaysBrightAndClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Always bright and clear'**
+  String get alwaysBrightAndClear;
+
+  /// No description provided for @easyOnTheEyes.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy on the eyes'**
+  String get easyOnTheEyes;
+
+  /// No description provided for @themeModeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme automatically switches when you change your device settings between light and dark mode'**
+  String get themeModeSystem;
+
+  /// No description provided for @themeModeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfect for daytime use and well-lit environments'**
+  String get themeModeLight;
+
+  /// No description provided for @themeModeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduces eye strain in low-light conditions and saves battery on OLED screens'**
+  String get themeModeDark;
 }
 
 class _AppLocalizationsDelegate

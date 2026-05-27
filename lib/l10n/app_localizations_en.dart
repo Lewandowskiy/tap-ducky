@@ -597,7 +597,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get runPayload => 'Run Payload';
 
   @override
-  String get rootAccesNotAvailable => 'Root access not available';
+  String get rootAccessNotAvailable => 'Root access not available';
 
   @override
   String get usbHIDNotSupported => 'USB HID not supported';
@@ -668,4 +668,303 @@ class AppLocalizationsEn extends AppLocalizations {
   String minAgo(int min) {
     return '${min}m ago';
   }
+
+  @override
+  String get noBrowserAvailable => 'No browser available';
+
+  @override
+  String failedToOpenError(String error) {
+    return 'Failed to open: $error';
+  }
+
+  @override
+  String get resetAllSettingsQuestionMark => 'Reset all settings?';
+
+  @override
+  String get thisWillRestoreAllSettingsToTheirDefaults =>
+      'This will restore all settings to their defaults.';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get settingsResetToDefaults => 'Settings reset to defaults';
+
+  @override
+  String failedToLoadSettingsError(String error) {
+    return 'Failed to load settings: $error';
+  }
+
+  @override
+  String get resetAllSettings => 'Reset all settings';
+
+  @override
+  String get supportDevelopment => 'Support Development';
+
+  @override
+  String get keepThisAppFastFreeAndMaintained =>
+      'Keep this app fast, free, and maintained';
+
+  @override
+  String get supportDescription =>
+      'No ads, no tracking, no locked features. Your support keeps this Rubber Ducky alternative independent and freely available to penetration testers worldwide.';
+
+  @override
+  String get donate => 'Donate';
+
+  @override
+  String get repositoryLinkCopied => 'Repository link copied';
+
+  @override
+  String get starRepo => 'Star Repo';
+
+  @override
+  String get localOnly => 'Local-only';
+
+  @override
+  String get noTracking => 'No Tracking';
+
+  @override
+  String get lightweight => 'Lightweight';
+
+  @override
+  String get openSource => 'Open Source';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get customizeYourVisualExperience =>
+      'Customize your visual experience';
+
+  @override
+  String get auto => 'Auto';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get controlPayloadBehaviorAndTiming =>
+      'Control payload behavior and timing';
+
+  @override
+  String get speedAndTiming => 'Speed & timing';
+
+  @override
+  String get resetDefaults => 'Reset defaults';
+
+  @override
+  String get adjustScriptDelaysAndRawKeyPressTiming =>
+      'Adjust script delays and raw key press timing.';
+
+  @override
+  String executionSpeedMultiplier(String label, String multiplier) {
+    return '$label • $multiplier×';
+  }
+
+  @override
+  String get typingSpeed => 'Typing speed';
+
+  @override
+  String typingSpeedMultiplier(String label, String multiplier) {
+    return '$label • $multiplier×';
+  }
+
+  @override
+  String get lowerIsFaster =>
+      'Lower is faster. Controls raw key press timing (STRING typing).';
+
+  @override
+  String get ultraFast => 'Ultra Fast';
+
+  @override
+  String get ultraFastDescription =>
+      'Ultra fast may be unreliable on some hosts.';
+
+  @override
+  String get advancedExecution => 'Advanced execution';
+
+  @override
+  String get loggingHIDReliabilityUnicodeFallback =>
+      'Logging, HID reliability, Unicode fallback';
+
+  @override
+  String get enableLogging => 'Enable logging';
+
+  @override
+  String get recordExecutionEventsAndOutcomes =>
+      'Record execution events and outcomes';
+
+  @override
+  String get randomizeTiming => 'Randomize timing';
+
+  @override
+  String get addsSmallJitterToMimicRealTyping =>
+      'Adds small jitter to mimic real typing';
+
+  @override
+  String get hidGraceWindow => 'HID grace window';
+
+  @override
+  String hidGraceWindowMS(int ms) {
+    return '$ms ms';
+  }
+
+  @override
+  String get waitBrieflyForHIDToBecomeActiveBeforeFailingAWrite =>
+      'Wait briefly for HID to become active before failing a write.';
+
+  @override
+  String get unicodeFallback => 'Unicode fallback';
+
+  @override
+  String get warnAndSkip => 'Warn & skip';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get asciiTransliterate => 'ASCII transliterate';
+
+  @override
+  String get controlsHowUnsupportedCharactersAreHandledDuringTyping =>
+      'Controls how unsupported characters are handled during typing.';
+
+  @override
+  String get riskyFastModeCanCauseMissedOrStuckKeysOnSomeHosts =>
+      'Risky fast mode can cause missed or stuck keys on some hosts.';
+
+  @override
+  String get riskyFastMode => 'Risky fast mode';
+
+  @override
+  String get allowsShorterKeyHoldAndInterKeyDelaysMayBeUnreliable =>
+      'Allows shorter key hold and inter-key delays. May be unreliable.';
+
+  @override
+  String get keepScreenOn => 'Keep screen on';
+
+  @override
+  String get preventsScreenFromSleepingDuringExecution =>
+      'Prevents screen from sleeping during execution';
+
+  @override
+  String get mayIncreaseBatteryUsageScreenWillStayOnEvenWhenAppIsInBackground =>
+      'May increase battery usage. Screen will stay on even when app is in background.';
+
+  @override
+  String get stealthMode => 'Stealth Mode';
+
+  @override
+  String get covertOperationCapabilities => 'Covert operation capabilities';
+
+  @override
+  String get hiddenExecution => 'Hidden Execution';
+
+  @override
+  String get hiddenExecutionDescription =>
+      'When \"Keep screen on\" is disabled, payloads can execute while the screen is off. This allows for covert operation where the device appears idle.';
+
+  @override
+  String get useCases => 'Use Cases';
+
+  @override
+  String get useCasesDescription =>
+      '• Screen ON: Interactive testing, debugging, demonstrations\n• Screen OFF: Scheduled tasks, automated operations, covert execution';
+
+  @override
+  String get payloadsStore => 'Payloads Store';
+
+  @override
+  String get browseGitHubRepositoriesAndImportPayloads =>
+      'Browse GitHub repositories and import payloads';
+
+  @override
+  String get openPayloadsStore => 'Open Payloads Store';
+
+  @override
+  String get manageAndImportFromMultipleRepos =>
+      'Manage and import from multiple repos';
+
+  @override
+  String get advanced => 'Advanced';
+
+  @override
+  String get usbGadgetPresetsAndHotkeys => 'USB gadget, presets, and hotkeys';
+
+  @override
+  String get advancedSettings => 'Advanced settings';
+
+  @override
+  String get commandPresetsHotkeysDefaultVidPid =>
+      'Command presets, hotkeys, default VID/PID';
+
+  @override
+  String get hidControl => 'HID Control';
+
+  @override
+  String get usbGadgetSessionStatus => 'USB gadget session status';
+
+  @override
+  String get rootAvailable => 'Root available';
+
+  @override
+  String get hidSupported => 'HID supported';
+
+  @override
+  String get hidSession => 'HID session';
+
+  @override
+  String get hidSessionDescription =>
+      'HID session control activates/deactivates the USB gadget. Check Device screen for detailed diagnostics.';
+
+  @override
+  String get about => 'About';
+
+  @override
+  String get appInformationAndLegal => 'App information and legal';
+
+  @override
+  String version(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get licences => 'Licenses';
+
+  @override
+  String get openSourceLicenses => 'Open source licenses';
+
+  @override
+  String get autoTheme => 'Auto Theme';
+
+  @override
+  String get lightTheme => 'Light Theme';
+
+  @override
+  String get darkTheme => 'Dark Theme';
+
+  @override
+  String get followsYourDeviceSettings => 'Follows your device settings';
+
+  @override
+  String get alwaysBrightAndClear => 'Always bright and clear';
+
+  @override
+  String get easyOnTheEyes => 'Easy on the eyes';
+
+  @override
+  String get themeModeSystem =>
+      'Theme automatically switches when you change your device settings between light and dark mode';
+
+  @override
+  String get themeModeLight =>
+      'Perfect for daytime use and well-lit environments';
+
+  @override
+  String get themeModeDark =>
+      'Reduces eye strain in low-light conditions and saves battery on OLED screens';
 }

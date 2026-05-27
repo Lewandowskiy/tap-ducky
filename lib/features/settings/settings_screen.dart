@@ -16,7 +16,6 @@ import 'widgets/support_pill.dart';
 
 import '../../state/controllers/locale_controller.dart';
 import '../../extension/context_extensions.dart';
-import '../../app/app.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -26,20 +25,20 @@ class SettingsScreen extends ConsumerWidget {
   static const String _issuesUrl = 'https://github.com/iodn/tap-ducky/issues';
   static const String _liberapayUrl = 'https://liberapay.com/KaijinLab/donate';
 
-  String _speedLabel(double multiplier) {
-    if (multiplier >= 3.0) return 'Very Slow';
-    if (multiplier >= 1.5) return 'Slow';
-    if (multiplier >= 0.9 && multiplier <= 1.1) return 'Normal';
-    if (multiplier >= 0.5) return 'Fast';
-    return 'Very Fast';
+  String _speedLabel(double multiplier, BuildContext context) {
+    if (multiplier >= 3.0) return context.l10n.verySlow;
+    if (multiplier >= 1.5) return context.l10n.slow;
+    if (multiplier >= 0.9 && multiplier <= 1.1) return context.l10n.normal;
+    if (multiplier >= 0.5) return context.l10n.fast;
+    return context.l10n.veryFast;
   }
 
-  String _typingSpeedLabel(double factor) {
-    if (factor <= 0.4) return 'Very Fast';
-    if (factor <= 0.8) return 'Fast';
-    if (factor <= 1.2) return 'Normal';
-    if (factor <= 2.5) return 'Slow';
-    return 'Very Slow';
+  String _typingSpeedLabel(double factor, BuildContext context) {
+    if (factor <= 0.4) return context.l10n.veryFast;
+    if (factor <= 0.8) return context.l10n.fast;
+    if (factor <= 1.2) return context.l10n.normal;
+    if (factor <= 2.5) return context.l10n.slow;
+    return context.l10n.verySlow;
   }
 
   Future<void> _resetExecutionDefaults(WidgetRef ref) async {
@@ -62,7 +61,7 @@ class SettingsScreen extends ConsumerWidget {
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('No browser available'),
+            content: Text(context.l10n.noBrowserAvailable),
             backgroundColor: Theme.of(context).colorScheme.error,
             behavior: SnackBarBehavior.floating,
           ),
@@ -74,7 +73,7 @@ class SettingsScreen extends ConsumerWidget {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to open: $e'),
+          content: Text(context.l10n.failedToOpenError(e.toString())),
           backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
@@ -86,11 +85,11 @@ class SettingsScreen extends ConsumerWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Reset all settings?'),
-        content: const Text('This will restore all settings to their defaults.'),
+        title: Text(context.l10n.resetAllSettingsQuestionMark),
+        content: Text(context.l10n.thisWillRestoreAllSettingsToTheirDefaults),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Cancel')),
-          FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: const Text('Reset')),
+          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: Text(context.l10n.cancel)),
+          FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(context.l10n.reset)),
         ],
       ),
     );
@@ -98,7 +97,7 @@ class SettingsScreen extends ConsumerWidget {
     await ref.read(appSettingsControllerProvider.notifier).resetAllToDefaults();
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Settings reset to defaults')),
+      SnackBar(content: Text(context.l10n.settingsResetToDefaults)),
     );
   }
 
@@ -110,10 +109,10 @@ class SettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(context.l10n.settings),
         actions: [
           IconButton(
-            tooltip: 'Device',
+            tooltip: context.l10n.device,
             onPressed: () => context.push(const DeviceRoute().location),
             icon: const Icon(Icons.phone_android),
           ),
@@ -121,7 +120,7 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: settingsAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Failed to load settings: $e')),
+        error: (e, st) => Center(child: Text(context.l10n.failedToLoadSettingsError(e.toString()))),
         data: (s) {
           final clampedMultiplier = s.delayMultiplier.clamp(0.1, 4.0);
           return ListView(
@@ -152,7 +151,7 @@ class SettingsScreen extends ConsumerWidget {
                   child: TextButton.icon(
                     onPressed: () => _confirmResetAll(context, ref),
                     icon: const Icon(Icons.restart_alt, size: 18),
-                    label: const Text('Reset all settings'),
+                    label: Text(context.l10n.resetAllSettings),
                   ),
                 ),
               ),
@@ -200,8 +199,8 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'Support Development',
-        subtitle: 'Keep this app fast, free, and maintained',
+        title: context.l10n.supportDevelopment,
+        subtitle: context.l10n.keepThisAppFastFreeAndMaintained,
         leading: Icon(Icons.volunteer_activism_rounded, color: cs.primary),
         child: Padding(
           padding: const EdgeInsets.all(14),
@@ -224,7 +223,7 @@ class SettingsScreen extends ConsumerWidget {
                   ),
                 ),
                 child: Text(
-                  'No ads, no tracking, no locked features. Your support keeps this Rubber Ducky alternative independent and freely available to penetration testers worldwide.',
+                  context.l10n.supportDescription,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: cs.onSecondaryContainer,
                     fontWeight: FontWeight.w600,
@@ -239,7 +238,7 @@ class SettingsScreen extends ConsumerWidget {
                     child: FilledButton.icon(
                       onPressed: () => _openDonationSheet(context),
                       icon: const Icon(Icons.favorite_rounded),
-                      label: const Text('Donate'),
+                      label: Text(context.l10n.donate),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
@@ -252,10 +251,10 @@ class SettingsScreen extends ConsumerWidget {
                       onLongPress: () => _copyToClipboard(
                         context,
                         text: 'https://github.com/iodn/tap-ducky',
-                        message: 'Repository link copied',
+                        message: context.l10n.repositoryLinkCopied,
                       ),
                       icon: const Icon(Icons.star_border_rounded),
-                      label: const Text('Star Repo'),
+                      label: Text(context.l10n.starRepo),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
@@ -264,18 +263,18 @@ class SettingsScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 12),
-              const Wrap(
+              Wrap(
                 spacing: 8,
                 runSpacing: 8,
                 children: [
                   SupportPill(
-                      icon: Icons.lock_outline_rounded, label: 'Local-only'),
+                      icon: Icons.lock_outline_rounded, label: context.l10n.localOnly),
                   SupportPill(
-                      icon: Icons.shield_outlined, label: 'No tracking'),
+                      icon: Icons.shield_outlined, label: context.l10n.noTracking),
                   SupportPill(
-                      icon: Icons.speed_rounded, label: 'Lightweight'),
+                      icon: Icons.speed_rounded, label: context.l10n.lightweight),
                   SupportPill(
-                      icon: Icons.code_rounded, label: 'Open-source'),
+                      icon: Icons.code_rounded, label: context.l10n.openSource),
                 ],
               ),
             ],
@@ -293,8 +292,8 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'Appearance',
-        subtitle: 'Customize your visual experience',
+        title: context.l10n.appearance,
+        subtitle: context.l10n.customizeYourVisualExperience,
         leading: Icon(Icons.palette_outlined, color: cs.primary),
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -333,7 +332,7 @@ class SettingsScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _getThemeName(mode),
+                            _getThemeName(mode, context),
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w800,
                               color: cs.onPrimaryContainer,
@@ -341,7 +340,7 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            _getThemeDescription(mode),
+                            _getThemeDescription(mode, context),
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: cs.onPrimaryContainer.withOpacity(0.8),
                             ),
@@ -358,7 +357,7 @@ class SettingsScreen extends ConsumerWidget {
                   Expanded(
                     child: _ThemeCard(
                       icon: Icons.auto_awesome_rounded,
-                      label: 'Auto',
+                      label: context.l10n.auto,
                       isSelected: mode == ThemeMode.system,
                       onTap: () => _changeTheme(ref, ThemeMode.system),
                       theme: theme,
@@ -368,7 +367,7 @@ class SettingsScreen extends ConsumerWidget {
                   Expanded(
                     child: _ThemeCard(
                       icon: Icons.light_mode_rounded,
-                      label: 'Light',
+                      label: context.l10n.light,
                       isSelected: mode == ThemeMode.light,
                       onTap: () => _changeTheme(ref, ThemeMode.light),
                       theme: theme,
@@ -378,7 +377,7 @@ class SettingsScreen extends ConsumerWidget {
                   Expanded(
                     child: _ThemeCard(
                       icon: Icons.dark_mode_rounded,
-                      label: 'Dark',
+                      label: context.l10n.dark,
                       isSelected: mode == ThemeMode.dark,
                       onTap: () => _changeTheme(ref, ThemeMode.dark),
                       theme: theme,
@@ -404,7 +403,7 @@ class SettingsScreen extends ConsumerWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        _getThemeHint(mode),
+                        _getThemeHint(mode, context),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: cs.onSurfaceVariant,
                           height: 1.3,
@@ -432,8 +431,8 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'Execution',
-        subtitle: 'Control payload behavior and timing',
+        title: context.l10n.execution,
+        subtitle: context.l10n.controlPayloadBehaviorAndTiming,
         leading: Icon(Icons.play_arrow, color: cs.primary),
         child: Padding(
           padding: const EdgeInsets.all(14),
@@ -442,34 +441,34 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Speed & timing',
+                      context.l10n.speedAndTiming,
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
                   TextButton.icon(
                     onPressed: () => _resetExecutionDefaults(ref),
                     icon: const Icon(Icons.refresh, size: 16),
-                    label: const Text('Reset defaults'),
+                    label: Text(context.l10n.resetDefaults),
                   ),
                 ],
               ),
               Text(
-                'Adjust script delays and raw key press timing.',
+                context.l10n.adjustScriptDelaysAndRawKeyPressTiming,
                 style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
               ),
               const SizedBox(height: 12),
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Execution speed',
+                      context.l10n.executionSpeed,
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
                   Text(
-                    '${_speedLabel(s.delayMultiplier)} • ${s.delayMultiplier.toStringAsFixed(2)}×',
+                    context.l10n.executionSpeedMultiplier(_speedLabel(s.delayMultiplier, context), s.delayMultiplier.toStringAsFixed(2)),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: cs.onSurfaceVariant,
@@ -490,11 +489,11 @@ class SettingsScreen extends ConsumerWidget {
               ),
               Row(
                 children: [
-                  Text('Fast',
+                  Text(context.l10n.fast,
                       style: TextStyle(
                           fontSize: 12, color: cs.onSurfaceVariant)),
                   const Spacer(),
-                  Text('Slow',
+                  Text(context.l10n.slow,
                       style: TextStyle(
                           fontSize: 12, color: cs.onSurfaceVariant)),
                 ],
@@ -502,14 +501,14 @@ class SettingsScreen extends ConsumerWidget {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Typing speed',
+                      context.l10n.typingSpeed,
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
                   Text(
-                    '${_typingSpeedLabel(s.typingSpeedFactor)} • ${s.typingSpeedFactor.toStringAsFixed(2)}×',
+                    context.l10n.typingSpeedMultiplier(_typingSpeedLabel(s.typingSpeedFactor, context), s.typingSpeedFactor.toStringAsFixed(2)),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: cs.onSurfaceVariant,
@@ -530,17 +529,17 @@ class SettingsScreen extends ConsumerWidget {
               ),
               Row(
                 children: [
-                  Text('Fast',
+                  Text(context.l10n.fast,
                       style: TextStyle(
                           fontSize: 12, color: cs.onSurfaceVariant)),
                   const Spacer(),
-                  Text('Slow',
+                  Text(context.l10n.slow,
                       style: TextStyle(
                           fontSize: 12, color: cs.onSurfaceVariant)),
                 ],
               ),
               Text(
-                'Lower is faster. Controls raw key press timing (STRING typing).',
+                context.l10n.lowerIsFaster,
                 style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
               ),
               const SizedBox(height: 12),
@@ -549,16 +548,16 @@ class SettingsScreen extends ConsumerWidget {
                 runSpacing: 8,
                 children: [
                   _SpeedPresetChip(
-                    label: 'Ultra Fast',
+                    label: context.l10n.ultraFast,
                     multiplier: 0.1,
                     current: s.delayMultiplier,
                     onSelected: () => ref
                         .read(appSettingsControllerProvider.notifier)
                         .setDelayMultiplier(0.1),
-                    tooltip: 'Ultra fast may be unreliable on some hosts.',
+                    tooltip: context.l10n.ultraFastDescription,
                   ),
                   _SpeedPresetChip(
-                    label: 'Very Fast',
+                    label: context.l10n.veryFast,
                     multiplier: 0.25,
                     current: s.delayMultiplier,
                     onSelected: () => ref
@@ -566,7 +565,7 @@ class SettingsScreen extends ConsumerWidget {
                         .setDelayMultiplier(0.25),
                   ),
                   _SpeedPresetChip(
-                    label: 'Fast',
+                    label: context.l10n.fast,
                     multiplier: 0.5,
                     current: s.delayMultiplier,
                     onSelected: () => ref
@@ -574,7 +573,7 @@ class SettingsScreen extends ConsumerWidget {
                         .setDelayMultiplier(0.5),
                   ),
                   _SpeedPresetChip(
-                    label: 'Normal',
+                    label: context.l10n.normal,
                     multiplier: 1.0,
                     current: s.delayMultiplier,
                     onSelected: () => ref
@@ -582,7 +581,7 @@ class SettingsScreen extends ConsumerWidget {
                         .setDelayMultiplier(1.0),
                   ),
                   _SpeedPresetChip(
-                    label: 'Slow',
+                    label: context.l10n.slow,
                     multiplier: 2.0,
                     current: s.delayMultiplier,
                     onSelected: () => ref
@@ -590,7 +589,7 @@ class SettingsScreen extends ConsumerWidget {
                         .setDelayMultiplier(2.0),
                   ),
                   _SpeedPresetChip(
-                    label: 'Very Slow',
+                    label: context.l10n.verySlow,
                     multiplier: 4.0,
                     current: s.delayMultiplier,
                     onSelected: () => ref
@@ -610,12 +609,12 @@ class SettingsScreen extends ConsumerWidget {
                   tilePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   childrenPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   leading: Icon(Icons.tune, color: cs.primary),
-                  title: const Text(
-                    'Advanced execution',
+                  title: Text(
+                    context.l10n.advancedExecution,
                     style: TextStyle(fontWeight: FontWeight.w700),
                   ),
                   subtitle: Text(
-                    'Logging, HID reliability, Unicode fallback',
+                    context.l10n.loggingHIDReliabilityUnicodeFallback,
                     style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                   ),
                   children: [
@@ -625,8 +624,8 @@ class SettingsScreen extends ConsumerWidget {
                       onChanged: (v) => ref
                           .read(appSettingsControllerProvider.notifier)
                           .setEnableLogging(v),
-                      title: const Text('Enable logging'),
-                      subtitle: const Text('Record execution events and outcomes'),
+                      title: Text(context.l10n.enableLogging),
+                      subtitle: Text(context.l10n.recordExecutionEventsAndOutcomes),
                     ),
                     SwitchListTile(
                       contentPadding: EdgeInsets.zero,
@@ -634,20 +633,20 @@ class SettingsScreen extends ConsumerWidget {
                       onChanged: (v) => ref
                           .read(appSettingsControllerProvider.notifier)
                           .setRandomizeTiming(v),
-                      title: const Text('Randomize timing'),
-                      subtitle: const Text('Adds small jitter to mimic real typing'),
+                      title: Text(context.l10n.randomizeTiming),
+                      subtitle: Text(context.l10n.addsSmallJitterToMimicRealTyping),
                     ),
                     const SizedBox(height: 6),
                     Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'HID grace window',
+                            context.l10n.hidGraceWindow,
                             style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                         ),
                         Text(
-                          '${s.hidGraceWindowMs} ms',
+                          context.l10n.hidGraceWindowMS(s.hidGraceWindowMs),
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: cs.onSurfaceVariant,
@@ -661,21 +660,21 @@ class SettingsScreen extends ConsumerWidget {
                       min: 0,
                       max: 5000,
                       divisions: 50,
-                      label: '${s.hidGraceWindowMs} ms',
+                      label: context.l10n.hidGraceWindowMS(s.hidGraceWindowMs),
                       onChanged: (v) => ref
                           .read(appSettingsControllerProvider.notifier)
                           .setHidGraceWindowMs(v.round()),
                     ),
                     Text(
-                      'Wait briefly for HID to become active before failing a write.',
+                      context.l10n.waitBrieflyForHIDToBecomeActiveBeforeFailingAWrite,
                       style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                     ),
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            'Unicode fallback',
+                            context.l10n.unicodeFallback,
                             style: TextStyle(fontWeight: FontWeight.w700),
                           ),
                         ),
@@ -689,10 +688,10 @@ class SettingsScreen extends ConsumerWidget {
                             child: DropdownButton<String>(
                               value: s.unicodeFallbackMode,
                               style: TextStyle(color: cs.onSurface),
-                              items: const [
-                                DropdownMenuItem(value: 'warn', child: Text('Warn & skip')),
-                                DropdownMenuItem(value: 'skip', child: Text('Skip')),
-                                DropdownMenuItem(value: 'ascii', child: Text('ASCII transliterate')),
+                              items: [
+                                DropdownMenuItem(value: 'warn', child: Text(context.l10n.warnAndSkip)),
+                                DropdownMenuItem(value: 'skip', child: Text(context.l10n.skip)),
+                                DropdownMenuItem(value: 'ascii', child: Text(context.l10n.asciiTransliterate)),
                               ],
                               onChanged: (v) {
                                 if (v == null) return;
@@ -707,20 +706,20 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      'Controls how unsupported characters are handled during typing.',
+                      context.l10n.controlsHowUnsupportedCharactersAreHandledDuringTyping,
                       style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                     ),
                     Tooltip(
-                      message: 'Risky fast mode can cause missed or stuck keys on some hosts.',
+                      message: context.l10n.riskyFastModeCanCauseMissedOrStuckKeysOnSomeHosts,
                       child: SwitchListTile(
                         contentPadding: EdgeInsets.zero,
                         value: s.riskyFastMode,
                         onChanged: (v) => ref
                             .read(appSettingsControllerProvider.notifier)
                             .setRiskyFastMode(v),
-                        title: const Text('Risky fast mode'),
+                        title: Text(context.l10n.riskyFastMode),
                         subtitle:
-                            const Text('Allows shorter key hold and inter-key delays. May be unreliable.'),
+                            Text(context.l10n.allowsShorterKeyHoldAndInterKeyDelaysMayBeUnreliable),
                       ),
                     ),
                     SwitchListTile(
@@ -729,8 +728,8 @@ class SettingsScreen extends ConsumerWidget {
                       onChanged: (v) => ref
                           .read(appSettingsControllerProvider.notifier)
                           .setKeepScreenOn(v),
-                      title: const Text('Keep screen on'),
-                      subtitle: const Text('Prevents screen from sleeping during execution'),
+                      title: Text(context.l10n.keepScreenOn),
+                      subtitle: Text(context.l10n.preventsScreenFromSleepingDuringExecution),
                     ),
                     if (s.keepScreenOn)
                       Padding(
@@ -741,7 +740,7 @@ class SettingsScreen extends ConsumerWidget {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                'May increase battery usage. Screen will stay on even when app is in background.',
+                                context.l10n.mayIncreaseBatteryUsageScreenWillStayOnEvenWhenAppIsInBackground,
                                 style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                               ),
                             ),
@@ -765,8 +764,8 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'Stealth Mode',
-        subtitle: 'Covert operation capabilities',
+        title: context.l10n.stealthMode,
+        subtitle: context.l10n.covertOperationCapabilities,
         leading: Icon(Icons.visibility_off, color: cs.primary),
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -777,9 +776,9 @@ class SettingsScreen extends ConsumerWidget {
                 children: [
                   Icon(Icons.visibility_off, color: cs.primary),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Hidden Execution',
+                      context.l10n.hiddenExecution,
                       style:
                           TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
                     ),
@@ -788,8 +787,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'When "Keep screen on" is disabled, payloads can execute while the screen is off. '
-                'This allows for covert operation where the device appears idle.',
+                context.l10n.hiddenExecutionDescription,
                 style: TextStyle(fontSize: 13, color: cs.onSurfaceVariant),
               ),
               const SizedBox(height: 12),
@@ -808,7 +806,7 @@ class SettingsScreen extends ConsumerWidget {
                         Icon(Icons.info_outline, size: 16, color: cs.primary),
                         const SizedBox(width: 8),
                         Text(
-                          'Use Cases',
+                          context.l10n.useCases,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 12,
@@ -819,8 +817,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      '• Screen ON: Interactive testing, debugging, demonstrations\n'
-                      '• Screen OFF: Scheduled tasks, automated operations, covert execution',
+                      context.l10n.useCasesDescription,
                       style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                     ),
                   ],
@@ -838,13 +835,13 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'Payloads Store',
-        subtitle: 'Browse GitHub repositories and import payloads',
+        title: context.l10n.payloadsStore,
+        subtitle: context.l10n.browseGitHubRepositoriesAndImportPayloads,
         leading: Icon(Icons.storefront, color: cs.primary),
         child: ListTile(
           leading: const Icon(Icons.storefront),
-          title: const Text('Open Payloads Store'),
-          subtitle: const Text('Manage and import from multiple repos'),
+          title: Text(context.l10n.openPayloadsStore),
+          subtitle: Text(context.l10n.manageAndImportFromMultipleRepos),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => context.push(const PayloadsStoreRoute().location),
         ),
@@ -859,13 +856,13 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'Advanced',
-        subtitle: 'USB gadget, presets, and hotkeys',
+        title: context.l10n.advanced,
+        subtitle: context.l10n.usbGadgetPresetsAndHotkeys,
         leading: Icon(Icons.tune, color: cs.primary),
         child: ListTile(
           leading: const Icon(Icons.tune),
-          title: const Text('Advanced settings'),
-          subtitle: const Text('Command presets, hotkeys, default VID/PID'),
+          title: Text(context.l10n.advancedSettings),
+          subtitle: Text(context.l10n.commandPresetsHotkeysDefaultVidPid),
           trailing: const Icon(Icons.chevron_right),
           onTap: () => context.push(const AdvancedSettingsRoute().location),
         ),
@@ -881,15 +878,15 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'HID Control',
-        subtitle: 'USB gadget session status',
+        title: context.l10n.hidControl,
+        subtitle: context.l10n.usbGadgetSessionStatus,
         leading: Icon(Icons.usb, color: cs.primary),
         child: Column(
           children: [
             ListTile(
               leading: const Icon(Icons.security),
-              title: const Text('Root available'),
-              subtitle: Text(hid.rootAvailable ? 'Available' : 'Unavailable'),
+              title: Text(context.l10n.rootAvailable),
+              subtitle: Text(hid.rootAvailable ? context.l10n.available : context.l10n.unavailable),
               trailing: Icon(
                 hid.rootAvailable ? Icons.check_circle : Icons.error_outline,
                 color: hid.rootAvailable ? cs.primary : cs.error,
@@ -898,8 +895,8 @@ class SettingsScreen extends ConsumerWidget {
             const Divider(height: 1),
             ListTile(
               leading: const Icon(Icons.usb),
-              title: const Text('HID supported'),
-              subtitle: Text(hid.hidSupported ? 'Supported' : 'Unsupported'),
+              title: Text(context.l10n.hidSupported),
+              subtitle: Text(hid.hidSupported ? context.l10n.supported : context.l10n.unsupported),
               trailing: Icon(
                 hid.hidSupported ? Icons.check_circle : Icons.error_outline,
                 color: hid.hidSupported ? cs.primary : cs.error,
@@ -909,8 +906,8 @@ class SettingsScreen extends ConsumerWidget {
             ListTile(
               leading:
                   Icon(hid.sessionArmed ? Icons.lock_open : Icons.lock_outline),
-              title: const Text('HID session'),
-              subtitle: Text(hid.sessionArmed ? 'Armed' : 'Disarmed'),
+              title: Text(context.l10n.hidSession),
+              subtitle: Text(hid.sessionArmed ? context.l10n.armed : context.l10n.disarmed),
               trailing: Switch(
                 value: hid.sessionArmed,
                 onChanged: (hid.rootAvailable && hid.hidSupported)
@@ -923,8 +920,7 @@ class SettingsScreen extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Text(
-                'HID session control activates/deactivates the USB gadget. '
-                'Check Device screen for detailed diagnostics.',
+                context.l10n.hidSessionDescription,
                 style: TextStyle(color: cs.onSurfaceVariant),
               ),
             ),
@@ -941,8 +937,8 @@ class SettingsScreen extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SectionCard(
-        title: 'About',
-        subtitle: 'App information and legal',
+        title: context.l10n.about,
+        subtitle: context.l10n.appInformationAndLegal,
         leading: Icon(Icons.info_outline, color: cs.primary),
         child: Column(
           children: [
@@ -955,7 +951,7 @@ class SettingsScreen extends ConsumerWidget {
                 return ListTile(
                   leading: const Icon(Icons.apps),
                   title: const Text('TapDucky - KaijinLab Inc.'),
-                  subtitle: Text('Version $version'),
+                  subtitle: Text(context.l10n.version(version)),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.of(context).push(
@@ -970,8 +966,8 @@ class SettingsScreen extends ConsumerWidget {
             const Divider(height: 1),
             ListTile(
               leading: const Icon(Icons.gavel),
-              title: const Text('Licenses'),
-              subtitle: const Text('Open source licenses'),
+              title: Text(context.l10n.licences),
+              subtitle: Text(context.l10n.openSourceLicenses),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 showLicensePage(
@@ -1000,14 +996,14 @@ class SettingsScreen extends ConsumerWidget {
     HapticFeedback.selectionClick();
   }
 
-  String _getThemeName(ThemeMode mode) {
+  String _getThemeName(ThemeMode mode, BuildContext context) {
     switch (mode) {
       case ThemeMode.system:
-        return 'Auto Theme';
+        return context.l10n.autoTheme;
       case ThemeMode.light:
-        return 'Light Theme';
+        return context.l10n.lightTheme;
       case ThemeMode.dark:
-        return 'Dark Theme';
+        return context.l10n.darkTheme;
     }
   }
 
@@ -1022,25 +1018,25 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
-  String _getThemeDescription(ThemeMode mode) {
+  String _getThemeDescription(ThemeMode mode, BuildContext context) {
     switch (mode) {
       case ThemeMode.system:
-        return 'Follows your device settings';
+        return context.l10n.followsYourDeviceSettings;
       case ThemeMode.light:
-        return 'Always bright and clear';
+        return context.l10n.alwaysBrightAndClear;
       case ThemeMode.dark:
-        return 'Easy on the eyes';
+        return context.l10n.easyOnTheEyes;
     }
   }
 
-  String _getThemeHint(ThemeMode mode) {
+  String _getThemeHint(ThemeMode mode, BuildContext context) {
     switch (mode) {
       case ThemeMode.system:
-        return 'Theme automatically switches when you change your device settings between light and dark mode';
+        return context.l10n.themeModeSystem;
       case ThemeMode.light:
-        return 'Perfect for daytime use and well-lit environments';
+        return context.l10n.themeModeLight;
       case ThemeMode.dark:
-        return 'Reduces eye strain in low-light conditions and saves battery on OLED screens';
+        return context.l10n.themeModeDark;
     }
   }
 

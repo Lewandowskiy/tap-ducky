@@ -269,7 +269,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get rootAccess => 'Root-доступ';
 
   @override
-  String get available => 'Available';
+  String get available => 'Доступно';
 
   @override
   String get unavailable => 'Недоступно';
@@ -604,7 +604,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get runPayload => 'Запустить пейлоад';
 
   @override
-  String get rootAccesNotAvailable => 'Нет Root-доступа';
+  String get rootAccessNotAvailable => 'Нет Root-доступа';
 
   @override
   String get usbHIDNotSupported => 'USB HID не поддерживается';
@@ -675,4 +675,307 @@ class AppLocalizationsRu extends AppLocalizations {
   String minAgo(int min) {
     return '$minм назад';
   }
+
+  @override
+  String get noBrowserAvailable => 'Нет доступного браузера';
+
+  @override
+  String failedToOpenError(String error) {
+    return 'Не удалось открыть: $error';
+  }
+
+  @override
+  String get resetAllSettingsQuestionMark => 'Сбросить все настройки?';
+
+  @override
+  String get thisWillRestoreAllSettingsToTheirDefaults =>
+      'Это приведет к восстановлению всех настроек по умолчанию.';
+
+  @override
+  String get reset => 'Сбросить';
+
+  @override
+  String get settingsResetToDefaults =>
+      'Настройки сброшены до значений по умолчанию';
+
+  @override
+  String failedToLoadSettingsError(String error) {
+    return 'Не удалось загрузить настройки: $error';
+  }
+
+  @override
+  String get resetAllSettings => 'Сбросить все настройки';
+
+  @override
+  String get supportDevelopment => 'Поддержать разработку';
+
+  @override
+  String get keepThisAppFastFreeAndMaintained =>
+      'Помогите приложению оставаться быстрым, бесплатным и обновляемым';
+
+  @override
+  String get supportDescription =>
+      'Без рекламы, без отслеживания, без платных функций. Ваша поддержка помогает этой альтернативе Rubber Ducky оставаться независимой и свободно доступной для специалистов по тестированию на проникновение по всему миру.';
+
+  @override
+  String get donate => 'Donate';
+
+  @override
+  String get repositoryLinkCopied => 'Ссылка на репозиторий скопирована';
+
+  @override
+  String get starRepo => 'Star Repo';
+
+  @override
+  String get localOnly => 'Локально';
+
+  @override
+  String get noTracking => 'Без отслеживания';
+
+  @override
+  String get lightweight => 'Легковесное';
+
+  @override
+  String get openSource => 'Open-source код';
+
+  @override
+  String get appearance => 'Внешний вид';
+
+  @override
+  String get customizeYourVisualExperience =>
+      'Настройка визуального оформления';
+
+  @override
+  String get auto => 'Авто';
+
+  @override
+  String get light => 'Светлая';
+
+  @override
+  String get dark => 'Темная';
+
+  @override
+  String get controlPayloadBehaviorAndTiming =>
+      'Управление поведением и таймингами пейлоадов';
+
+  @override
+  String get speedAndTiming => 'Скорость и тайминги';
+
+  @override
+  String get resetDefaults => 'Сбросить настройки';
+
+  @override
+  String get adjustScriptDelaysAndRawKeyPressTiming =>
+      'Регулировка задержек в скрипте и таймингов необработанных нажатий клавиш.';
+
+  @override
+  String executionSpeedMultiplier(String label, String multiplier) {
+    return '$label • $multiplier×';
+  }
+
+  @override
+  String get typingSpeed => 'Скорость ввода';
+
+  @override
+  String typingSpeedMultiplier(String label, String multiplier) {
+    return '$label • $multiplier×';
+  }
+
+  @override
+  String get lowerIsFaster =>
+      'Чем меньше значение, тем быстрее. Управляет таймингом необработанных нажатий клавиш (ввод текста STRING).';
+
+  @override
+  String get ultraFast => 'Ультра быстро';
+
+  @override
+  String get ultraFastDescription =>
+      'Ультра быстрый режим может работать нестабильно на некоторых хостах.';
+
+  @override
+  String get advancedExecution => 'Расширенное выполнение';
+
+  @override
+  String get loggingHIDReliabilityUnicodeFallback =>
+      'Логирование, надежность HID, резервный вариант для Unicode';
+
+  @override
+  String get enableLogging => 'Включить логирование';
+
+  @override
+  String get recordExecutionEventsAndOutcomes =>
+      'Записывать события и результаты выполнения';
+
+  @override
+  String get randomizeTiming => 'Рандомизировать тайминг';
+
+  @override
+  String get addsSmallJitterToMimicRealTyping =>
+      'Добавляет небольшое случайное отклонение времени для имитации реального ввода текста';
+
+  @override
+  String get hidGraceWindow => 'Окно ожидания HID';
+
+  @override
+  String hidGraceWindowMS(int ms) {
+    return '$ms мс';
+  }
+
+  @override
+  String get waitBrieflyForHIDToBecomeActiveBeforeFailingAWrite =>
+      'Кратковременное ожидание активации HID перед отменой записи из-за ошибки.';
+
+  @override
+  String get unicodeFallback => 'Резервный вариант для Unicode';
+
+  @override
+  String get warnAndSkip => 'Warn & Skip';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get asciiTransliterate => 'ASCII Transliterate';
+
+  @override
+  String get controlsHowUnsupportedCharactersAreHandledDuringTyping =>
+      'Определяет, как обрабатываются неподдерживаемые символы во время ввода текста.';
+
+  @override
+  String get riskyFastModeCanCauseMissedOrStuckKeysOnSomeHosts =>
+      'Нестабильный быстрый режим может приводить к пропуску или залипанию клавиш на некоторых хостах.';
+
+  @override
+  String get riskyFastMode => 'Нестабильный быстрый режим';
+
+  @override
+  String get allowsShorterKeyHoldAndInterKeyDelaysMayBeUnreliable =>
+      'Позволяет сократить время удержания клавиш и задержки между ними. Может работать ненадежно.';
+
+  @override
+  String get keepScreenOn => 'Не выключать экран';
+
+  @override
+  String get preventsScreenFromSleepingDuringExecution =>
+      'Предотвращает переход экрана в спящий режим во время выполнения';
+
+  @override
+  String get mayIncreaseBatteryUsageScreenWillStayOnEvenWhenAppIsInBackground =>
+      'Может увеличить расход батареи. Экран будет оставаться включенным, даже когда приложение находится в фоновом режиме.';
+
+  @override
+  String get stealthMode => 'Скрытный режим';
+
+  @override
+  String get covertOperationCapabilities => 'Возможности для скрытых операций';
+
+  @override
+  String get hiddenExecution => 'Скрытое выполнение';
+
+  @override
+  String get hiddenExecutionDescription =>
+      'Если функция «Не выключать экран» отключена, полезные нагрузки могут выполняться при выключенном экране. Это позволяет проводить скрытые операции, при которых устройство кажется неактивным.';
+
+  @override
+  String get useCases => 'Варианты использования';
+
+  @override
+  String get useCasesDescription =>
+      '• Экран ВКЛ: интерактивное тестирование, отладка, демонстрация\n• Экран ВЫКЛ: запланированные задачи, автоматизированные операции, скрытое выполнение';
+
+  @override
+  String get payloadsStore => 'Магазин пейлоадов';
+
+  @override
+  String get browseGitHubRepositoriesAndImportPayloads =>
+      'Просмотр репозиториев GitHub и импорт пейлоадов';
+
+  @override
+  String get openPayloadsStore => 'Открыть магазин пейлоадов';
+
+  @override
+  String get manageAndImportFromMultipleRepos =>
+      'Управление и импорт из нескольких репозиториев';
+
+  @override
+  String get advanced => 'Расширенные';
+
+  @override
+  String get usbGadgetPresetsAndHotkeys =>
+      'USB-гаджет, пресеты и горячие клавиши';
+
+  @override
+  String get advancedSettings => 'Расширенные настройки';
+
+  @override
+  String get commandPresetsHotkeysDefaultVidPid =>
+      'Пресеты команд, горячие клавиши, VID/PID по умолчанию';
+
+  @override
+  String get hidControl => 'Управление HID';
+
+  @override
+  String get usbGadgetSessionStatus => 'Статус сессии USB-гаджета';
+
+  @override
+  String get rootAvailable => 'Root доступен';
+
+  @override
+  String get hidSupported => 'HID поддерживается';
+
+  @override
+  String get hidSession => 'Сессия HID';
+
+  @override
+  String get hidSessionDescription =>
+      'Управление сессией HID активирует или деактивирует USB-гаджет. Подробную диагностику можно посмотреть на экране «Устройство».';
+
+  @override
+  String get about => 'О приложении';
+
+  @override
+  String get appInformationAndLegal =>
+      'Информация о приложении и правовая информация';
+
+  @override
+  String version(String version) {
+    return 'Версия $version';
+  }
+
+  @override
+  String get licences => 'Лицензии';
+
+  @override
+  String get openSourceLicenses => 'Лицензии открытого ПО';
+
+  @override
+  String get autoTheme => 'Автоматическая тема';
+
+  @override
+  String get lightTheme => 'Светлая тема';
+
+  @override
+  String get darkTheme => 'Темная тема';
+
+  @override
+  String get followsYourDeviceSettings =>
+      'Соответствует настройкам вашего устройства';
+
+  @override
+  String get alwaysBrightAndClear => 'Всегда яркая и четкая';
+
+  @override
+  String get easyOnTheEyes => 'Комфортно для глаз';
+
+  @override
+  String get themeModeSystem =>
+      'Тема автоматически переключается при изменении настроек вашего устройства между светлым и темным режимами';
+
+  @override
+  String get themeModeLight =>
+      'Отлично подходит для использования в дневное время и при хорошем освещении';
+
+  @override
+  String get themeModeDark =>
+      'Снижает нагрузку на глаза в условиях низкой освещенности и экономит заряд батареи на OLED-экранах';
 }
