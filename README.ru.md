@@ -1,12 +1,12 @@
-[RU](README.ru.md)
-# TapDucky - Android USB HID Keystroke Injector
+[EN](README.md)
+# TapDucky — USB HID-инжектор нажатий клавиш для Android
 
 <a href="https://github.com/iodn/tap-ducky/releases">
 <img src="assets/images/logo.png" width="160" alt="TapDucky icon" align="left" style="border: solid 1px #ddd;"/>
 </a>
 <div>
-<h3 style="font-size: 2.2rem; letter-spacing: 1px;">TapDucky - Android USB HID Keystroke Injector</h3>
-<p style="font-size: 1.15rem; font-weight: 500;"> <strong>Open-source DuckyScript runner for rooted Android with USB Gadget (ConfigFS) support</strong><br> <strong>TapDucky</strong> lets you create, customize, schedule, and run DuckyScript on Android by emulating a USB keyboard, mouse, or composite HID device for authorized testing and automation. It includes payload parameterization, multiple scheduler triggers, execution logs, and a GitHub-backed payload library with automatic DuckyScript validation and optional Digispark <code>.ino</code> conversion.</p>
+<h3 style="font-size: 2.2rem; letter-spacing: 1px;">TapDucky — USB HID-инжектор нажатий клавиш для Android</h3>
+<p style="font-size: 1.15rem; font-weight: 500;"> <strong>Эта программа для запуска DuckyScript-а для рутированных Андроид устройств с поддержкой USB-гаджета (ConfigFS)</strong><br> <strong>TapDucky</strong> позволяет создавать, настраивать, планировать и запускать DuckyScript на Android путем эмуляции USB-клавиатуры, мыши или композитного HID-устройства для авторизованного тестирования и автоматизации. Он включает параметризацию пейлоада, множественные триггеры планировщика, журналы выполнения и библиотеку пейлоадов, поддерживаемую GitHub, с автоматической проверкой DuckyScript и опциональным преобразованием в формат <code>.ino</code> Digispark.</p>
 
 <div align="center">
 
@@ -29,60 +29,59 @@
 </div>
 
 
-## Overview
+## Обзор
 
-- USB HID gadget profiles (no external USB dongle required on supported/rooted devices):
-  - Keyboard, Mouse, and Composite profiles with configurable VID/PID, manufacturer/product strings, and power draw.
-- DuckyScript pipeline:
-  - Live validation with human‑readable issues/warnings, placeholder parameters, delay multiplier, and optional jitter for human‑like timing.
-- Payload management:
-  - Create/edit payloads with name/description/tags/parameters, quick share/export, and built‑in templates/wizard.
-- GitHub Payload Store:
-  - Add sources, browse repositories, preview files with validation, import supported scripts; auto‑detects DuckyScript and converts Digispark `.ino` sketches when possible.
-- Scheduler:
-  - One‑time at date/time, on App cold start, on App foreground, or when HID session is armed (device_connected), with optional daily time window.
-- Execution & Logs:
-  - Tabbed execute view, parameter prompts, run/cancel, execution history, and structured logs with export/clear and level filter.
-- Device diagnostics:
-  - Snapshot of device, kernel/gadget status, UDC info, keyboard layouts; copy‑to‑clipboard; emulator detection note.
+- Профили USB HID-гаджетов (для поддерживаемых/рутированных устройств внешний USB-адаптер не требуется):
+  - Профили клавиатуры, мыши и композитного интерфейса с настраиваемыми значениями VID/PID, строками производителя/модели и потребляемой мощностью.
+- DuckyScript пайплайн:
+  - Проверка в режиме реального времени с понятными для человека сообщениями об ошибках и предупреждениях, параметрами-заполнителями, множителем задержки и опциональным рандомизатором времени ввода для имитации человеческого ввода.
+- Управление пейлоадом:
+  - Создание и редактирование пейлоадов с указанием имени, описания, тегов и параметров; быстрый обмен, экспорт, а также встроенные шаблоны и мастер настройки.
+- Хранилице пейлоадов в GitHub-е:
+  - Добавление источников, просмотр репозиторий, просмотр файлов с проверкой, импорт поддерживаемых скриптов; автоматически определяет DuckyScript и, по возможности, конвертирует скетчи Digispark в формате `.ino`.
+- Планировщик:
+  - Один раз в указанную дату и время, при запуске приложения из режима ожидания, при переходе приложения в фоновый режим или при активации сеанса HID (device_connected), с возможностью установки ежедневного временного интервала.
+- Выполнение и логи:
+  - Вкладки для просмотра выполнения, запросы параметров, запуск/отмена, история выполнения и структурированные логи с возможностью экспорта/очистки и фильтрацией по уровню.
+- Диагностика устройства:
+  - Обзор устройства, состояние ядра/гаджета, информация об UDC, раскладки клавиатуры; копирование в буфер обмена; примечание по обнаружению эмулятора.
 
-Note: A rooted device with Linux USB gadget (ConfigFS) support is required. Use a physical device as emulators cannot validate HID behavior.
+Примечание: Требуется устройство с правами root и поддержкой Linux USB-гаджет (ConfigFS). Используйте физическое устройство, так как эмуляторы не могут проверить работу HID-устройств.
 
-## Features
+## Функции
+- Редактор пейлоада и параметров
+  - Создание пейлоада с именем, описанием и тегами.
+  - Добавление типизированных параметров со значениями по умолчанию, флагами обязательности и переопределениями на уровне отдельного выполнения.
+  - Встроенный валидатор DuckyScript с сопоставлением строк и проблем, а также подсчетом количества команд.
+  - Поделиться одним пейлоадом или отправить целый пак.
 
-- Payload Editor & Parameters
-  - Create payloads with name/description/tags.
-  - Add typed parameters with default values, required flags, and per‑execution overrides.
-  - Built‑in DuckyScript validator with line/issue mapping and command counts.
-  - Share a single payload or export a pack.
+- Хранилице пейлоадов в GitHub-е
+  - Управление несколькими источниками GitHub (пользователь/репозиторий/ветка/путь).
+  - Просмотр каталогов и предварительный просмотр файлов с определением формата (DuckyScript, TapDucky JSON, конвертированные скрипты Digispark (.ino)).
+  - Импортируйте проверенные скрипты прямо в свою библиотеку; в случае неудачной проверки отображается подробная информация с объяснением причины.
 
-- GitHub Payload Store
-  - Manage multiple GitHub sources (user/repo/branch/path).
-  - Browse directories and preview files with format detection (DuckyScript, TapDucky JSON, Digispark script (.ino) converted).
-  - Import validated scripts directly into your library; failed validations show reasoned previews.
+- Выполнение и тестирование
+  - Проверка перед запуском; запрос значения параметров; запуск или отмена с указанием идентификаторов выполнения.
+  - Быстрые тесты HID: нажатие клавиши на клавиатуре, движение мыши и комбинация клавиш Ctrl+Alt+Del.
+  - Оценка времени выполнения на основе движка (соответствует фактической модели времени выполнения).
+  - Функция Wakelock позволяет поддерживать активность сессий во время выполнения.
 
-- Execute & Test
-  - Validate before run; prompt for parameter values; run or cancel with execution IDs.
-  - Quick HID tests: keyboard key press, mouse move, and Ctrl+Alt+Del.
-  - Engine-based runtime estimate (matches actual timing model).
-  - Wakelock control to keep sessions active during execution.
+- Планировщик и триггеры
+  - Триггеры: one_time, app_cold_start, app_foreground, device_connected (session armed).
+  - Возможность выбора временного интервала на каждый день (ЧЧ:ММ → ЧЧ:ММ), включая период, заканчивающийся в полночь.
+  - Включение/отключение, редактирование и удаление расписаний; отслеживается последний запуск.
+  - Запуск скриптов с помощью секретных кодов (автозапуск + фоновое выполнение)
+    - Поддерживаемые коды: *#*#38250#*#*, *#*#38251#*#*, *#*#38252#*#*, *#*#38253#*#*
+    - Бинды для каждого кода: enabled, mode (last executed | selected payload), payload (when mode = selected payload)
 
-- Scheduler & Triggers
-  - Triggers: one_time, app_cold_start, app_foreground, device_connected (session armed).
-  - Optional daily time window (HH:MM → HH:MM), including wrap‑around at midnight.
-  - Enable/disable, edit, and delete schedules; last run tracked.
-  - Dial shortcut bindings via secret codes (auto‑arm + background execution).
-    - Supported codes: *#*#38250#*#*, *#*#38251#*#*, *#*#38252#*#*, *#*#38253#*#*
-    - Binding keys per code: enabled, mode (last executed | selected payload), payload (when mode = selected payload)
+- Устройства и профили HID
+  - Активация клавиатуры, мыши или композитного профиля с настраиваемыми идентификаторами, строками или параметрами питания.
+  - Выбор раскладки клавиатуры и определение кода/ID.
+  - В активном режиме отображаются состояния ACTIVE/IDLE, готовность к записи и запросы на настройку хоста.
 
-- Device & HID Profiles
-  - Activate Keyboard, Mouse, or Composite profiles with configurable IDs/strings/power.
-  - Keyboard layout selection and code/ID resolution.
-  - Status stream shows ACTIVE/IDLE, writer readiness, and host configuration requests.
-
-- Logs & History
-  - Logs tab with level filter (all/info/debug/warn/error), export to share, clear all.
-  - Execution history details with metadata and share.
+-Логи и истории
+  - Вкладка «Логи» с фильтром по уровню (всё/информация/отладка/предупреждение/ошибка), экспорт для отправка, очистка всех данных.
+  - Подробная история выполнения с метаданными и отправка.
 
 ### User‑facing
 - Dashboard with quick status cards, payload/library stats, and scheduler summary.
