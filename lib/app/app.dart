@@ -5,6 +5,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tap_ducky/l10n/app_localizations.dart';
+import '../state/controllers/locale_controller.dart';
 
 import '../state/controllers/app_settings_controller.dart';
 import '../state/controllers/dynamic_color_controller.dart';
@@ -18,6 +19,7 @@ class TapDuckyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsAsync = ref.watch(appSettingsControllerProvider);
     final router = ref.watch(appRouterProvider);
+    final locale = ref.watch(localeControllerProvider);
 
     return settingsAsync.when(
       loading: () => DynamicColorBuilder(
@@ -26,6 +28,7 @@ class TapDuckyApp extends ConsumerWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: kDebugMode,
             title: 'TapDucky',
+            locale: locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: const [Locale('en'), Locale('ru')],
             theme: AppTheme.light(dynamicScheme: enabled ? lightDynamic : null),
@@ -42,6 +45,7 @@ class TapDuckyApp extends ConsumerWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: kDebugMode,
             title: 'TapDucky',
+            locale: locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: const [Locale('en'), Locale('ru')],
             theme: AppTheme.light(dynamicScheme: enabled ? lightDynamic : null),
@@ -59,6 +63,7 @@ class TapDuckyApp extends ConsumerWidget {
             return MaterialApp.router(
               debugShowCheckedModeBanner: kDebugMode,
               title: 'TapDucky',
+              locale: locale,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: const [Locale('en'), Locale('ru')],
               theme: AppTheme.light(

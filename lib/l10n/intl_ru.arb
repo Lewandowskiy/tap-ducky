@@ -1,5 +1,6 @@
 {
   "@@locale": "ru",
+  "language": "Язык",
   "dashboard": "Дашборд",
   "payloads": "Пейлоады",
   "execute": "Выполнение",
@@ -44,6 +45,7 @@
   "connectUSBCableToTarget": "Подключите USB-кабель к цели",
   "payloadInProgress": "Пейлоад выполняется",
   "systemOperational": "Система работает",
+  "none": "None",
   "keyboard": "Клав.",
   "mouse": "Мышь",
   "composite": "Композ.",

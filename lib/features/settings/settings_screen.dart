@@ -14,6 +14,11 @@ import 'widgets/section_card.dart';
 import 'widgets/dynamic_colors_tile.dart';
 import 'widgets/support_pill.dart';
 
+import '../../state/controllers/locale_controller.dart';
+import '../../extension/context_extensions.dart';
+import '../../app/app.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
+
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
@@ -101,6 +106,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsAsync = ref.watch(appSettingsControllerProvider);
     final hid = ref.watch(hidStatusControllerProvider);
+    final currentLocale = ref.watch(localeControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -122,6 +128,8 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               const SizedBox(height: 10),
               _buildDonationsSection(context, ref),
+              const SizedBox(height: 10),
+              _buildLanguageSection(context, ref, currentLocale),
               const SizedBox(height: 10),
               _buildAppearanceSection(context, ref, s.themeMode),
               const SizedBox(height: 10),
@@ -156,6 +164,35 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+  Widget _buildLanguageSection(BuildContext context, WidgetRef ref, Locale currentLocale) {
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListTile(
+        leading: const Icon(Icons.language),
+        title: Text(context.l10n.language),
+        trailing: DropdownButton<Locale>(
+          value: currentLocale,
+          underline: const SizedBox(),
+          items: const [
+            DropdownMenuItem(
+              value: Locale('en'),
+              child: Text('English'),
+            ),
+            DropdownMenuItem(
+              value: Locale('ru'),
+              child: Text('Русский'),
+            ),
+          ],
+          onChanged: (Locale? newLocale) async {
+            if (newLocale != null && newLocale != currentLocale) {
+              await ref.read(localeControllerProvider.notifier).setLocale(newLocale);
+              Phoenix.rebirth(context);
+            }
+          },
+        ),
+      ),
+    );
+  }
   Widget _buildDonationsSection(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;

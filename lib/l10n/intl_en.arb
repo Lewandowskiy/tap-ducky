@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "language": "Language",
   "dashboard": "Dashboard",
   "payloads": "Payloads",
   "execute": "Execute",

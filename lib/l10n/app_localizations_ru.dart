@@ -9,6 +9,9 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
+  String get language => 'Язык';
+
+  @override
   String get dashboard => 'Дашборд';
 
   @override
@@ -454,7 +457,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get executionSpeedScalesScriptDelaysTypingSpeedIsSetInSettings =>
-      'Скорость выполнения увеличевает задержки в скрипте. Скорость ввода текста задается в настройках.';
+      'Скорость выполнения увеличивает задержки в скрипте. Скорость ввода текста задается в настройках.';
 
   @override
   String get estimatedDuration => 'Оценочная длительность';
