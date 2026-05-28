@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
 
+import '../../extension/context_extensions.dart';
+
 enum GadgetProfileType {
   keyboard,
   mouse,
   composite;
 
-  String get displayName {
+  String displayName(l10n) {
     switch (this) {
       case GadgetProfileType.keyboard:
-        return 'Keyboard Only';
+        return l10n.keyboardOnly;
       case GadgetProfileType.mouse:
-        return 'Mouse Only';
+        return l10n.mouseOnly;
       case GadgetProfileType.composite:
-        return 'Composite (Keyboard + Mouse)';
+        return l10n.compositeKeyboardMouse;
     }
   }
 
-  String get description {
+  String description(l10n) {
     switch (this) {
       case GadgetProfileType.keyboard:
-        return 'Single HID keyboard device. Use for typing and key combinations.';
+        return l10n.keyboardProfileDescription;
       case GadgetProfileType.mouse:
-        return 'Single HID mouse device. Use for cursor movement and clicks.';
+        return l10n.mouseProfileDescription;
       case GadgetProfileType.composite:
-        return 'Combined keyboard and mouse. Recommended for most payloads.';
+        return l10n.compositeProfileDescription;
     }
   }
 
@@ -72,14 +74,14 @@ class _ProfileSelectorDialogState extends State<_ProfileSelectorDialog> {
     final cs = Theme.of(context).colorScheme;
 
     return AlertDialog(
-      title: const Text('Select USB Gadget Profile'),
+      title: Text(context.l10n.selectUSBGadgetProfile),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Choose the HID device type to activate:',
+              context.l10n.chooseTheHIDDeviceTypeToActivate,
               style: TextStyle(color: cs.onSurfaceVariant),
             ),
             const SizedBox(height: 16),
@@ -97,11 +99,11 @@ class _ProfileSelectorDialogState extends State<_ProfileSelectorDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(null),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.cancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(_selected),
-          child: const Text('Activate'),
+          child: Text(context.l10n.activate),
         ),
       ],
     );
@@ -151,7 +153,7 @@ class _ProfileOption extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          type.displayName,
+                          type.displayName(context.l10n),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             color: selected ? cs.onPrimaryContainer : null,
@@ -166,7 +168,7 @@ class _ProfileOption extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            'RECOMMENDED',
+                            context.l10n.recommended,
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -178,7 +180,7 @@ class _ProfileOption extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    type.description,
+                    type.description(context.l10n),
                     style: TextStyle(
                       fontSize: 12,
                       color: selected ? cs.onPrimaryContainer : cs.onSurfaceVariant,

@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../state/controllers/dynamic_color_controller.dart';
 
+import '../../../extension/context_extensions.dart';
+
 class DynamicColorsTile extends ConsumerWidget {
   const DynamicColorsTile({super.key});
 
@@ -14,11 +16,11 @@ class DynamicColorsTile extends ConsumerWidget {
 
     return ListTile(
       leading: Icon(Icons.wallpaper_rounded, color: cs.primary),
-      title: const Text('Use dynamic colors'),
+      title: Text(context.l10n.useDynamicColors),
       subtitle: Text(
         Platform.isAndroid
-            ? 'Match your system Material You palette on supported devices.'
-            : 'Dynamic colors are only available on Android 12+.',
+            ? context.l10n.matchYourSystemMaterialYouPaletteOnSupportedDevices
+            : context.l10n.dynamicColorsAreOnlyAvailableOnAndroid12,
       ),
       trailing: Switch.adaptive(
         value: enabled,

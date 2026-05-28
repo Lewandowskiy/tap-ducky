@@ -25,20 +25,20 @@ class SettingsScreen extends ConsumerWidget {
   static const String _issuesUrl = 'https://github.com/iodn/tap-ducky/issues';
   static const String _liberapayUrl = 'https://liberapay.com/KaijinLab/donate';
 
-  String _speedLabel(double multiplier, BuildContext context) {
-    if (multiplier >= 3.0) return context.l10n.verySlow;
-    if (multiplier >= 1.5) return context.l10n.slow;
-    if (multiplier >= 0.9 && multiplier <= 1.1) return context.l10n.normal;
-    if (multiplier >= 0.5) return context.l10n.fast;
-    return context.l10n.veryFast;
+  String _speedLabel(double multiplier, l10n) {
+    if (multiplier >= 3.0) return l10n.verySlow;
+    if (multiplier >= 1.5) return l10n.slow;
+    if (multiplier >= 0.9 && multiplier <= 1.1) return l10n.normal;
+    if (multiplier >= 0.5) return l10n.fast;
+    return l10n.veryFast;
   }
 
-  String _typingSpeedLabel(double factor, BuildContext context) {
-    if (factor <= 0.4) return context.l10n.veryFast;
-    if (factor <= 0.8) return context.l10n.fast;
-    if (factor <= 1.2) return context.l10n.normal;
-    if (factor <= 2.5) return context.l10n.slow;
-    return context.l10n.verySlow;
+  String _typingSpeedLabel(double factor, l10n) {
+    if (factor <= 0.4) return l10n.veryFast;
+    if (factor <= 0.8) return l10n.fast;
+    if (factor <= 1.2) return l10n.normal;
+    if (factor <= 2.5) return l10n.slow;
+    return l10n.verySlow;
   }
 
   Future<void> _resetExecutionDefaults(WidgetRef ref) async {
@@ -332,7 +332,7 @@ class SettingsScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _getThemeName(mode, context),
+                            _getThemeName(mode, context.l10n),
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.w800,
                               color: cs.onPrimaryContainer,
@@ -340,7 +340,7 @@ class SettingsScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            _getThemeDescription(mode, context),
+                            _getThemeDescription(mode, context.l10n),
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: cs.onPrimaryContainer.withOpacity(0.8),
                             ),
@@ -403,7 +403,7 @@ class SettingsScreen extends ConsumerWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        _getThemeHint(mode, context),
+                        _getThemeHint(mode, context.l10n),
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: cs.onSurfaceVariant,
                           height: 1.3,
@@ -468,7 +468,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    context.l10n.executionSpeedMultiplier(_speedLabel(s.delayMultiplier, context), s.delayMultiplier.toStringAsFixed(2)),
+                    context.l10n.executionSpeedMultiplier(_speedLabel(s.delayMultiplier, context.l10n), s.delayMultiplier.toStringAsFixed(2)),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: cs.onSurfaceVariant,
@@ -508,7 +508,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                   ),
                   Text(
-                    context.l10n.typingSpeedMultiplier(_typingSpeedLabel(s.typingSpeedFactor, context), s.typingSpeedFactor.toStringAsFixed(2)),
+                    context.l10n.typingSpeedMultiplier(_typingSpeedLabel(s.typingSpeedFactor, context.l10n), s.typingSpeedFactor.toStringAsFixed(2)),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: cs.onSurfaceVariant,
@@ -996,14 +996,14 @@ class SettingsScreen extends ConsumerWidget {
     HapticFeedback.selectionClick();
   }
 
-  String _getThemeName(ThemeMode mode, BuildContext context) {
+  String _getThemeName(ThemeMode mode, l10n) {
     switch (mode) {
       case ThemeMode.system:
-        return context.l10n.autoTheme;
+        return l10n.autoTheme;
       case ThemeMode.light:
-        return context.l10n.lightTheme;
+        return l10n.lightTheme;
       case ThemeMode.dark:
-        return context.l10n.darkTheme;
+        return l10n.darkTheme;
     }
   }
 
@@ -1018,25 +1018,25 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
-  String _getThemeDescription(ThemeMode mode, BuildContext context) {
+  String _getThemeDescription(ThemeMode mode, l10n) {
     switch (mode) {
       case ThemeMode.system:
-        return context.l10n.followsYourDeviceSettings;
+        return l10n.followsYourDeviceSettings;
       case ThemeMode.light:
-        return context.l10n.alwaysBrightAndClear;
+        return l10n.alwaysBrightAndClear;
       case ThemeMode.dark:
-        return context.l10n.easyOnTheEyes;
+        return l10n.easyOnTheEyes;
     }
   }
 
-  String _getThemeHint(ThemeMode mode, BuildContext context) {
+  String _getThemeHint(ThemeMode mode, l10n) {
     switch (mode) {
       case ThemeMode.system:
-        return context.l10n.themeModeSystem;
+        return l10n.themeModeSystem;
       case ThemeMode.light:
-        return context.l10n.themeModeLight;
+        return l10n.themeModeLight;
       case ThemeMode.dark:
-        return context.l10n.themeModeDark;
+        return l10n.themeModeDark;
     }
   }
 

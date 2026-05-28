@@ -90,7 +90,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get timeWindowsAndTriggers => 'Временные окна и триггеры';
 
   @override
-  String get themeLoggingHIDConfig => 'Тема, логгирование, конфигурация HID';
+  String get themeLoggingHIDConfig => 'Тема, логирование, конфигурация HID';
 
   @override
   String get executionHistory => 'История выполнения';
@@ -166,7 +166,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get schedules => 'Расписания';
 
   @override
-  String get logging => 'Логгирование';
+  String get logging => 'Логирование';
 
   @override
   String get on => 'ВКЛ';
@@ -460,7 +460,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Скорость выполнения увеличивает задержки в скрипте. Скорость ввода текста задается в настройках.';
 
   @override
-  String get estimatedDuration => 'Оценочная длительность';
+  String get estimatedDuration => 'Примерная длит.';
 
   @override
   String get original => 'Исходная: ';
@@ -486,7 +486,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Используйте меньшую скорость (2×–4×) для нестабильно работающих целей или при отладке. Более высокую скорость (0.25×–0.5×) — для быстрого тестирования.';
 
   @override
-  String milisec(int ms) {
+  String millisec(int ms) {
     return '$msмс';
   }
 
@@ -978,4 +978,616 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get themeModeDark =>
       'Снижает нагрузку на глаза в условиях низкой освещенности и экономит заряд батареи на OLED-экранах';
+
+  @override
+  String get useDynamicColors => 'Использовать динамические цвета';
+
+  @override
+  String get matchYourSystemMaterialYouPaletteOnSupportedDevices =>
+      'Настройте палитру Material You в соответствии с вашей системой на поддерживаемых устройствах.';
+
+  @override
+  String get dynamicColorsAreOnlyAvailableOnAndroid12 =>
+      'Динамические цвета доступны только на Android 12+.';
+
+  @override
+  String countSelected(int count) {
+    return 'Выбрано: $count';
+  }
+
+  @override
+  String get runFirstSelected => 'Запустить первую выбранную';
+
+  @override
+  String get armSessionToRun =>
+      'Переведите сессию в режим готовности для запуска';
+
+  @override
+  String get deleteSelected => 'Удалить выбранные';
+
+  @override
+  String get githubStore => 'Магазин GitHub';
+
+  @override
+  String get exportAll => 'Экспорт всего';
+
+  @override
+  String get importFromClipboard => 'Импорт из буфера обмена';
+
+  @override
+  String get manageSources => 'Управление источниками';
+
+  @override
+  String get selectMultiple => 'Выбрать несколько';
+
+  @override
+  String get tipImportPayloadsFromTheGitHubStore =>
+      'Совет: импортируйте пейлоады из магазина GitHub';
+
+  @override
+  String get open => 'Открыть';
+
+  @override
+  String searching(String query) {
+    return 'Поиск: \"$query\"';
+  }
+
+  @override
+  String get newPayload => 'Новый пейлоад';
+
+  @override
+  String get payloadDuplicated => 'Пейлоад продублирован';
+
+  @override
+  String get deletePayload => 'Удалить пейлоад';
+
+  @override
+  String deletePayloadThisCanNotBeUndone(String name) {
+    return 'Удалить «$name»? Это действие нельзя отменить.';
+  }
+
+  @override
+  String get delete => 'Удалить';
+
+  @override
+  String get deletePayloads => 'Удалить пейлоады';
+
+  @override
+  String deleteCountPayloadsThisCanNotBeUndone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count пейлоадов',
+      few: '$count пейлоада',
+      one: '1 пейлоад',
+    );
+    return 'Удалить $_temp0? Это действие нельзя отменить.';
+  }
+
+  @override
+  String get importPayloads => 'Импорт пейлоадов';
+
+  @override
+  String get pastePayloadJSONOrAPayloadPackJSONBelow =>
+      'Вставьте ниже JSON пейлоада или пакет JSON пейлоадов:';
+
+  @override
+  String get import => 'Импорт';
+
+  @override
+  String get noPayloadsFoundInInput =>
+      'В введенных данных пейлоадов не обнаружено.';
+
+  @override
+  String importedCountPayloads(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Импортированы',
+      few: 'Ипортировано',
+      one: 'Импортирован',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count пейлоадов',
+      few: '$count пейлоада',
+      one: ' 1 пейлоад',
+    );
+    return '$_temp0 $_temp1.';
+  }
+
+  @override
+  String importFailedError(String error) {
+    return 'Не удалось выполнить импорт: $error';
+  }
+
+  @override
+  String get searchPayloads => 'Поиск пейлоадов';
+
+  @override
+  String get search => 'Поиск';
+
+  @override
+  String get nameTagsScriptContent => 'Название, теги, содержимое скрипта...';
+
+  @override
+  String get all => 'Все';
+
+  @override
+  String get collapse => 'Свернуть';
+
+  @override
+  String get expandPreview => 'Развернуть';
+
+  @override
+  String get scriptPreview => 'Предпросмотр скрипта';
+
+  @override
+  String get duplicate => 'Дублировать';
+
+  @override
+  String get export => 'Экспорт';
+
+  @override
+  String get yourScriptLibrary => 'Ваша библиотека скриптов';
+
+  @override
+  String get createOrganizeAndExecuteYourCustomHIDPayloads =>
+      'Создавайте, упорядочивайте и выполняйте свои кастомные пейлоады HID';
+
+  @override
+  String get createAPayload => 'Создать пейлоад';
+
+  @override
+  String get writeDuckyScriptCommandsOrUseTemplates =>
+      'Пишите команды DuckyScript или используйте шаблоны';
+
+  @override
+  String get organizeWithTags => 'Упорядочивание с помощью тегов';
+
+  @override
+  String get groupPayloadsByCategoryOrPurpose =>
+      'Группируйте пейлоады по категориям или назначению';
+
+  @override
+  String get executeAndShare => 'Выполненить и отправить';
+
+  @override
+  String get runOnTargetOrExportToShare =>
+      'Запускайте на целевой системе или экспортируйте для совместного использования';
+
+  @override
+  String get createYourFirstPayload => 'Создайте свой первый пейлоад';
+
+  @override
+  String get importExistingPayloads => 'Импортировать существующие пейлоады';
+
+  @override
+  String get noPayloadsFound => 'Пейлоады не найдены';
+
+  @override
+  String noResultsForQuery(String query) {
+    return 'Нет результатов по запросу «$query»';
+  }
+
+  @override
+  String noPayloadsWithTag(String tag) {
+    return 'Нет пейлоадов с тегом «$tag»';
+  }
+
+  @override
+  String get tryAdjustingYourFilters =>
+      'Попробуйте изменить настройки фильтров';
+
+  @override
+  String get clearFilters => 'Сбросить фильтры';
+
+  @override
+  String get discardChanges => 'Отклонить изменения?';
+
+  @override
+  String get youHaveUnsavedChangesDiscardThem =>
+      'У вас есть несохраненные изменения. Отклонить их?';
+
+  @override
+  String get showValidationIssues => 'Показать проблемы валидации';
+
+  @override
+  String get thisIsABuildInPayload =>
+      'Это встроенный пейлоад. Вы можете продублировать ее, чтобы создать собственную версию.';
+
+  @override
+  String get basicInfo => 'Основная информация';
+
+  @override
+  String get name => 'Название';
+
+  @override
+  String get egWindowsRunDialog => 'пр., Откр. «Выполнить» в Windows';
+
+  @override
+  String get nameIsRequired => 'Обязателен';
+
+  @override
+  String get description => 'Описание';
+
+  @override
+  String get whatDoesThisPayloadDo => 'Что делает этот пейлоад?';
+
+  @override
+  String get tags => 'Теги';
+
+  @override
+  String get windowsReconExfilCommaSeparated => 'windows, lang (через запятую)';
+
+  @override
+  String get script => 'Скрипт';
+
+  @override
+  String get syntax => 'Синтаксис';
+
+  @override
+  String get helloWorld => 'Привет, мир';
+
+  @override
+  String get scriptIsRequired => 'Обязателен';
+
+  @override
+  String usePARAM_NAMEForDynamicValues(String PARAM_NAME) {
+    return 'Используйте $PARAM_NAME для динамических значений';
+  }
+
+  @override
+  String parametersCount(int count) {
+    return 'Параметры ($count)';
+  }
+
+  @override
+  String get add => 'Добавить';
+
+  @override
+  String get noParameters => 'Нет параметров';
+
+  @override
+  String get addParametersToMakeThispayloadReusableWithDifferentValues =>
+      'Добавьте параметры, чтобы использовать этот пейлоад повторно с другими значениями.';
+
+  @override
+  String get quickActions => 'Быстрые действия';
+
+  @override
+  String get createACopyOfThisPayload => 'Создать копию этого пейлоада';
+
+  @override
+  String get shareAsJSON => 'Поделиться как JSON';
+
+  @override
+  String get removeThisPayloadPermanently =>
+      'Удалить этот пейлоад безвозвратно';
+
+  @override
+  String get cannotSaveScriptHasValidationErrors =>
+      'Не удалось сохранить: в скрипте присутствуют ошибки валидации';
+
+  @override
+  String get payloadCreated => 'Пейлоад создан';
+
+  @override
+  String get payloadUpdated => 'Пейлоад обновлен';
+
+  @override
+  String get duckyScriptSyntax => 'Синтаксис DuckyScript';
+
+  @override
+  String get keystrokeInjection => 'Имитация нажатия клавиш';
+
+  @override
+  String get text => 'текст';
+
+  @override
+  String get typeText => 'Ввод текста';
+
+  @override
+  String get typeTextPlusEnter => 'Ввод текста + Enter';
+
+  @override
+  String get ms => 'мс';
+
+  @override
+  String get waitMilliseconds => 'Ожидание в миллисекундах';
+
+  @override
+  String get pressEnter => 'Нажатие Enter';
+
+  @override
+  String get pressTab => 'Нажатие Tab';
+
+  @override
+  String get pressEscape => 'Нажатие Escape';
+
+  @override
+  String get pressBackspace => 'Нажатие Backspace';
+
+  @override
+  String get pressDelete => 'Нажатие Delete';
+
+  @override
+  String get parameterPlaceholder => 'Плейсхолдер параметра';
+
+  @override
+  String get defineVariable => 'Определить переменную';
+
+  @override
+  String get defineConstant => 'Определить константу';
+
+  @override
+  String get close => 'Закрыть';
+
+  @override
+  String get scriptHasErrors => 'В скрипте есть ошибки';
+
+  @override
+  String get scriptHasWarnings => 'В скрипте есть предупреждения';
+
+  @override
+  String get scriptIsValid => 'Скрипт корректен';
+
+  @override
+  String countCommands(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count команд',
+      few: '$count команды',
+      one: '1 команда',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String countErrors(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ошибок',
+      few: '$count ошибки',
+      one: '1 ошибка',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String countWarnings(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count предупреждений',
+      few: '$count предупреждения',
+      one: '1 предупреждение',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get validationResults => 'Результаты валидации';
+
+  @override
+  String totalDelays(String sec) {
+    return 'Общая задержка: $secс';
+  }
+
+  @override
+  String get noIssuesFoundScriptIsValid =>
+      'Проблем не обнаружено. Скрипт корректен!';
+
+  @override
+  String issuesCount(int count) {
+    return 'Проблемы: $count';
+  }
+
+  @override
+  String lineNum(int num) {
+    return 'Строка $num';
+  }
+
+  @override
+  String get paramRequired => 'обязательно';
+
+  @override
+  String get addParameter => 'Добавить параметр';
+
+  @override
+  String get editParameter => 'Редактировать параметр';
+
+  @override
+  String get key => 'Ключ';
+
+  @override
+  String get requiredCap => 'Обязателен';
+
+  @override
+  String get label => 'Метка';
+
+  @override
+  String get targetIPAddress => 'Целевой IP-адрес';
+
+  @override
+  String get optionalDescription => 'Опциональное описание';
+
+  @override
+  String get textCap => 'Текст';
+
+  @override
+  String get number => 'Число';
+
+  @override
+  String get url => 'URL';
+
+  @override
+  String get type => 'Тип';
+
+  @override
+  String get defaultValue => 'Значение по умолчанию';
+
+  @override
+  String get keyboardOnly => 'Только клавиатура';
+
+  @override
+  String get mouseOnly => 'Только мышь';
+
+  @override
+  String get compositeKeyboardMouse => 'Композитное';
+
+  @override
+  String get keyboardProfileDescription =>
+      'Одиночное HID-устройство клавиатуры. Используется для ввода текста и комбинаций клавиш.';
+
+  @override
+  String get mouseProfileDescription =>
+      'Одиночное HID-устройство мыши. Используется для перемещения курсора и кликов.';
+
+  @override
+  String get compositeProfileDescription =>
+      'Совмещение клавиатуры и мыши. Рекомендуется для большинства полезных нагрузок.';
+
+  @override
+  String get selectUSBGadgetProfile => 'Выберите профиль USB-гаджета';
+
+  @override
+  String get chooseTheHIDDeviceTypeToActivate =>
+      'Выберите тип HID-устройства для активации:';
+
+  @override
+  String get activate => 'Активировать';
+
+  @override
+  String get recommended => 'РЕКОМЕНД.';
+
+  @override
+  String get clearLogs => 'Очистить логи';
+
+  @override
+  String get deleteAllStoredLogs => 'Удалить все сохраненные логи?';
+
+  @override
+  String get clear => 'Очистить';
+
+  @override
+  String get clearAll => 'Очистить все';
+
+  @override
+  String get level => 'Уровень:';
+
+  @override
+  String failedToLoadLogsError(String error) {
+    return 'Не удалось загрузить логи: $error';
+  }
+
+  @override
+  String get noLogsYet => 'Логов пока нет';
+
+  @override
+  String get noMatchingLogs => 'Нет соответствующих логов';
+
+  @override
+  String get runAPayloadToGenerateLogs =>
+      'Запустите пейлоад для генерации логов.';
+
+  @override
+  String get changeTheLevelFilterToSeeMoreEntries =>
+      'Измените фильтр уровня, чтобы увидеть больше записей.';
+
+  @override
+  String get logEntry => 'Запись лога';
+
+  @override
+  String get share => 'Поделиться';
+
+  @override
+  String failedToLoadLogs(String error) {
+    return 'Не удалось загрузить логи: $error';
+  }
+
+  @override
+  String get logEntryNotFound => 'Запись лога не найдена.';
+
+  @override
+  String get metadata => 'Метаданные';
+
+  @override
+  String get noMetadata => 'Нет метаданных';
+
+  @override
+  String get failedToLoadHistory => 'Не удалось загрузить историю';
+
+  @override
+  String get noExecutionHistory => 'Нет истории выполнения';
+
+  @override
+  String get runAPayloadToSeeExecutionHistoryHere =>
+      'Запустите пейлоад, чтобы увидеть здесь историю выполнения.';
+
+  @override
+  String get clearExecutionHistory => 'Очистить историю выполнения';
+
+  @override
+  String get thisWillDeleteAllExecutionLogs =>
+      'Это приведет к удалению всех логов выполнения. Данное действие нельзя отменить.';
+
+  @override
+  String get total => 'Всего';
+
+  @override
+  String get success => 'Успешно';
+
+  @override
+  String get failed => 'Не удачные';
+
+  @override
+  String get hour => 'ч';
+
+  @override
+  String countEvents(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count событий',
+      few: '$count события',
+      one: '1 событие',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get executionDetails => 'Сведения о выполнении';
+
+  @override
+  String get executionID => 'ID выпол.';
+
+  @override
+  String get started => 'Запущено';
+
+  @override
+  String get finished => 'Завершено';
+
+  @override
+  String get duration => 'Длительность';
+
+  @override
+  String eventsCount(int count) {
+    return 'Событий ($count)';
+  }
+
+  @override
+  String get sAgo => 'с назад';
+
+  @override
+  String get mAgo => 'мин назад';
+
+  @override
+  String get hAgo => 'ч назад';
+
+  @override
+  String get dAgo => 'дн назад';
 }

@@ -5,6 +5,8 @@ import '../../data/models/log_entry.dart';
 import '../../state/controllers/logs_controller.dart';
 import '../../widgets/empty_state.dart';
 
+import '../../extension/context_extensions.dart';
+
 class ExecutionHistoryScreen extends ConsumerWidget {
   const ExecutionHistoryScreen({super.key});
 
@@ -14,10 +16,10 @@ class ExecutionHistoryScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Execution History'),
+        title: Text(context.l10n.executionHistory),
         actions: [
           IconButton(
-            tooltip: 'Clear all',
+            tooltip: context.l10n.clearAll,
             onPressed: () async {
               final ok = await _showClearConfirmation(context);
               if (ok) {
@@ -38,7 +40,7 @@ class ExecutionHistoryScreen extends ConsumerWidget {
               children: [
                 Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.error),
                 const SizedBox(height: 16),
-                Text('Failed to load history', style: Theme.of(context).textTheme.titleLarge),
+                Text(context.l10n.failedToLoadHistory, style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text('$e', textAlign: TextAlign.center),
               ],
@@ -49,9 +51,9 @@ class ExecutionHistoryScreen extends ConsumerWidget {
           final groups = ExecutionGroup.fromLogs(logs);
 
           if (groups.isEmpty) {
-            return const EmptyState(
-              title: 'No execution history',
-              subtitle: 'Run a payload to see execution history here.',
+            return EmptyState(
+              title: context.l10n.noExecutionHistory,
+              subtitle: context.l10n.runAPayloadToSeeExecutionHistoryHere,
               icon: Icons.history,
             );
           }
@@ -78,19 +80,19 @@ class ExecutionHistoryScreen extends ConsumerWidget {
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Clear execution history'),
-        content: const Text('This will delete all execution logs. This cannot be undone.'),
+        title: Text(context.l10n.clearExecutionHistory),
+        content: Text(context.l10n.thisWillDeleteAllExecutionLogs),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: FilledButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text('Clear'),
+            child: Text(context.l10n.clear),
           ),
         ],
       ),
@@ -123,28 +125,28 @@ class _StatisticsBar extends StatelessWidget {
         children: [
           _StatChip(
             icon: Icons.history,
-            label: 'Total',
+            label: context.l10n.total,
             value: '$total',
             color: cs.primary,
           ),
           const SizedBox(width: 12),
           _StatChip(
             icon: Icons.check_circle,
-            label: 'Success',
+            label: context.l10n.success,
             value: '$successful',
             color: cs.primary,
           ),
           const SizedBox(width: 12),
           _StatChip(
             icon: Icons.error,
-            label: 'Failed',
+            label: context.l10n.failed,
             value: '$failed',
             color: cs.error,
           ),
           const SizedBox(width: 12),
           _StatChip(
             icon: Icons.access_time,
-            label: '24h',
+            label: '24${context.l10n.hour}',
             value: '$last24h',
             color: cs.tertiary,
           ),
@@ -286,7 +288,7 @@ class _ExecutionGroupTileState extends State<_ExecutionGroupTile> {
                             Icon(Icons.article, size: 14, color: cs.onSurfaceVariant),
                             const SizedBox(width: 4),
                             Text(
-                              '${g.totalEvents} events',
+                              context.l10n.countEvents(g.totalEvents),
                               style: TextStyle(
                                 fontSize: 12,
                                 color: cs.onSurfaceVariant,
@@ -344,7 +346,7 @@ class _ExecutionGroupTileState extends State<_ExecutionGroupTile> {
                       Icon(Icons.info_outline, size: 16, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        'Execution Details',
+                        context.l10n.executionDetails,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -355,19 +357,19 @@ class _ExecutionGroupTileState extends State<_ExecutionGroupTile> {
                   ),
                   const SizedBox(height: 8),
                   _DetailRow(
-                    label: 'Execution ID',
+                    label: context.l10n.executionID,
                     value: g.executionId.substring(0, 8),
                   ),
                   _DetailRow(
-                    label: 'Started',
+                    label: context.l10n.started,
                     value: _formatFullTimestamp(g.startTime),
                   ),
                   _DetailRow(
-                    label: 'Finished',
+                    label: context.l10n.finished,
                     value: _formatFullTimestamp(g.endTime),
                   ),
                   _DetailRow(
-                    label: 'Duration',
+                    label: context.l10n.duration,
                     value: g.durationFormatted,
                   ),
                   const SizedBox(height: 12),
@@ -376,7 +378,7 @@ class _ExecutionGroupTileState extends State<_ExecutionGroupTile> {
                       Icon(Icons.list, size: 16, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        'Events (${g.events.length})',
+                        context.l10n.eventsCount(g.events.length),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
@@ -400,10 +402,10 @@ class _ExecutionGroupTileState extends State<_ExecutionGroupTile> {
     final now = DateTime.now();
     final diff = now.difference(dt);
 
-    if (diff.inSeconds < 60) return '${diff.inSeconds}s ago';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
-    if (diff.inHours < 24) return '${diff.inHours}h ago';
-    if (diff.inDays < 7) return '${diff.inDays}d ago';
+    if (diff.inSeconds < 60) return '${diff.inSeconds}${context.l10n.sAgo}';
+    if (diff.inMinutes < 60) return '${diff.inMinutes}${context.l10n.mAgo}';
+    if (diff.inHours < 24) return '${diff.inHours}${context.l10n.hAgo}';
+    if (diff.inDays < 7) return '${diff.inDays}${context.l10n.dAgo}';
 
     return '${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')} '
         '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';

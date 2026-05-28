@@ -11,6 +11,8 @@ import '../../state/controllers/logs_controller.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../../widgets/empty_state.dart';
 
+import '../../extension/context_extensions.dart';
+
 class LogsScreen extends ConsumerStatefulWidget {
   const LogsScreen({super.key});
 
@@ -27,7 +29,7 @@ class _LogsScreenState extends ConsumerState<LogsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Logs'),
+        title: Text(context.l10n.logs),
         actions: [
           PopupMenuButton<String>(
             onSelected: (v) async {
@@ -37,18 +39,18 @@ class _LogsScreenState extends ConsumerState<LogsScreen> {
               } else if (v == 'clear') {
                 final ok = await showConfirmDialog(
                   context,
-                  title: 'Clear logs',
-                  message: 'Delete all stored logs?',
-                  confirmLabel: 'Clear',
+                  title: context.l10n.clearLogs,
+                  message: context.l10n.deleteAllStoredLogs,
+                  confirmLabel: context.l10n.clear,
                   dangerous: true,
                 );
                 if (!ok) return;
                 await ref.read(logsControllerProvider.notifier).clear();
               }
             },
-            itemBuilder: (_) => const [
-              PopupMenuItem(value: 'export', child: Text('Export')),
-              PopupMenuItem(value: 'clear', child: Text('Clear all')),
+            itemBuilder: (_) => [
+              PopupMenuItem(value: 'export', child: Text(context.l10n.export)),
+              PopupMenuItem(value: 'clear', child: Text(context.l10n.clearAll)),
             ],
           ),
         ],
@@ -58,7 +60,7 @@ class _LogsScreenState extends ConsumerState<LogsScreen> {
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 10),
             child: Row(
               children: [
-                const Text('Level:'),
+                Text(context.l10n.level),
                 const SizedBox(width: 10),
                 DropdownButton<String>(
                   value: _level,
@@ -78,13 +80,13 @@ class _LogsScreenState extends ConsumerState<LogsScreen> {
       ),
       body: async.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Failed to load logs: $e')),
+        error: (e, st) => Center(child: Text(context.l10n.failedToLoadLogsError(e.toString()))),
         data: (items) {
           final filtered = _level == 'all' ? items : items.where((e) => e.level == _level).toList();
           if (filtered.isEmpty) {
             return EmptyState(
-              title: items.isEmpty ? 'No logs yet' : 'No matching logs',
-              subtitle: items.isEmpty ? 'Run a payload to generate logs.' : 'Change the level filter to see more entries.',
+              title: items.isEmpty ? context.l10n.noLogsYet : context.l10n.noMatchingLogs,
+              subtitle: items.isEmpty ? context.l10n.runAPayloadToGenerateLogs : context.l10n.changeTheLevelFilterToSeeMoreEntries,
               icon: Icons.list_alt_outlined,
             );
           }

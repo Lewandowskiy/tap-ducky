@@ -14,6 +14,8 @@ import '../../state/controllers/payloads_controller.dart';
 import '../../state/providers.dart';
 import '../../widgets/confirm_dialog.dart';
 
+import '../../extension/context_extensions.dart';
+
 @immutable
 class PayloadsUiState {
   const PayloadsUiState({
@@ -137,8 +139,8 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: ui.selectionMode
-            ? Text('${ui.selectedIds.length} selected')
-            : const Text('Payloads'),
+            ? Text(context.l10n.countSelected(ui.selectedIds.length))
+            : Text(context.l10n.payloads),
         leading: ui.selectionMode
             ? IconButton(
                 icon: const Icon(Icons.close),
@@ -149,7 +151,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
             ? [
                 IconButton(
                   icon: const Icon(Icons.play_arrow),
-                  tooltip: canRunNow ? 'Run first selected' : 'Arm session to run',
+                  tooltip: canRunNow ? context.l10n.runFirstSelected : context.l10n.armSessionToRun,
                   onPressed: (!canRunNow || ui.selectedIds.isEmpty)
                       ? null
                       : () {
@@ -165,18 +167,18 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.delete),
-                  tooltip: 'Delete selected',
+                  tooltip: context.l10n.deleteSelected,
                   onPressed: ui.selectedIds.isEmpty ? null : () => _deleteSelected(context),
                 ),
               ]
             : [
                 IconButton(
-                  tooltip: 'Search',
+                  tooltip: context.l10n.search,
                   onPressed: () => _showSearchSheet(context),
                   icon: const Icon(Icons.search),
                 ),
                 IconButton(
-                  tooltip: 'GitHub Store',
+                  tooltip: context.l10n.githubStore,
                   onPressed: () => context.go(const PayloadsStoreRoute().location),
                   icon: const Icon(Icons.cloud_download),
                 ),
@@ -185,7 +187,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                     if (v == 'export_all') {
                       await _exportAll(context, async.value ?? []);
                     } else if (v == 'import') {
-                      await _importFromClipboard(context);
+                      await _importFromClipboard(context, context.l10n);
                     } else if (v == 'store') {
                       if (context.mounted) context.go(const PayloadsStoreRoute().location);
                     } else if (v == 'manage_store') {
@@ -194,13 +196,13 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                       ref.read(payloadsUiProvider.notifier).enterSelectionMode();
                     }
                   },
-                  itemBuilder: (_) => const [
-                    PopupMenuItem(value: 'export_all', child: Text('Export all')),
-                    PopupMenuItem(value: 'import', child: Text('Import from clipboard')),
-                    PopupMenuItem(value: 'store', child: Text('Open GitHub Store')),
-                    PopupMenuItem(value: 'manage_store', child: Text('Manage Sources')),
+                  itemBuilder: (_) => [
+                    PopupMenuItem(value: 'export_all', child: Text(context.l10n.exportAll)),
+                    PopupMenuItem(value: 'import', child: Text(context.l10n.importFromClipboard)),
+                    PopupMenuItem(value: 'store', child: Text(context.l10n.githubStore)),
+                    PopupMenuItem(value: 'manage_store', child: Text(context.l10n.manageSources)),
                     PopupMenuDivider(),
-                    PopupMenuItem(value: 'select', child: Text('Select multiple')),
+                    PopupMenuItem(value: 'select', child: Text(context.l10n.selectMultiple)),
                   ],
                 ),
               ],
@@ -215,7 +217,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
               children: [
                 const Icon(Icons.error_outline, size: 48),
                 const SizedBox(height: 16),
-                Text('Failed to load payloads', style: Theme.of(context).textTheme.titleMedium),
+                Text(context.l10n.failedToLoadPayloads, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 8),
                 Text('$e', textAlign: TextAlign.center),
               ],
@@ -233,9 +235,9 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                     SnackBar(
                       behavior: SnackBarBehavior.floating,
                       showCloseIcon: true,
-                      content: const Text('Tip: Import payloads from the GitHub Store'),
+                      content: Text(context.l10n.tipImportPayloadsFromTheGitHubStore),
                       action: SnackBarAction(
-                        label: 'Open',
+                        label: context.l10n.open,
                         onPressed: () => context.go(const PayloadsStoreRoute().location),
                       ),
                       duration: const Duration(seconds: 5),
@@ -248,7 +250,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
 
             return _EmptyStateWizard(
               onCreateTap: () => context.go('${const PayloadsRoute().location}/new'),
-              onImportTap: () => _importFromClipboard(context),
+              onImportTap: () => _importFromClipboard(context, context.l10n),
               onOpenStoreTap: () => context.go(const PayloadsStoreRoute().location),
             );
           }
@@ -269,7 +271,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          'Searching: "${ui.searchQuery}"',
+                          context.l10n.searching(ui.searchQuery),
                           style: const TextStyle(fontSize: 13),
                         ),
                       ),
@@ -329,7 +331,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                                         ref.read(executionControllerProvider.notifier).runPayload(p, defaultParams(p));
                                       }
                                     : null,
-                                onDuplicate: () => _duplicate(p.id),
+                                onDuplicate: () => _duplicate(p.id, context.l10n),
                                 onExport: () => _exportOne(context, p),
                                 onDelete: p.isBuiltin ? null : () => _delete(context, p),
                               ),
@@ -347,7 +349,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
           : FloatingActionButton.extended(
               onPressed: () => context.go('${const PayloadsRoute().location}/new'),
               icon: const Icon(Icons.add),
-              label: const Text('New Payload'),
+              label: Text(context.l10n.newPayload),
             ),
     );
   }
@@ -376,11 +378,11 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
     return filtered;
   }
 
-  Future<void> _duplicate(String id) async {
+  Future<void> _duplicate(String id, l10n) async {
     await ref.read(payloadsControllerProvider.notifier).duplicate(id);
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Payload duplicated')),
+        SnackBar(content: Text(l10n.payloadDuplicated)),
       );
     }
   }
@@ -388,9 +390,9 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
   Future<void> _delete(BuildContext context, Payload payload) async {
     final ok = await showConfirmDialog(
       context,
-      title: 'Delete payload',
-      message: 'Delete "${payload.name}"? This cannot be undone.',
-      confirmLabel: 'Delete',
+      title: context.l10n.deletePayload,
+      message: context.l10n.deletePayloadThisCanNotBeUndone(payload.name),
+      confirmLabel: context.l10n.delete,
       dangerous: true,
     );
     if (!ok) return;
@@ -401,9 +403,9 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
     final ids = ref.read(payloadsUiProvider).selectedIds;
     final ok = await showConfirmDialog(
       context,
-      title: 'Delete payloads',
-      message: 'Delete ${ids.length} payload(s)? This cannot be undone.',
-      confirmLabel: 'Delete',
+      title: context.l10n.deletePayloads,
+      message: context.l10n.deleteCountPayloadsThisCanNotBeUndone(ids.length),
+      confirmLabel: context.l10n.delete,
       dangerous: true,
     );
     if (!ok) return;
@@ -430,18 +432,18 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
     await Share.share(data, subject: 'TapDucky payload pack');
   }
 
-  Future<void> _importFromClipboard(BuildContext context) async {
+  Future<void> _importFromClipboard(BuildContext context, l10n) async {
     final ctrl = TextEditingController();
     final res = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Import payload(s)'),
+        title: Text(l10n.importPayloads),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Paste payload JSON or a payload pack JSON below:'),
+              Text(l10n.pastePayloadJSONOrAPayloadPackJSONBelow),
               const SizedBox(height: 12),
               TextField(
                 controller: ctrl,
@@ -457,11 +459,11 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(null),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(ctrl.text),
-            child: const Text('Import'),
+            child: Text(l10n.import),
           ),
         ],
       ),
@@ -485,18 +487,18 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
         }
       }
 
-      if (incoming.isEmpty) throw const FormatException('No payloads found in input.');
+      if (incoming.isEmpty) throw FormatException(l10n.noPayloadsFoundInInput);
       await ref.read(payloadsControllerProvider.notifier).importMany(incoming);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Imported ${incoming.length} payload(s).')),
+          SnackBar(content: Text(l10n.importedCountPayloads(incoming.length))),
         );
       }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Import failed: $e')),
+        SnackBar(content: Text(l10n.importFailedError(e.toString()))),
       );
     }
   }
@@ -517,8 +519,8 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                   controller: _searchCtrl,
                   autofocus: true,
                   decoration: InputDecoration(
-                    labelText: 'Search payloads',
-                    hintText: 'Name, tags, script content...',
+                    labelText: context.l10n.searchPayloads,
+                    hintText: context.l10n.nameTagsScriptContent,
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: _searchCtrl.text.isNotEmpty
                         ? IconButton(
@@ -544,7 +546,7 @@ class _PayloadsScreenState extends ConsumerState<PayloadsScreen> {
                       ref.read(payloadsUiProvider.notifier).setSearchQuery(_searchCtrl.text);
                       Navigator.pop(context);
                     },
-                    child: const Text('Search'),
+                    child: Text(context.l10n.search),
                   ),
                 ),
               ],
@@ -575,7 +577,7 @@ class _TagFilterBar extends ConsumerWidget {
         itemBuilder: (context, i) {
           if (i == 0) {
             return FilterChip(
-              label: const Text('All'),
+              label: Text(context.l10n.all),
               selected: selectedTag == null,
               onSelected: (_) => ref.read(payloadsUiProvider.notifier).setTag(null),
             );
@@ -696,7 +698,7 @@ class _PayloadCardState extends State<_PayloadCard> {
                     IconButton(
                       icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
                       onPressed: () => setState(() => _expanded = !_expanded),
-                      tooltip: _expanded ? 'Collapse' : 'Expand preview',
+                      tooltip: _expanded ? context.l10n.collapse : context.l10n.expandPreview,
                     ),
                   ],
                 ],
@@ -743,7 +745,7 @@ class _PayloadCardState extends State<_PayloadCard> {
                         Icon(Icons.code, size: 14, color: cs.onSurfaceVariant),
                         const SizedBox(width: 6),
                         Text(
-                          'Script Preview',
+                          context.l10n.scriptPreview,
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -777,7 +779,7 @@ class _PayloadCardState extends State<_PayloadCard> {
                       child: FilledButton.tonalIcon(
                         onPressed: widget.onRun,
                         icon: const Icon(Icons.play_arrow, size: 18),
-                        label: const Text('Run'),
+                        label: Text(context.l10n.run),
                         style: FilledButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                         ),
@@ -787,18 +789,18 @@ class _PayloadCardState extends State<_PayloadCard> {
                     IconButton.outlined(
                       onPressed: widget.onDuplicate,
                       icon: const Icon(Icons.content_copy, size: 18),
-                      tooltip: 'Duplicate',
+                      tooltip: context.l10n.duplicate,
                     ),
                     IconButton.outlined(
                       onPressed: widget.onExport,
                       icon: const Icon(Icons.ios_share, size: 18),
-                      tooltip: 'Export',
+                      tooltip: context.l10n.export,
                     ),
                     if (widget.onDelete != null)
                       IconButton.outlined(
                         onPressed: widget.onDelete,
                         icon: Icon(Icons.delete, size: 18, color: cs.error),
-                        tooltip: 'Delete',
+                        tooltip: context.l10n.delete,
                       ),
                   ],
                 ),
@@ -841,14 +843,14 @@ class _EmptyStateWizard extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Your Script Library',
+              context.l10n.yourScriptLibrary,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
             ),
             const SizedBox(height: 12),
             Text(
-              'Create, organize, and execute your custom HID payloads',
+              context.l10n.createOrganizeAndExecuteYourCustomHIDPayloads,
               style: TextStyle(color: cs.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
@@ -857,25 +859,25 @@ class _EmptyStateWizard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
-                  children: const [
+                  children: [
                     _WizardStep(
                       number: '1',
-                      title: 'Create a Payload',
-                      description: 'Write DuckyScript commands or use templates',
+                      title: context.l10n.createAPayload,
+                      description: context.l10n.writeDuckyScriptCommandsOrUseTemplates,
                       icon: Icons.edit_note,
                     ),
                     SizedBox(height: 16),
                     _WizardStep(
                       number: '2',
-                      title: 'Organize with Tags',
-                      description: 'Group payloads by category or purpose',
+                      title: context.l10n.organizeWithTags,
+                      description: context.l10n.groupPayloadsByCategoryOrPurpose,
                       icon: Icons.label,
                     ),
                     SizedBox(height: 16),
                     _WizardStep(
                       number: '3',
-                      title: 'Execute & Share',
-                      description: 'Run on target or export to share',
+                      title: context.l10n.executeAndShare,
+                      description: context.l10n.runOnTargetOrExportToShare,
                       icon: Icons.rocket_launch,
                     ),
                   ],
@@ -888,7 +890,7 @@ class _EmptyStateWizard extends StatelessWidget {
               child: FilledButton.icon(
                 onPressed: onCreateTap,
                 icon: const Icon(Icons.add),
-                label: const Text('Create Your First Payload'),
+                label: Text(context.l10n.createYourFirstPayload),
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -900,7 +902,7 @@ class _EmptyStateWizard extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: onImportTap,
                 icon: const Icon(Icons.download),
-                label: const Text('Import Existing Payloads'),
+                label: Text(context.l10n.importExistingPayloads),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -912,7 +914,7 @@ class _EmptyStateWizard extends StatelessWidget {
               child: OutlinedButton.icon(
                 onPressed: onOpenStoreTap,
                 icon: const Icon(Icons.cloud_download),
-                label: const Text('Import from GitHub Store'),
+                label: Text(context.l10n.importFromGitHubStore),
                 style: OutlinedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -1007,7 +1009,7 @@ class _EmptyFilterResult extends StatelessWidget {
             Icon(Icons.search_off, size: 64, color: cs.onSurfaceVariant),
             const SizedBox(height: 16),
             Text(
-              'No payloads found',
+              context.l10n.noPayloadsFound,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
@@ -1015,10 +1017,10 @@ class _EmptyFilterResult extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               query.isNotEmpty
-                  ? 'No results for "$query"'
+                  ? context.l10n.noResultsForQuery(query)
                   : tag != null
-                      ? 'No payloads with tag "$tag"'
-                      : 'Try adjusting your filters',
+                      ? context.l10n.noPayloadsWithTag(tag.toString())
+                      : context.l10n.tryAdjustingYourFilters,
               style: TextStyle(color: cs.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
@@ -1026,7 +1028,7 @@ class _EmptyFilterResult extends StatelessWidget {
             FilledButton.icon(
               onPressed: onClear,
               icon: const Icon(Icons.clear_all),
-              label: const Text('Clear Filters'),
+              label: Text(context.l10n.clearFilters),
             ),
           ],
         ),
@@ -1062,7 +1064,7 @@ class _SpeedDialFAB extends StatelessWidget {
               controller.reverse();
               onExportAllTap();
             },
-            tooltip: 'Export all',
+            tooltip: context.l10n.exportAll,
             child: const Icon(Icons.ios_share),
           ),
         ),
@@ -1075,7 +1077,7 @@ class _SpeedDialFAB extends StatelessWidget {
               controller.reverse();
               onImportTap();
             },
-            tooltip: 'Import',
+            tooltip: context.l10n.import,
             child: const Icon(Icons.download),
           ),
         ),
@@ -1093,7 +1095,7 @@ class _SpeedDialFAB extends StatelessWidget {
             icon: AnimatedIcons.menu_close,
             progress: controller,
           ),
-          label: const Text('New'),
+          label: Text(context.l10n.createNew),
         ),
       ],
     );

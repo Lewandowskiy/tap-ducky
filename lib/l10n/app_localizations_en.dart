@@ -479,7 +479,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Use slower speeds (2×-4×) for unreliable targets or debugging. Faster speeds (0.25×-0.5×) for quick testing.';
 
   @override
-  String milisec(int ms) {
+  String millisec(int ms) {
     return '${ms}ms';
   }
 
@@ -967,4 +967,597 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get themeModeDark =>
       'Reduces eye strain in low-light conditions and saves battery on OLED screens';
+
+  @override
+  String get useDynamicColors => 'Use dynamic colors';
+
+  @override
+  String get matchYourSystemMaterialYouPaletteOnSupportedDevices =>
+      'Match your system Material You palette on supported devices.';
+
+  @override
+  String get dynamicColorsAreOnlyAvailableOnAndroid12 =>
+      'Dynamic colors are only available on Android 12+.';
+
+  @override
+  String countSelected(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get runFirstSelected => 'Run first selected';
+
+  @override
+  String get armSessionToRun => 'Arm session to run';
+
+  @override
+  String get deleteSelected => 'Delete selected';
+
+  @override
+  String get githubStore => 'GitHub Store';
+
+  @override
+  String get exportAll => 'Export all';
+
+  @override
+  String get importFromClipboard => 'Import from clipboard';
+
+  @override
+  String get manageSources => 'Manage sources';
+
+  @override
+  String get selectMultiple => 'Select multiple';
+
+  @override
+  String get tipImportPayloadsFromTheGitHubStore =>
+      'Tip: Import payloads from the GitHub Store';
+
+  @override
+  String get open => 'Open';
+
+  @override
+  String searching(String query) {
+    return 'Searching: \"$query\"';
+  }
+
+  @override
+  String get newPayload => 'New Payload';
+
+  @override
+  String get payloadDuplicated => 'Payload duplicated';
+
+  @override
+  String get deletePayload => 'Delete payload';
+
+  @override
+  String deletePayloadThisCanNotBeUndone(String name) {
+    return 'Delete \"$name\"? This cannot be undone.';
+  }
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get deletePayloads => 'Delete payloads';
+
+  @override
+  String deleteCountPayloadsThisCanNotBeUndone(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payloads',
+      one: '1 payload',
+    );
+    return 'Delete $_temp0? This cannot be undone.';
+  }
+
+  @override
+  String get importPayloads => 'Import payload(s)';
+
+  @override
+  String get pastePayloadJSONOrAPayloadPackJSONBelow =>
+      'Paste payload JSON or a payload pack JSON below:';
+
+  @override
+  String get import => 'Import';
+
+  @override
+  String get noPayloadsFoundInInput => 'No payloads found in input.';
+
+  @override
+  String importedCountPayloads(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count payloads',
+      one: '1 payload',
+    );
+    return 'Imported $_temp0.';
+  }
+
+  @override
+  String importFailedError(String error) {
+    return 'Import failed: $error';
+  }
+
+  @override
+  String get searchPayloads => 'Search payloads';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get nameTagsScriptContent => 'Name, tags, script content...';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get collapse => 'Collapse';
+
+  @override
+  String get expandPreview => 'Expand preview';
+
+  @override
+  String get scriptPreview => 'Script preview';
+
+  @override
+  String get duplicate => 'Duplicate';
+
+  @override
+  String get export => 'Export';
+
+  @override
+  String get yourScriptLibrary => 'Your Script Library';
+
+  @override
+  String get createOrganizeAndExecuteYourCustomHIDPayloads =>
+      'Create, organize, and execute your custom HID payloads';
+
+  @override
+  String get createAPayload => 'Create a Payload';
+
+  @override
+  String get writeDuckyScriptCommandsOrUseTemplates =>
+      'Write DuckyScript commands or use templates';
+
+  @override
+  String get organizeWithTags => 'Organize with Tags';
+
+  @override
+  String get groupPayloadsByCategoryOrPurpose =>
+      'Group payloads by category or purpose';
+
+  @override
+  String get executeAndShare => 'Execute & Share';
+
+  @override
+  String get runOnTargetOrExportToShare => 'Run on target or export to share';
+
+  @override
+  String get createYourFirstPayload => 'Create Your First Payload';
+
+  @override
+  String get importExistingPayloads => 'Import Existing Payloads';
+
+  @override
+  String get noPayloadsFound => 'No payloads found';
+
+  @override
+  String noResultsForQuery(String query) {
+    return 'No result for \"$query\"';
+  }
+
+  @override
+  String noPayloadsWithTag(String tag) {
+    return 'No payloads with tag \"$tag\"';
+  }
+
+  @override
+  String get tryAdjustingYourFilters => 'Try adjusting your filters';
+
+  @override
+  String get clearFilters => 'Clear Filters';
+
+  @override
+  String get discardChanges => 'Discard changes?';
+
+  @override
+  String get youHaveUnsavedChangesDiscardThem =>
+      'You have unsaved changes. Discard them?';
+
+  @override
+  String get showValidationIssues => 'Show validation issues';
+
+  @override
+  String get thisIsABuildInPayload =>
+      'This is a built-in payload. You can duplicate it to create a custom version.';
+
+  @override
+  String get basicInfo => 'Basic Info';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get egWindowsRunDialog => 'e.g., Windows Run Dialog';
+
+  @override
+  String get nameIsRequired => 'Name is required';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get whatDoesThisPayloadDo => 'What does this payload do?';
+
+  @override
+  String get tags => 'Tags';
+
+  @override
+  String get windowsReconExfilCommaSeparated =>
+      'windows, recon, exfil (comma-separated)';
+
+  @override
+  String get script => 'Script';
+
+  @override
+  String get syntax => 'Syntax';
+
+  @override
+  String get helloWorld => 'Hello World';
+
+  @override
+  String get scriptIsRequired => 'Script is required';
+
+  @override
+  String usePARAM_NAMEForDynamicValues(String PARAM_NAME) {
+    return 'Use $PARAM_NAME for dynamic values';
+  }
+
+  @override
+  String parametersCount(int count) {
+    return 'Parameters ($count)';
+  }
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get noParameters => 'No parameters';
+
+  @override
+  String get addParametersToMakeThispayloadReusableWithDifferentValues =>
+      'Add parameters to make this payload reusable with different values.';
+
+  @override
+  String get quickActions => 'Quick Actions';
+
+  @override
+  String get createACopyOfThisPayload => 'Create a copy of this payload';
+
+  @override
+  String get shareAsJSON => 'Share as JSON';
+
+  @override
+  String get removeThisPayloadPermanently => 'Remove this payload permanently';
+
+  @override
+  String get cannotSaveScriptHasValidationErrors =>
+      'Cannot save: script has validation errors';
+
+  @override
+  String get payloadCreated => 'Payload created';
+
+  @override
+  String get payloadUpdated => 'Payload updated';
+
+  @override
+  String get duckyScriptSyntax => 'DuckyScript Syntax';
+
+  @override
+  String get keystrokeInjection => 'Keystroke Injection';
+
+  @override
+  String get text => 'text';
+
+  @override
+  String get typeText => 'Type text';
+
+  @override
+  String get typeTextPlusEnter => 'Type text + Enter';
+
+  @override
+  String get ms => 'ms';
+
+  @override
+  String get waitMilliseconds => 'Wait milliseconds';
+
+  @override
+  String get pressEnter => 'Press Enter';
+
+  @override
+  String get pressTab => 'Press Tab';
+
+  @override
+  String get pressEscape => 'Press Escape';
+
+  @override
+  String get pressBackspace => 'Press Backspace';
+
+  @override
+  String get pressDelete => 'Press Delete';
+
+  @override
+  String get parameterPlaceholder => 'Parameter placeholder';
+
+  @override
+  String get defineVariable => 'Define variable';
+
+  @override
+  String get defineConstant => 'Define constant';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get scriptHasErrors => 'Script has errors';
+
+  @override
+  String get scriptHasWarnings => 'Script has Warnings';
+
+  @override
+  String get scriptIsValid => 'Script is Valid';
+
+  @override
+  String countCommands(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count commands',
+      one: '1 command',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String countErrors(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count errors',
+      one: '1 error',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String countWarnings(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count warnings',
+      one: '1 warning',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get validationResults => 'Validation Results';
+
+  @override
+  String totalDelays(String sec) {
+    return 'Total delays: ${sec}s';
+  }
+
+  @override
+  String get noIssuesFoundScriptIsValid => 'No issues found. Script is valid!';
+
+  @override
+  String issuesCount(int count) {
+    return 'Issues $count';
+  }
+
+  @override
+  String lineNum(int num) {
+    return 'Line $num';
+  }
+
+  @override
+  String get paramRequired => 'required';
+
+  @override
+  String get addParameter => 'Add Parameter';
+
+  @override
+  String get editParameter => 'Edit Parameter';
+
+  @override
+  String get key => 'Key';
+
+  @override
+  String get requiredCap => 'Required';
+
+  @override
+  String get label => 'Label';
+
+  @override
+  String get targetIPAddress => 'Target IP Address';
+
+  @override
+  String get optionalDescription => 'Optional description';
+
+  @override
+  String get textCap => 'Text';
+
+  @override
+  String get number => 'Number';
+
+  @override
+  String get url => 'URL';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get defaultValue => 'Default Value';
+
+  @override
+  String get keyboardOnly => 'Keyboard Only';
+
+  @override
+  String get mouseOnly => 'Mouse Only';
+
+  @override
+  String get compositeKeyboardMouse => 'Composite (Keyboard + Mouse)';
+
+  @override
+  String get keyboardProfileDescription =>
+      'Single HID keyboard device. Use for typing and key combinations.';
+
+  @override
+  String get mouseProfileDescription =>
+      'Single HID mouse device. Use for cursor movement and clicks.';
+
+  @override
+  String get compositeProfileDescription =>
+      'Combined keyboard and mouse. Recommended for most payloads.';
+
+  @override
+  String get selectUSBGadgetProfile => 'Select USB Gadget Profile';
+
+  @override
+  String get chooseTheHIDDeviceTypeToActivate =>
+      'Choose the HID device type to activate:';
+
+  @override
+  String get activate => 'Activate';
+
+  @override
+  String get recommended => 'RECOMMENDED';
+
+  @override
+  String get clearLogs => 'Clear logs';
+
+  @override
+  String get deleteAllStoredLogs => 'Delete all stored logs?';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get clearAll => 'Clear all';
+
+  @override
+  String get level => 'Level:';
+
+  @override
+  String failedToLoadLogsError(String error) {
+    return 'Failed to load logs: $error';
+  }
+
+  @override
+  String get noLogsYet => 'No logs yet';
+
+  @override
+  String get noMatchingLogs => 'No matching logs';
+
+  @override
+  String get runAPayloadToGenerateLogs => 'Run a payload to generate logs.';
+
+  @override
+  String get changeTheLevelFilterToSeeMoreEntries =>
+      'Change the level filter to see more entries.';
+
+  @override
+  String get logEntry => 'Log entry';
+
+  @override
+  String get share => 'Share';
+
+  @override
+  String failedToLoadLogs(String error) {
+    return 'Failed to load logs: $error';
+  }
+
+  @override
+  String get logEntryNotFound => 'Log entry not found.';
+
+  @override
+  String get metadata => 'Metadata';
+
+  @override
+  String get noMetadata => 'No metadata';
+
+  @override
+  String get failedToLoadHistory => 'Failed to load history';
+
+  @override
+  String get noExecutionHistory => 'No execution history';
+
+  @override
+  String get runAPayloadToSeeExecutionHistoryHere =>
+      'Run a payload to see execution history here.';
+
+  @override
+  String get clearExecutionHistory => 'Clear execution history';
+
+  @override
+  String get thisWillDeleteAllExecutionLogs =>
+      'This will delete all execution logs. This cannot be undone.';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get success => 'Success';
+
+  @override
+  String get failed => 'Failed';
+
+  @override
+  String get hour => 'h';
+
+  @override
+  String countEvents(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count events',
+      one: '1 event',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get executionDetails => 'Execution Details';
+
+  @override
+  String get executionID => 'Execution ID';
+
+  @override
+  String get started => 'Started';
+
+  @override
+  String get finished => 'Finished';
+
+  @override
+  String get duration => 'Duration';
+
+  @override
+  String eventsCount(int count) {
+    return 'Events $count';
+  }
+
+  @override
+  String get sAgo => 's ago';
+
+  @override
+  String get mAgo => 'm ago';
+
+  @override
+  String get hAgo => 'h ago';
+
+  @override
+  String get dAgo => 'd ago';
 }

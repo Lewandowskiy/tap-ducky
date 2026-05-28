@@ -517,22 +517,22 @@ class _UdcStateCard extends StatelessWidget {
     }
   }
 
-  String _getStateDescription(String state, BuildContext context) {
+  String _getStateDescription(String state, l10n) {
     switch (state.toLowerCase()) {
       case 'configured':
-        return context.l10n.hostHasEnumeratedTheDeviceReadyForHIDCommunication;
+        return l10n.hostHasEnumeratedTheDeviceReadyForHIDCommunication;
       case 'not attached':
-        return context.l10n.noUSBCableConnectedOrHostIsPoweredOff;
+        return l10n.noUSBCableConnectedOrHostIsPoweredOff;
       case 'attached':
-        return context.l10n.usbCableConnectedWaitingForPowerNegotiation;
+        return l10n.usbCableConnectedWaitingForPowerNegotiation;
       case 'powered':
-        return context.l10n.deviceIsPoweredWaitingForEnumeration;
+        return l10n.deviceIsPoweredWaitingForEnumeration;
       case 'default':
-        return context.l10n.enumerationStartedDeviceIsBeingConfigured;
+        return l10n.enumerationStartedDeviceIsBeingConfigured;
       case 'addressed':
-        return context.l10n.deviceHasBeenAddressedByHostConfigurationInProgress;
+        return l10n.deviceHasBeenAddressedByHostConfigurationInProgress;
       default:
-        return context.l10n.unknownUDCState(state);
+        return l10n.unknownUDCState(state);
     }
   }
 
@@ -580,7 +580,7 @@ class _UdcStateCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          _getStateDescription(state, context),
+                          _getStateDescription(state, context.l10n),
                           style: TextStyle(
                             fontSize: 13,
                             color: cs.onSurfaceVariant,

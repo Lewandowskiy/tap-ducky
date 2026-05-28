@@ -462,7 +462,7 @@ class _HeroStatusCard extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        _getStatusSubtitle(context),
+                        _getStatusSubtitle(context.l10n),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                               color: cs.onSurfaceVariant,
                             ),
@@ -553,13 +553,13 @@ class _HeroStatusCard extends ConsumerWidget {
     );
   }
 
-  String _getStatusSubtitle(BuildContext context) {
-    if (!hid.rootAvailable) return context.l10n.rootAccessRequired;
-    if (!hid.hidSupported) return context.l10n.hidNotSupported;
-    if (!hid.sessionArmed) return context.l10n.tapToActivateUSBGadget;
-    if (!hid.deviceConnected) return context.l10n.connectUSBCableToTarget;
-    if (exec.isRunning) return context.l10n.payloadInProgress;
-    return context.l10n.systemOperational;
+  String _getStatusSubtitle(l10n) {
+    if (!hid.rootAvailable) return l10n.rootAccessRequired;
+    if (!hid.hidSupported) return l10n.hidNotSupported;
+    if (!hid.sessionArmed) return l10n.tapToActivateUSBGadget;
+    if (!hid.deviceConnected) return l10n.connectUSBCableToTarget;
+    if (exec.isRunning) return l10n.payloadInProgress;
+    return l10n.systemOperational;
   }
 }
 

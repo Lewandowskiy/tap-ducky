@@ -563,7 +563,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
 
   String _formatDuration(int ms) {
     final seconds = ms / 1000;
-    if (seconds < 1) return context.l10n.milisec(ms);
+    if (seconds < 1) return context.l10n.millisec(ms);
     if (seconds < 60) return context.l10n.sec(seconds.toStringAsFixed(1));
     final minutes = seconds ~/ 60;
     final remainingSeconds = (seconds % 60).round();
@@ -1263,7 +1263,7 @@ class _ExecutionControlCard extends StatelessWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        _getBlockReason(hid, context),
+                        _getBlockReason(hid, context.l10n),
                         style: TextStyle(
                           fontSize: 12,
                           color: cs.onErrorContainer,
@@ -1326,11 +1326,11 @@ class _ExecutionControlCard extends StatelessWidget {
     );
   }
 
-  String _getBlockReason(HidStatus hid, BuildContext context) {
-    if (!hid.rootAvailable) return context.l10n.rootAccessNotAvailable;
-    if (!hid.hidSupported) return context.l10n.usbHIDNotSupported;
-    if (!hid.sessionArmed) return context.l10n.sessionIsDisarmedArmItFromDashboardFirst;
-    return context.l10n.cannotExecute;
+  String _getBlockReason(HidStatus hid, l10n) {
+    if (!hid.rootAvailable) return l10n.rootAccessNotAvailable;
+    if (!hid.hidSupported) return l10n.usbHIDNotSupported;
+    if (!hid.sessionArmed) return l10n.sessionIsDisarmedArmItFromDashboardFirst;
+    return l10n.cannotExecute;
   }
 }
 
@@ -1666,7 +1666,7 @@ class _EventsTab extends StatelessWidget {
           leading: Icon(_iconFor(e.level, e.success), size: 20),
           title: Text(e.message, maxLines: 2, overflow: TextOverflow.ellipsis),
           subtitle: Text(
-            _formatTime(e.timestamp, context),
+            _formatTime(e.timestamp, context.l10n),
             style: const TextStyle(fontSize: 11),
           ),
         );
@@ -1688,11 +1688,11 @@ class _EventsTab extends StatelessWidget {
     }
   }
 
-  String _formatTime(DateTime dt, BuildContext context) {
+  String _formatTime(DateTime dt, l10n) {
     final now = DateTime.now();
     final diff = now.difference(dt);
-    if (diff.inSeconds < 60) return context.l10n.secAgo(diff.inSeconds);
-    if (diff.inMinutes < 60) return context.l10n.minAgo(diff.inMinutes);
+    if (diff.inSeconds < 60) return l10n.secAgo(diff.inSeconds);
+    if (diff.inMinutes < 60) return l10n.minAgo(diff.inMinutes);
     return '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 }

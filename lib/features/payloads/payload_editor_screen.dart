@@ -16,6 +16,8 @@ import '../../state/providers.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../../widgets/section_header.dart';
 
+import '../../extension/context_extensions.dart';
+
 const _uuid = Uuid();
 
 class PayloadEditorScreen extends ConsumerStatefulWidget {
@@ -138,11 +140,11 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
 
   String _formatDuration(int ms) {
     final seconds = ms / 1000;
-    if (seconds < 1) return '${ms}ms';
-    if (seconds < 60) return '${seconds.toStringAsFixed(1)}s';
+    if (seconds < 1) return context.l10n.millisec(ms);
+    if (seconds < 60) return context.l10n.sec(seconds.toStringAsFixed(1));
     final minutes = seconds ~/ 60;
     final remainingSeconds = (seconds % 60).round();
-    return '${minutes}m ${remainingSeconds}s';
+    return context.l10n.minAndSec(minutes, remainingSeconds);
   }
 
   @override
@@ -156,8 +158,8 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
         if (didPop) return;
         final ok = await showConfirmDialog(
           context,
-          title: 'Discard changes?',
-          message: 'You have unsaved changes. Discard them?',
+          title: context.l10n.discardChanges,
+          message: context.l10n.youHaveUnsavedChangesDiscardThem,
           confirmLabel: 'Discard',
           dangerous: true,
         );
@@ -167,7 +169,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(isNew ? 'New Payload' : 'Edit Payload'),
+          title: Text(isNew ? context.l10n.newPayload : context.l10n.editPayload),
           actions: [
             if (_showValidation && (_validationResult.hasErrors || _validationResult.hasWarnings))
               Padding(
@@ -182,18 +184,18 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                     ),
                   ),
                   onPressed: () => _showValidationDialog(context),
-                  tooltip: 'Show validation issues',
+                  tooltip: context.l10n.showValidationIssues,
                 ),
               ),
             if (!isNew && !_isBuiltin)
               IconButton(
                 icon: const Icon(Icons.delete),
-                tooltip: 'Delete',
+                tooltip: context.l10n.delete,
                 onPressed: () => _delete(context),
               ),
             IconButton(
               icon: const Icon(Icons.check),
-              tooltip: 'Save',
+              tooltip: context.l10n.save,
               onPressed: _validationResult.hasErrors ? null : _save,
             ),
           ],
@@ -219,7 +221,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            'This is a built-in payload. You can duplicate it to create a custom version.',
+                            context.l10n.thisIsABuildInPayload,
                             style: TextStyle(color: cs.onTertiaryContainer),
                           ),
                         ),
@@ -227,7 +229,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                     ),
                   ),
                 ),
-              const SectionHeader(title: 'Basic Info'),
+              SectionHeader(title: context.l10n.basicInfo),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Card(
@@ -237,20 +239,20 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                       children: [
                         TextFormField(
                           controller: _nameCtrl,
-                          decoration: const InputDecoration(
-                            labelText: 'Name',
-                            hintText: 'e.g., Windows Run Dialog',
+                          decoration: InputDecoration(
+                            labelText: context.l10n.name,
+                            hintText: context.l10n.egWindowsRunDialog,
                             prefixIcon: Icon(Icons.title),
                           ),
-                          validator: (v) => (v?.trim().isEmpty ?? true) ? 'Name is required' : null,
+                          validator: (v) => (v?.trim().isEmpty ?? true) ? context.l10n.nameIsRequired : null,
                           enabled: !_isBuiltin,
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _descCtrl,
-                          decoration: const InputDecoration(
-                            labelText: 'Description',
-                            hintText: 'What does this payload do?',
+                          decoration: InputDecoration(
+                            labelText: context.l10n.description,
+                            hintText: context.l10n.whatDoesThisPayloadDo,
                             prefixIcon: Icon(Icons.description),
                           ),
                           maxLines: 2,
@@ -259,9 +261,9 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: _tagsCtrl,
-                          decoration: const InputDecoration(
-                            labelText: 'Tags',
-                            hintText: 'windows, recon, exfil (comma-separated)',
+                          decoration: InputDecoration(
+                            labelText: context.l10n.tags,
+                            hintText: context.l10n.windowsReconExfilCommaSeparated,
                             prefixIcon: Icon(Icons.label),
                           ),
                           enabled: !_isBuiltin,
@@ -272,7 +274,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              const SectionHeader(title: 'Script'),
+              SectionHeader(title: context.l10n.script),
               if (_showValidation)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -303,7 +305,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                             TextButton.icon(
                               onPressed: () => _showSyntaxHelp(context),
                               icon: const Icon(Icons.help_outline, size: 18),
-                              label: const Text('Syntax'),
+                              label: Text(context.l10n.syntax),
                             ),
                           ],
                         ),
@@ -311,19 +313,19 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                         TextFormField(
                           controller: _scriptCtrl,
                           decoration: InputDecoration(
-                            hintText: 'DELAY 500\nSTRING Hello World\nENTER',
+                            hintText: 'DELAY 500\nSTRING ' + context.l10n.helloWorld + '\nENTER',
                             border: const OutlineInputBorder(),
                             filled: true,
                             fillColor: cs.surfaceContainerHighest,
                           ),
                           maxLines: 15,
                           style: const TextStyle(fontFamily: 'monospace', fontSize: 13),
-                          validator: (v) => (v?.trim().isEmpty ?? true) ? 'Script is required' : null,
+                          validator: (v) => (v?.trim().isEmpty ?? true) ? context.l10n.scriptIsRequired : null,
                           enabled: !_isBuiltin,
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Use {{PARAM_NAME}} for dynamic values',
+                          context.l10n.usePARAM_NAMEForDynamicValues('{{PARAM_NAME}}'),
                           style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                         ),
                       ],
@@ -333,13 +335,13 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
               ),
               const SizedBox(height: 16),
               SectionHeader(
-                title: 'Parameters (${_params.length})',
+                title: context.l10n.parametersCount(_params.length),
                 trailing: _isBuiltin
                     ? null
                     : TextButton.icon(
                         onPressed: _addParameter,
                         icon: const Icon(Icons.add),
-                        label: const Text('Add'),
+                        label: Text(context.l10n.add),
                       ),
               ),
               if (_params.isEmpty)
@@ -348,9 +350,9 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                   child: Card(
                     child: ListTile(
                       leading: const Icon(Icons.info_outline),
-                      title: const Text('No parameters'),
-                      subtitle: const Text(
-                        'Add parameters to make this payload reusable with different values.',
+                      title: Text(context.l10n.noParameters),
+                      subtitle: Text(
+                        context.l10n.addParametersToMakeThispayloadReusableWithDifferentValues,
                       ),
                     ),
                   ),
@@ -374,7 +376,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                   ),
                 ),
               const SizedBox(height: 16),
-              const SectionHeader(title: 'Quick Actions'),
+              SectionHeader(title: context.l10n.quickActions),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Card(
@@ -382,23 +384,23 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                     children: [
                       ListTile(
                         leading: const Icon(Icons.content_copy),
-                        title: const Text('Duplicate'),
-                        subtitle: const Text('Create a copy of this payload'),
-                        onTap: () => _duplicate(context),
+                        title: Text(context.l10n.duplicate),
+                        subtitle: Text(context.l10n.createACopyOfThisPayload),
+                        onTap: () => _duplicate(context, context.l10n),
                       ),
                       const Divider(height: 1),
                       ListTile(
                         leading: const Icon(Icons.ios_share),
-                        title: const Text('Export'),
-                        subtitle: const Text('Share as JSON'),
+                        title: Text(context.l10n.export),
+                        subtitle: Text(context.l10n.shareAsJSON),
                         onTap: _export,
                       ),
                       if (!isNew && !_isBuiltin) ...[
                         const Divider(height: 1),
                         ListTile(
                           leading: Icon(Icons.delete, color: cs.error),
-                          title: Text('Delete', style: TextStyle(color: cs.error)),
-                          subtitle: const Text('Remove this payload permanently'),
+                          title: Text(context.l10n.delete, style: TextStyle(color: cs.error)),
+                          subtitle: Text(context.l10n.removeThisPayloadPermanently),
                           onTap: () => _delete(context),
                         ),
                       ],
@@ -413,7 +415,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: _validationResult.hasErrors ? null : _save,
           icon: const Icon(Icons.check),
-          label: const Text('Save'),
+          label: Text(context.l10n.save),
           backgroundColor: _validationResult.hasErrors ? cs.surfaceContainerHighest : null,
           foregroundColor: _validationResult.hasErrors ? cs.onSurfaceVariant : null,
         ),
@@ -472,8 +474,8 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
     if (!_formKey.currentState!.validate()) return;
     if (_validationResult.hasErrors) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Cannot save: script has validation errors'),
+        SnackBar(
+          content: Text(context.l10n.cannotSaveScriptHasValidationErrors),
           backgroundColor: Colors.red,
         ),
       );
@@ -504,7 +506,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(widget.payloadId == null ? 'Payload created' : 'Payload updated')),
+        SnackBar(content: Text(widget.payloadId == null ? context.l10n.payloadCreated : context.l10n.payloadUpdated)),
       );
       context.go(const PayloadsRoute().location);
     }
@@ -513,9 +515,9 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
   Future<void> _delete(BuildContext context) async {
     final ok = await showConfirmDialog(
       context,
-      title: 'Delete payload',
-      message: 'Delete "${_nameCtrl.text}"? This cannot be undone.',
-      confirmLabel: 'Delete',
+      title: context.l10n.deletePayload,
+      message: context.l10n.deletePayloadThisCanNotBeUndone(_nameCtrl.text),
+      confirmLabel: context.l10n.delete,
       dangerous: true,
     );
     if (!ok) return;
@@ -527,7 +529,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
     }
   }
 
-  Future<void> _duplicate(BuildContext context) async {
+  Future<void> _duplicate(BuildContext context, l10n) async {
     final id = widget.payloadId;
     if (id == null) return;
 
@@ -535,7 +537,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
 
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Payload duplicated')),
+        SnackBar(content: Text(l10n.payloadDuplicated)),
       );
       context.go(const PayloadsRoute().location);
     }
@@ -566,31 +568,31 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('DuckyScript Syntax'),
+        title: Text(context.l10n.duckyScriptSyntax),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
-            children: const [
+            children: [
               Text(
-                'Keystroke Injection',
+                context.l10n.keystrokeInjection,
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
               ),
               SizedBox(height: 8),
-              _SyntaxItem(cmd: 'STRING text', desc: 'Type text'),
-              _SyntaxItem(cmd: 'STRINGLN text', desc: 'Type text + Enter'),
-              _SyntaxItem(cmd: 'DELAY ms', desc: 'Wait milliseconds'),
+              _SyntaxItem(cmd: 'STRING ' + context.l10n.text, desc: context.l10n.typeText),
+              _SyntaxItem(cmd: 'STRINGLN ' + context.l10n.text, desc: context.l10n.typeTextPlusEnter),
+              _SyntaxItem(cmd: 'DELAY ' + context.l10n.ms, desc: context.l10n.waitMilliseconds),
               SizedBox(height: 12),
               Text(
                 'System Keys',
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
               ),
               SizedBox(height: 8),
-              _SyntaxItem(cmd: 'ENTER', desc: 'Press Enter'),
-              _SyntaxItem(cmd: 'TAB', desc: 'Press Tab'),
-              _SyntaxItem(cmd: 'ESC', desc: 'Press Escape'),
-              _SyntaxItem(cmd: 'BACKSPACE', desc: 'Press Backspace'),
-              _SyntaxItem(cmd: 'DELETE', desc: 'Press Delete'),
+              _SyntaxItem(cmd: 'ENTER', desc: context.l10n.pressEnter),
+              _SyntaxItem(cmd: 'TAB', desc: context.l10n.pressTab),
+              _SyntaxItem(cmd: 'ESC', desc: context.l10n.pressEscape),
+              _SyntaxItem(cmd: 'BACKSPACE', desc: context.l10n.pressBackspace),
+              _SyntaxItem(cmd: 'DELETE', desc: context.l10n.pressDelete),
               SizedBox(height: 12),
               Text(
                 'Modifiers',
@@ -607,14 +609,14 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
               ),
               SizedBox(height: 8),
-              _SyntaxItem(cmd: '{{PARAM}}', desc: 'Parameter placeholder'),
-              _SyntaxItem(cmd: 'VAR \$FOO = 42', desc: 'Define variable'),
-              _SyntaxItem(cmd: 'DEFINE #CONST 100', desc: 'Define constant'),
+              _SyntaxItem(cmd: '{{PARAM}}', desc: context.l10n.parameterPlaceholder),
+              _SyntaxItem(cmd: 'VAR \$FOO = 42', desc: context.l10n.defineVariable),
+              _SyntaxItem(cmd: 'DEFINE #CONST 100', desc: context.l10n.defineConstant),
             ],
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Close')),
+          TextButton(onPressed: () => Navigator.pop(context), child: Text(context.l10n.close)),
         ],
       ),
     );
@@ -648,17 +650,17 @@ class _ValidationSummaryCard extends StatelessWidget {
       bgColor = cs.errorContainer;
       fgColor = cs.onErrorContainer;
       icon = Icons.error;
-      title = 'Script has errors';
+      title = context.l10n.scriptHasErrors;
     } else if (result.hasWarnings) {
       bgColor = cs.tertiaryContainer;
       fgColor = cs.onTertiaryContainer;
       icon = Icons.warning;
-      title = 'Script has warnings';
+      title = context.l10n.scriptHasWarnings;
     } else {
       bgColor = cs.primaryContainer;
       fgColor = cs.onPrimaryContainer;
       icon = Icons.check_circle;
-      title = 'Script is valid';
+      title = context.l10n.scriptIsValid;
     }
 
     return Card(
@@ -694,7 +696,7 @@ class _ValidationSummaryCard extends StatelessWidget {
                 children: [
                   _StatChip(
                     icon: Icons.code,
-                    label: '${result.commandCount} commands',
+                    label: context.l10n.countCommands(result.commandCount),
                     color: fgColor,
                   ),
                   const SizedBox(width: 8),
@@ -715,7 +717,7 @@ class _ValidationSummaryCard extends StatelessWidget {
                       Icon(Icons.error, size: 16, color: cs.error),
                       const SizedBox(width: 4),
                       Text(
-                        '${result.errorCount} error${result.errorCount != 1 ? 's' : ''}',
+                        context.l10n.countErrors(result.errorCount),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -728,7 +730,7 @@ class _ValidationSummaryCard extends StatelessWidget {
                       Icon(Icons.warning, size: 16, color: cs.tertiary),
                       const SizedBox(width: 4),
                       Text(
-                        '${result.warningCount} warning${result.warningCount != 1 ? 's' : ''}',
+                        context.l10n.countWarnings(result.warningCount),
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
@@ -803,7 +805,7 @@ class _ValidationDialog extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
 
     return AlertDialog(
-      title: const Text('Validation Results'),
+      title: Text(context.l10n.validationResults),
       content: SizedBox(
         width: double.maxFinite,
         child: Column(
@@ -824,7 +826,7 @@ class _ValidationDialog extends StatelessWidget {
                       Icon(Icons.code, size: 16, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        '${result.commandCount} commands',
+                        context.l10n.countCommands(result.commandCount),
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
@@ -835,14 +837,14 @@ class _ValidationDialog extends StatelessWidget {
                       Icon(Icons.timer, size: 16, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        'Estimated duration: ~${engineEstimateMs != null ? formatDuration(engineEstimateMs!) : result.estimatedDurationFormatted}',
+                        context.l10n.estimatedDuration+': ~${engineEstimateMs != null ? formatDuration(engineEstimateMs!) : result.estimatedDurationFormatted}',
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Total delays: ${(result.totalDelayMs / 1000).toStringAsFixed(1)}s',
+                    context.l10n.totalDelays((result.totalDelayMs / 1000).toString()),
                     style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
                   ),
                 ],
@@ -854,9 +856,9 @@ class _ValidationDialog extends StatelessWidget {
                 children: [
                   Icon(Icons.check_circle, color: cs.primary),
                   const SizedBox(width: 12),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'No issues found. Script is valid!',
+                      context.l10n.noIssuesFoundScriptIsValid,
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -865,7 +867,7 @@ class _ValidationDialog extends StatelessWidget {
             ] else ...[
               const SizedBox(height: 16),
               Text(
-                'Issues (${result.issues.length})',
+                context.l10n.issuesCount(result.issues.length),
                 style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
               ),
               const SizedBox(height: 8),
@@ -922,7 +924,7 @@ class _IssueListTile extends StatelessWidget {
       dense: true,
       leading: Icon(icon, size: 20, color: color),
       title: Text(
-        issue.line > 0 ? 'Line ${issue.line}' : 'Script',
+        issue.line > 0 ? context.l10n.lineNum(issue.line) : context.l10n.script,
         style: TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w600,
@@ -998,7 +1000,7 @@ class _ParameterTile extends StatelessWidget {
     return ListTile(
       leading: const Icon(Icons.settings_input_component),
       title: Text(param.label),
-      subtitle: Text('{{${param.key}}} • ${param.type}${param.required ? " • required" : ""}'),
+      subtitle: Text('{{${param.key}}} • ${param.type}${param.required ? " • ${context.l10n.paramRequired}" : ""}'),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1063,7 +1065,7 @@ class _ParameterDialogState extends State<_ParameterDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.initial == null ? 'Add Parameter' : 'Edit Parameter'),
+      title: Text(widget.initial == null ? context.l10n.addParameter : context.l10n.editParameter),
       content: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -1072,45 +1074,45 @@ class _ParameterDialogState extends State<_ParameterDialog> {
             children: [
               TextFormField(
                 controller: _keyCtrl,
-                decoration: const InputDecoration(
-                  labelText: 'Key',
+                decoration: InputDecoration(
+                  labelText: context.l10n.key,
                   hintText: 'TARGET_IP',
                 ),
-                validator: (v) => (v?.trim().isEmpty ?? true) ? 'Required' : null,
+                validator: (v) => (v?.trim().isEmpty ?? true) ? context.l10n.requiredCap : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _labelCtrl,
-                decoration: const InputDecoration(
-                  labelText: 'Label',
-                  hintText: 'Target IP Address',
+                decoration: InputDecoration(
+                  labelText: context.l10n.label,
+                  hintText: context.l10n.targetIPAddress,
                 ),
-                validator: (v) => (v?.trim().isEmpty ?? true) ? 'Required' : null,
+                validator: (v) => (v?.trim().isEmpty ?? true) ? context.l10n.requiredCap : null,
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _descCtrl,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: 'Optional description',
+                decoration: InputDecoration(
+                  labelText: context.l10n.description,
+                  hintText: context.l10n.optionalDescription,
                 ),
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
                 value: _type,
-                items: const [
-                  DropdownMenuItem(value: 'text', child: Text('Text')),
-                  DropdownMenuItem(value: 'number', child: Text('Number')),
-                  DropdownMenuItem(value: 'url', child: Text('URL')),
+                items: [
+                  DropdownMenuItem(value: 'text', child: Text(context.l10n.textCap)),
+                  DropdownMenuItem(value: 'number', child: Text(context.l10n.number)),
+                  DropdownMenuItem(value: 'url', child: Text(context.l10n.url)),
                 ],
                 onChanged: (v) => setState(() => _type = v!),
-                decoration: const InputDecoration(labelText: 'Type'),
+                decoration: InputDecoration(labelText: context.l10n.type),
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _defaultCtrl,
-                decoration: const InputDecoration(
-                  labelText: 'Default Value',
+                decoration: InputDecoration(
+                  labelText: context.l10n.defaultValue,
                   hintText: '192.168.1.1',
                 ),
               ),
@@ -1118,7 +1120,7 @@ class _ParameterDialogState extends State<_ParameterDialog> {
               CheckboxListTile(
                 value: _required,
                 onChanged: (v) => setState(() => _required = v!),
-                title: const Text('Required'),
+                title: Text(context.l10n.requiredCap),
                 contentPadding: EdgeInsets.zero,
               ),
             ],
@@ -1126,7 +1128,7 @@ class _ParameterDialogState extends State<_ParameterDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(context.l10n.cancel)),
         FilledButton(
           onPressed: () {
             if (!_formKey.currentState!.validate()) return;
@@ -1141,7 +1143,7 @@ class _ParameterDialogState extends State<_ParameterDialog> {
             widget.onSave(param);
             Navigator.pop(context);
           },
-          child: const Text('Save'),
+          child: Text(context.l10n.save),
         ),
       ],
     );

@@ -7,6 +7,8 @@ import 'package:share_plus/share_plus.dart';
 import '../../data/models/log_entry.dart';
 import '../../state/controllers/logs_controller.dart';
 
+import '../../extension/context_extensions.dart';
+
 class LogDetailScreen extends ConsumerWidget {
   const LogDetailScreen({super.key, required this.logId});
 
@@ -18,10 +20,10 @@ class LogDetailScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Log entry'),
+        title: Text(context.l10n.logEntry),
         actions: [
           IconButton(
-            tooltip: 'Share',
+            tooltip: context.l10n.share,
             onPressed: () async {
               final e = async.value?.firstWhere((x) => x.id == logId, orElse: () => null as dynamic);
               if (e == null) return;
@@ -34,10 +36,10 @@ class LogDetailScreen extends ConsumerWidget {
       ),
       body: async.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, st) => Center(child: Text('Failed to load logs: $e')),
+        error: (e, st) => Center(child: Text(context.l10n.failedToLoadLogs(e.toString()))),
         data: (items) {
           final entry = _byId(items, logId);
-          if (entry == null) return const Center(child: Text('Log entry not found.'));
+          if (entry == null) return Center(child: Text(context.l10n.logEntryNotFound));
           return _Body(entry: entry);
         },
       ),
@@ -86,7 +88,7 @@ class _Body extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(entry.message, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 10),
-                Text('Payload: ${entry.payloadName ?? 'n/a'}', style: TextStyle(color: cs.onSurfaceVariant)),
+                Text('${context.l10n.payload}: ${entry.payloadName ?? 'n/a'}', style: TextStyle(color: cs.onSurfaceVariant)),
               ],
             ),
           ),
@@ -98,10 +100,10 @@ class _Body extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Metadata', style: TextStyle(fontWeight: FontWeight.w700)),
+                Text(context.l10n.metadata, style: TextStyle(fontWeight: FontWeight.w700)),
                 const SizedBox(height: 8),
                 if (meta.isEmpty)
-                  Text('No metadata', style: TextStyle(color: cs.onSurfaceVariant))
+                  Text(context.l10n.noMetadata, style: TextStyle(color: cs.onSurfaceVariant))
                 else
                   ...meta.entries.map((e) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),

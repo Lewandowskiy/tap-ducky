@@ -944,11 +944,11 @@ abstract class AppLocalizations {
   /// **'Use slower speeds (2×-4×) for unreliable targets or debugging. Faster speeds (0.25×-0.5×) for quick testing.'**
   String get slowerSpeedsFasterSpeeds;
 
-  /// No description provided for @milisec.
+  /// No description provided for @millisec.
   ///
   /// In en, this message translates to:
   /// **'{ms}ms'**
-  String milisec(int ms);
+  String millisec(int ms);
 
   /// No description provided for @sec.
   ///
@@ -1801,6 +1801,1002 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reduces eye strain in low-light conditions and saves battery on OLED screens'**
   String get themeModeDark;
+
+  /// No description provided for @useDynamicColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Use dynamic colors'**
+  String get useDynamicColors;
+
+  /// No description provided for @matchYourSystemMaterialYouPaletteOnSupportedDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Match your system Material You palette on supported devices.'**
+  String get matchYourSystemMaterialYouPaletteOnSupportedDevices;
+
+  /// No description provided for @dynamicColorsAreOnlyAvailableOnAndroid12.
+  ///
+  /// In en, this message translates to:
+  /// **'Dynamic colors are only available on Android 12+.'**
+  String get dynamicColorsAreOnlyAvailableOnAndroid12;
+
+  /// No description provided for @countSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String countSelected(int count);
+
+  /// No description provided for @runFirstSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Run first selected'**
+  String get runFirstSelected;
+
+  /// No description provided for @armSessionToRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm session to run'**
+  String get armSessionToRun;
+
+  /// No description provided for @deleteSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete selected'**
+  String get deleteSelected;
+
+  /// No description provided for @githubStore.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub Store'**
+  String get githubStore;
+
+  /// No description provided for @exportAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Export all'**
+  String get exportAll;
+
+  /// No description provided for @importFromClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from clipboard'**
+  String get importFromClipboard;
+
+  /// No description provided for @manageSources.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage sources'**
+  String get manageSources;
+
+  /// No description provided for @selectMultiple.
+  ///
+  /// In en, this message translates to:
+  /// **'Select multiple'**
+  String get selectMultiple;
+
+  /// No description provided for @tipImportPayloadsFromTheGitHubStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip: Import payloads from the GitHub Store'**
+  String get tipImportPayloadsFromTheGitHubStore;
+
+  /// No description provided for @open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get open;
+
+  /// No description provided for @searching.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching: \"{query}\"'**
+  String searching(String query);
+
+  /// No description provided for @newPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'New Payload'**
+  String get newPayload;
+
+  /// No description provided for @payloadDuplicated.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload duplicated'**
+  String get payloadDuplicated;
+
+  /// No description provided for @deletePayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete payload'**
+  String get deletePayload;
+
+  /// No description provided for @deletePayloadThisCanNotBeUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete \"{name}\"? This cannot be undone.'**
+  String deletePayloadThisCanNotBeUndone(String name);
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @deletePayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete payloads'**
+  String get deletePayloads;
+
+  /// No description provided for @deleteCountPayloadsThisCanNotBeUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {count,plural, one{1 payload} other {{count} payloads}}? This cannot be undone.'**
+  String deleteCountPayloadsThisCanNotBeUndone(int count);
+
+  /// No description provided for @importPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Import payload(s)'**
+  String get importPayloads;
+
+  /// No description provided for @pastePayloadJSONOrAPayloadPackJSONBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste payload JSON or a payload pack JSON below:'**
+  String get pastePayloadJSONOrAPayloadPackJSONBelow;
+
+  /// No description provided for @import.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get import;
+
+  /// No description provided for @noPayloadsFoundInInput.
+  ///
+  /// In en, this message translates to:
+  /// **'No payloads found in input.'**
+  String get noPayloadsFoundInInput;
+
+  /// No description provided for @importedCountPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported {count,plural, one{1 payload} other {{count} payloads}}.'**
+  String importedCountPayloads(int count);
+
+  /// No description provided for @importFailedError.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed: {error}'**
+  String importFailedError(String error);
+
+  /// No description provided for @searchPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Search payloads'**
+  String get searchPayloads;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @nameTagsScriptContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Name, tags, script content...'**
+  String get nameTagsScriptContent;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @collapse.
+  ///
+  /// In en, this message translates to:
+  /// **'Collapse'**
+  String get collapse;
+
+  /// No description provided for @expandPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Expand preview'**
+  String get expandPreview;
+
+  /// No description provided for @scriptPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Script preview'**
+  String get scriptPreview;
+
+  /// No description provided for @duplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get duplicate;
+
+  /// No description provided for @export.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get export;
+
+  /// No description provided for @yourScriptLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Your Script Library'**
+  String get yourScriptLibrary;
+
+  /// No description provided for @createOrganizeAndExecuteYourCustomHIDPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Create, organize, and execute your custom HID payloads'**
+  String get createOrganizeAndExecuteYourCustomHIDPayloads;
+
+  /// No description provided for @createAPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a Payload'**
+  String get createAPayload;
+
+  /// No description provided for @writeDuckyScriptCommandsOrUseTemplates.
+  ///
+  /// In en, this message translates to:
+  /// **'Write DuckyScript commands or use templates'**
+  String get writeDuckyScriptCommandsOrUseTemplates;
+
+  /// No description provided for @organizeWithTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Organize with Tags'**
+  String get organizeWithTags;
+
+  /// No description provided for @groupPayloadsByCategoryOrPurpose.
+  ///
+  /// In en, this message translates to:
+  /// **'Group payloads by category or purpose'**
+  String get groupPayloadsByCategoryOrPurpose;
+
+  /// No description provided for @executeAndShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute & Share'**
+  String get executeAndShare;
+
+  /// No description provided for @runOnTargetOrExportToShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Run on target or export to share'**
+  String get runOnTargetOrExportToShare;
+
+  /// No description provided for @createYourFirstPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Your First Payload'**
+  String get createYourFirstPayload;
+
+  /// No description provided for @importExistingPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Existing Payloads'**
+  String get importExistingPayloads;
+
+  /// No description provided for @noPayloadsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No payloads found'**
+  String get noPayloadsFound;
+
+  /// No description provided for @noResultsForQuery.
+  ///
+  /// In en, this message translates to:
+  /// **'No result for \"{query}\"'**
+  String noResultsForQuery(String query);
+
+  /// No description provided for @noPayloadsWithTag.
+  ///
+  /// In en, this message translates to:
+  /// **'No payloads with tag \"{tag}\"'**
+  String noPayloadsWithTag(String tag);
+
+  /// No description provided for @tryAdjustingYourFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Try adjusting your filters'**
+  String get tryAdjustingYourFilters;
+
+  /// No description provided for @clearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Filters'**
+  String get clearFilters;
+
+  /// No description provided for @discardChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get discardChanges;
+
+  /// No description provided for @youHaveUnsavedChangesDiscardThem.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unsaved changes. Discard them?'**
+  String get youHaveUnsavedChangesDiscardThem;
+
+  /// No description provided for @showValidationIssues.
+  ///
+  /// In en, this message translates to:
+  /// **'Show validation issues'**
+  String get showValidationIssues;
+
+  /// No description provided for @thisIsABuildInPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a built-in payload. You can duplicate it to create a custom version.'**
+  String get thisIsABuildInPayload;
+
+  /// No description provided for @basicInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Info'**
+  String get basicInfo;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @egWindowsRunDialog.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Windows Run Dialog'**
+  String get egWindowsRunDialog;
+
+  /// No description provided for @nameIsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get nameIsRequired;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @whatDoesThisPayloadDo.
+  ///
+  /// In en, this message translates to:
+  /// **'What does this payload do?'**
+  String get whatDoesThisPayloadDo;
+
+  /// No description provided for @tags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tags;
+
+  /// No description provided for @windowsReconExfilCommaSeparated.
+  ///
+  /// In en, this message translates to:
+  /// **'windows, recon, exfil (comma-separated)'**
+  String get windowsReconExfilCommaSeparated;
+
+  /// No description provided for @script.
+  ///
+  /// In en, this message translates to:
+  /// **'Script'**
+  String get script;
+
+  /// No description provided for @syntax.
+  ///
+  /// In en, this message translates to:
+  /// **'Syntax'**
+  String get syntax;
+
+  /// No description provided for @helloWorld.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello World'**
+  String get helloWorld;
+
+  /// No description provided for @scriptIsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Script is required'**
+  String get scriptIsRequired;
+
+  /// No description provided for @usePARAM_NAMEForDynamicValues.
+  ///
+  /// In en, this message translates to:
+  /// **'Use {PARAM_NAME} for dynamic values'**
+  String usePARAM_NAMEForDynamicValues(String PARAM_NAME);
+
+  /// No description provided for @parametersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Parameters ({count})'**
+  String parametersCount(int count);
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @noParameters.
+  ///
+  /// In en, this message translates to:
+  /// **'No parameters'**
+  String get noParameters;
+
+  /// No description provided for @addParametersToMakeThispayloadReusableWithDifferentValues.
+  ///
+  /// In en, this message translates to:
+  /// **'Add parameters to make this payload reusable with different values.'**
+  String get addParametersToMakeThispayloadReusableWithDifferentValues;
+
+  /// No description provided for @quickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Actions'**
+  String get quickActions;
+
+  /// No description provided for @createACopyOfThisPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a copy of this payload'**
+  String get createACopyOfThisPayload;
+
+  /// No description provided for @shareAsJSON.
+  ///
+  /// In en, this message translates to:
+  /// **'Share as JSON'**
+  String get shareAsJSON;
+
+  /// No description provided for @removeThisPayloadPermanently.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this payload permanently'**
+  String get removeThisPayloadPermanently;
+
+  /// No description provided for @cannotSaveScriptHasValidationErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot save: script has validation errors'**
+  String get cannotSaveScriptHasValidationErrors;
+
+  /// No description provided for @payloadCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload created'**
+  String get payloadCreated;
+
+  /// No description provided for @payloadUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Payload updated'**
+  String get payloadUpdated;
+
+  /// No description provided for @duckyScriptSyntax.
+  ///
+  /// In en, this message translates to:
+  /// **'DuckyScript Syntax'**
+  String get duckyScriptSyntax;
+
+  /// No description provided for @keystrokeInjection.
+  ///
+  /// In en, this message translates to:
+  /// **'Keystroke Injection'**
+  String get keystrokeInjection;
+
+  /// No description provided for @text.
+  ///
+  /// In en, this message translates to:
+  /// **'text'**
+  String get text;
+
+  /// No description provided for @typeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Type text'**
+  String get typeText;
+
+  /// No description provided for @typeTextPlusEnter.
+  ///
+  /// In en, this message translates to:
+  /// **'Type text + Enter'**
+  String get typeTextPlusEnter;
+
+  /// No description provided for @ms.
+  ///
+  /// In en, this message translates to:
+  /// **'ms'**
+  String get ms;
+
+  /// No description provided for @waitMilliseconds.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait milliseconds'**
+  String get waitMilliseconds;
+
+  /// No description provided for @pressEnter.
+  ///
+  /// In en, this message translates to:
+  /// **'Press Enter'**
+  String get pressEnter;
+
+  /// No description provided for @pressTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Press Tab'**
+  String get pressTab;
+
+  /// No description provided for @pressEscape.
+  ///
+  /// In en, this message translates to:
+  /// **'Press Escape'**
+  String get pressEscape;
+
+  /// No description provided for @pressBackspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Press Backspace'**
+  String get pressBackspace;
+
+  /// No description provided for @pressDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Press Delete'**
+  String get pressDelete;
+
+  /// No description provided for @parameterPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Parameter placeholder'**
+  String get parameterPlaceholder;
+
+  /// No description provided for @defineVariable.
+  ///
+  /// In en, this message translates to:
+  /// **'Define variable'**
+  String get defineVariable;
+
+  /// No description provided for @defineConstant.
+  ///
+  /// In en, this message translates to:
+  /// **'Define constant'**
+  String get defineConstant;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @scriptHasErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Script has errors'**
+  String get scriptHasErrors;
+
+  /// No description provided for @scriptHasWarnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Script has Warnings'**
+  String get scriptHasWarnings;
+
+  /// No description provided for @scriptIsValid.
+  ///
+  /// In en, this message translates to:
+  /// **'Script is Valid'**
+  String get scriptIsValid;
+
+  /// No description provided for @countCommands.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural, one{1 command} other{{count} commands}}'**
+  String countCommands(int count);
+
+  /// No description provided for @countErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural, one{1 error} other{{count} errors}}'**
+  String countErrors(int count);
+
+  /// No description provided for @countWarnings.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural, one{1 warning} other{{count} warnings}}'**
+  String countWarnings(int count);
+
+  /// No description provided for @validationResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation Results'**
+  String get validationResults;
+
+  /// No description provided for @totalDelays.
+  ///
+  /// In en, this message translates to:
+  /// **'Total delays: {sec}s'**
+  String totalDelays(String sec);
+
+  /// No description provided for @noIssuesFoundScriptIsValid.
+  ///
+  /// In en, this message translates to:
+  /// **'No issues found. Script is valid!'**
+  String get noIssuesFoundScriptIsValid;
+
+  /// No description provided for @issuesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Issues {count}'**
+  String issuesCount(int count);
+
+  /// No description provided for @lineNum.
+  ///
+  /// In en, this message translates to:
+  /// **'Line {num}'**
+  String lineNum(int num);
+
+  /// No description provided for @paramRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'required'**
+  String get paramRequired;
+
+  /// No description provided for @addParameter.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Parameter'**
+  String get addParameter;
+
+  /// No description provided for @editParameter.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Parameter'**
+  String get editParameter;
+
+  /// No description provided for @key.
+  ///
+  /// In en, this message translates to:
+  /// **'Key'**
+  String get key;
+
+  /// No description provided for @requiredCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get requiredCap;
+
+  /// No description provided for @label.
+  ///
+  /// In en, this message translates to:
+  /// **'Label'**
+  String get label;
+
+  /// No description provided for @targetIPAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Target IP Address'**
+  String get targetIPAddress;
+
+  /// No description provided for @optionalDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional description'**
+  String get optionalDescription;
+
+  /// No description provided for @textCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get textCap;
+
+  /// No description provided for @number.
+  ///
+  /// In en, this message translates to:
+  /// **'Number'**
+  String get number;
+
+  /// No description provided for @url.
+  ///
+  /// In en, this message translates to:
+  /// **'URL'**
+  String get url;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @defaultValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Value'**
+  String get defaultValue;
+
+  /// No description provided for @keyboardOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Keyboard Only'**
+  String get keyboardOnly;
+
+  /// No description provided for @mouseOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Mouse Only'**
+  String get mouseOnly;
+
+  /// No description provided for @compositeKeyboardMouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Composite (Keyboard + Mouse)'**
+  String get compositeKeyboardMouse;
+
+  /// No description provided for @keyboardProfileDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Single HID keyboard device. Use for typing and key combinations.'**
+  String get keyboardProfileDescription;
+
+  /// No description provided for @mouseProfileDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Single HID mouse device. Use for cursor movement and clicks.'**
+  String get mouseProfileDescription;
+
+  /// No description provided for @compositeProfileDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Combined keyboard and mouse. Recommended for most payloads.'**
+  String get compositeProfileDescription;
+
+  /// No description provided for @selectUSBGadgetProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select USB Gadget Profile'**
+  String get selectUSBGadgetProfile;
+
+  /// No description provided for @chooseTheHIDDeviceTypeToActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the HID device type to activate:'**
+  String get chooseTheHIDDeviceTypeToActivate;
+
+  /// No description provided for @activate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activate'**
+  String get activate;
+
+  /// No description provided for @recommended.
+  ///
+  /// In en, this message translates to:
+  /// **'RECOMMENDED'**
+  String get recommended;
+
+  /// No description provided for @clearLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear logs'**
+  String get clearLogs;
+
+  /// No description provided for @deleteAllStoredLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all stored logs?'**
+  String get deleteAllStoredLogs;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @clearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get clearAll;
+
+  /// No description provided for @level.
+  ///
+  /// In en, this message translates to:
+  /// **'Level:'**
+  String get level;
+
+  /// No description provided for @failedToLoadLogsError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load logs: {error}'**
+  String failedToLoadLogsError(String error);
+
+  /// No description provided for @noLogsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No logs yet'**
+  String get noLogsYet;
+
+  /// No description provided for @noMatchingLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching logs'**
+  String get noMatchingLogs;
+
+  /// No description provided for @runAPayloadToGenerateLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a payload to generate logs.'**
+  String get runAPayloadToGenerateLogs;
+
+  /// No description provided for @changeTheLevelFilterToSeeMoreEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'Change the level filter to see more entries.'**
+  String get changeTheLevelFilterToSeeMoreEntries;
+
+  /// No description provided for @logEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Log entry'**
+  String get logEntry;
+
+  /// No description provided for @share.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get share;
+
+  /// No description provided for @failedToLoadLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load logs: {error}'**
+  String failedToLoadLogs(String error);
+
+  /// No description provided for @logEntryNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Log entry not found.'**
+  String get logEntryNotFound;
+
+  /// No description provided for @metadata.
+  ///
+  /// In en, this message translates to:
+  /// **'Metadata'**
+  String get metadata;
+
+  /// No description provided for @noMetadata.
+  ///
+  /// In en, this message translates to:
+  /// **'No metadata'**
+  String get noMetadata;
+
+  /// No description provided for @failedToLoadHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load history'**
+  String get failedToLoadHistory;
+
+  /// No description provided for @noExecutionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No execution history'**
+  String get noExecutionHistory;
+
+  /// No description provided for @runAPayloadToSeeExecutionHistoryHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a payload to see execution history here.'**
+  String get runAPayloadToSeeExecutionHistoryHere;
+
+  /// No description provided for @clearExecutionHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear execution history'**
+  String get clearExecutionHistory;
+
+  /// No description provided for @thisWillDeleteAllExecutionLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'This will delete all execution logs. This cannot be undone.'**
+  String get thisWillDeleteAllExecutionLogs;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @success.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get success;
+
+  /// No description provided for @failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get failed;
+
+  /// No description provided for @hour.
+  ///
+  /// In en, this message translates to:
+  /// **'h'**
+  String get hour;
+
+  /// No description provided for @countEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural, one{1 event} other{{count} events}}'**
+  String countEvents(int count);
+
+  /// No description provided for @executionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution Details'**
+  String get executionDetails;
+
+  /// No description provided for @executionID.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution ID'**
+  String get executionID;
+
+  /// No description provided for @started.
+  ///
+  /// In en, this message translates to:
+  /// **'Started'**
+  String get started;
+
+  /// No description provided for @finished.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get finished;
+
+  /// No description provided for @duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get duration;
+
+  /// No description provided for @eventsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Events {count}'**
+  String eventsCount(int count);
+
+  /// No description provided for @sAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'s ago'**
+  String get sAgo;
+
+  /// No description provided for @mAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'m ago'**
+  String get mAgo;
+
+  /// No description provided for @hAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'h ago'**
+  String get hAgo;
+
+  /// No description provided for @dAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'d ago'**
+  String get dAgo;
 }
 
 class _AppLocalizationsDelegate
