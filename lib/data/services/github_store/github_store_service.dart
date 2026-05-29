@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
 import 'models.dart';
 import '../../models/payload.dart';
 import '../digispark_converter.dart';
 import '../ducky_script_validator.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 class GitHubRateLimitException implements Exception {
   final String message;
@@ -31,14 +34,14 @@ class GitHubTooLargeException implements Exception {
 }
 
 class GitHubStoreService {
-  Future<String> getDefaultBranch(RepoRef ref) async {
+  Future<String> getDefaultBranch(RepoRef ref, AppLocalizations l10n) async {
     final uri = Uri.https('api.github.com', '/repos/${ref.owner}/${ref.repo}');
     final res = await http.get(uri, headers: {
       'Accept': 'application/vnd.github+json',
       'User-Agent': userAgent,
     });
     if (res.statusCode == 404) {
-      throw GitHubNotFoundException('Repository not found');
+      throw GitHubNotFoundException(l10n.repositoryNotFound);
     }
     if (res.statusCode == 403) {
       final reset = res.headers['x-ratelimit-reset'];
@@ -47,7 +50,7 @@ class GitHubStoreService {
         final epoch = int.tryParse(reset);
         if (epoch != null) resetAt = DateTime.fromMillisecondsSinceEpoch(epoch * 1000, isUtc: true);
       }
-      throw GitHubRateLimitException('GitHub API rate limit reached', resetAt: resetAt);
+      throw GitHubRateLimitException(l10n.gitHubAPIRateLimitReached, resetAt: resetAt);
     }
     if (res.statusCode != 200) {
       throw Exception('GitHub error: ${res.statusCode}');
@@ -59,7 +62,7 @@ class GitHubStoreService {
   static const userAgent = 'TapDucky/1.0';
   static const maxPreviewBytes = 256 * 1024; // 256KB
 
-  Future<List<RepoItem>> listDirectory(RepoRef ref, {String? subPath, bool showMedia = false, bool showAll = false}) async {
+  Future<List<RepoItem>> listDirectory(RepoRef ref, {String? subPath, bool showMedia = false, bool showAll = false, required AppLocalizations l10n}) async {
     final path = [ref.path, if (subPath != null && subPath.isNotEmpty) subPath]
         .where((e) => e != null && e.toString().isNotEmpty)
         .join('/')
@@ -72,7 +75,7 @@ class GitHubStoreService {
       'User-Agent': userAgent,
     });
     if (res.statusCode == 404) {
-      throw GitHubNotFoundException('Repository, branch, or folder not found');
+      throw GitHubNotFoundException(l10n.repositoryBranchOrFolderNotFound);
     }
     if (res.statusCode == 403) {
       final reset = res.headers['x-ratelimit-reset'];
@@ -81,14 +84,14 @@ class GitHubStoreService {
         final epoch = int.tryParse(reset);
         if (epoch != null) resetAt = DateTime.fromMillisecondsSinceEpoch(epoch * 1000, isUtc: true);
       }
-      throw GitHubRateLimitException('GitHub API rate limit reached', resetAt: resetAt);
+      throw GitHubRateLimitException(l10n.gitHubAPIRateLimitReached, resetAt: resetAt);
     }
     if (res.statusCode != 200) {
       throw Exception('GitHub error: ${res.statusCode}');
     }
     final body = jsonDecode(res.body);
     if (body is! List) {
-      throw Exception('Expected a directory listing');
+      throw Exception(l10n.expectedADirectoryListing);
     }
     final all = body.map<RepoItem>((e) {
       final type = (e['type'] == 'dir') ? RepoItemType.dir : RepoItemType.file;
@@ -144,7 +147,7 @@ class GitHubStoreService {
     return items;
   }
 
-  Future<FilePreview> fetchFilePreview(RepoRef ref, String fullPath) async {
+  Future<FilePreview> fetchFilePreview(RepoRef ref, String fullPath, AppLocalizations l10n) async {
     final query = <String, String>{};
     if (ref.branch.isNotEmpty) query['ref'] = ref.branch;
     final uri = Uri.https('api.github.com', '/repos/${ref.owner}/${ref.repo}/contents/$fullPath', query);
@@ -153,7 +156,7 @@ class GitHubStoreService {
       'User-Agent': userAgent,
     });
     if (res.statusCode == 404) {
-      throw GitHubNotFoundException('File not found');
+      throw GitHubNotFoundException(l10n.fileNotFound);
     }
     if (res.statusCode == 403) {
       final reset = res.headers['x-ratelimit-reset'];
@@ -162,7 +165,7 @@ class GitHubStoreService {
         final epoch = int.tryParse(reset);
         if (epoch != null) resetAt = DateTime.fromMillisecondsSinceEpoch(epoch * 1000, isUtc: true);
       }
-      throw GitHubRateLimitException('GitHub API rate limit reached', resetAt: resetAt);
+      throw GitHubRateLimitException(l10n.gitHubAPIRateLimitReached, resetAt: resetAt);
     }
     if (res.statusCode != 200) {
       throw Exception('GitHub error: ${res.statusCode}');
@@ -170,7 +173,7 @@ class GitHubStoreService {
     final body = jsonDecode(res.body) as Map<String, dynamic>;
     final size = (body['size'] is int) ? body['size'] as int : 0;
     if (size > maxPreviewBytes) {
-      throw GitHubTooLargeException('File too large to preview/import (max 256KB)');
+      throw GitHubTooLargeException(l10n.fileTooLargeToPreview);
     }
     String text;
     if (body['encoding'] == 'base64' && body['content'] is String) {
@@ -179,10 +182,10 @@ class GitHubStoreService {
       text = utf8.decode(bytes, allowMalformed: true);
     } else if (body['download_url'] is String) {
       final raw = await http.get(Uri.parse(body['download_url'] as String), headers: {'User-Agent': userAgent});
-      if (raw.statusCode != 200) throw Exception('Failed to fetch raw');
+      if (raw.statusCode != 200) throw Exception(l10n.failedToFetchRaw);
       text = raw.body;
     } else {
-      throw Exception('No content');
+      throw Exception(l10n.noContent);
     }
 
     // Detect format
@@ -195,7 +198,7 @@ class GitHubStoreService {
       final conv = DigiSparkConverter.convert(text);
       if (conv != null) {
         final validator = DuckyScriptValidator();
-        final res = validator.validate(conv.text);
+        final res = validator.validate(conv.text, l10n: l10n);
         final hasErr = res.hasErrors || res.commandCount == 0;
         if (!hasErr) {
           final name = fullPath.split('/').last;
@@ -234,7 +237,7 @@ class GitHubStoreService {
         final script = (obj['script'] as String);
         // Validate embedded script as ducky to ensure compatibility
         final validator = DuckyScriptValidator();
-        final result = validator.validate(script);
+        final result = validator.validate(script, l10n: l10n);
         jsonHasErrors = result.hasErrors || result.commandCount == 0;
         jsonWarnings = result.issues.where((i) => i.severity == IssueSeverity.warning).length;
         if (!jsonHasErrors) {
@@ -270,7 +273,7 @@ class GitHubStoreService {
     int duckWarnings = 0;
     if (!jsonLooksValid) {
       final validator = DuckyScriptValidator();
-      final result = validator.validate(text);
+      final result = validator.validate(text, l10n: l10n);
       duckHasErrors = result.hasErrors || result.commandCount == 0;
       duckWarnings = result.issues.where((i) => i.severity == IssueSeverity.warning).length;
       if (!duckHasErrors) {

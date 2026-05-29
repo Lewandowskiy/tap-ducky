@@ -318,7 +318,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
       error: (_, __) => const SizedBox.shrink(),
       data: (settings) {
         final currentMultiplier = settings.delayMultiplier;
-        final validationResult = widget.validator.validate(widget.payload.script);
+        final validationResult = widget.validator.validate(widget.payload.script, l10n: context.l10n);
         _refreshEngineEstimate(widget.payload.script, currentMultiplier);
 
         final baseDurationMs = _engineBaseEstimateMs ?? validationResult.estimatedDurationMs;
@@ -469,7 +469,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                         Row(
                           children: [
                             Text(
-                              context.l10n.original,
+                              '${context.l10n.original}: ',
                               style: TextStyle(
                                 fontSize: 13,
                                 color: cs.onSurfaceVariant,
@@ -489,7 +489,7 @@ class _ExecutionSpeedCardState extends ConsumerState<_ExecutionSpeedCard> {
                         Row(
                           children: [
                             Text(
-                              context.l10n.adjusted,
+                              '${context.l10n.adjusted}: ',
                               style: TextStyle(
                                 fontSize: 13,
                                 color: cs.onSurfaceVariant,

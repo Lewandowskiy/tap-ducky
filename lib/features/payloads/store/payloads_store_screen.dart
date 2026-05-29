@@ -13,6 +13,8 @@ import '../../../state/controllers/payloads_store_controller.dart';
 import '../../../state/providers.dart';
 import 'manage_sources_screen.dart';
 
+import '../../../extension/context_extensions.dart';
+
 class PayloadsStoreScreen extends ConsumerStatefulWidget {
   const PayloadsStoreScreen({super.key});
 
@@ -35,7 +37,7 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
       _urlCtrl.text = s.repo?.originalUrl ?? '';
 
       if (mounted && s.repo != null) {
-        ref.read(payloadsStoreControllerProvider.notifier).refresh();
+        ref.read(payloadsStoreControllerProvider.notifier).refresh(context.l10n);
       }
     });
   }
@@ -57,17 +59,17 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Payloads Store'),
+        title: Text(context.l10n.payloadsStore),
         actions: [
           IconButton(
-            tooltip: 'Sources',
+            tooltip: context.l10n.sources,
             icon: const Icon(Icons.bookmarks_outlined),
             onPressed: () => Navigator.of(context).push(
               MaterialPageRoute(builder: (_) => const ManageSourcesScreen()),
             ),
           ),
          IconButton(
-           tooltip: 'Show all (including hidden)',
+           tooltip: context.l10n.showAllIncludingHidden,
            icon: const Icon(Icons.visibility),
            onPressed: repo == null
                ? null
@@ -77,25 +79,25 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                    final current = (prefs.getString('tapducky.store.showAll') ?? '') == '1';
                    await prefs.setString('tapducky.store.showAll', current ? '0' : '1');
                    // force reload
-                   ctrl.refresh();
+                   ctrl.refresh(context.l10n);
                  },
          ),
          IconButton(
-           tooltip: state.showMedia ? 'Hide media' : 'Show media',
+           tooltip: state.showMedia ? context.l10n.hideMedia : context.l10n.showMedia,
            icon: Icon(state.showMedia ? Icons.filter_list_off : Icons.filter_list),
-           onPressed: repo == null ? null : () => ctrl.toggleShowMedia(),
+           onPressed: repo == null ? null : () => ctrl.toggleShowMedia(context.l10n),
          ),
           IconButton(
-            tooltip: 'Refresh',
+            tooltip: context.l10n.refresh,
             icon: const Icon(Icons.refresh),
-            onPressed: repo == null ? null : () => ctrl.refresh(),
+            onPressed: repo == null ? null : () => ctrl.refresh(context.l10n),
           ),
         ],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
           if (repo != null) {
-            await ctrl.refresh();
+            await ctrl.refresh(context.l10n);
           }
         },
         child: CustomScrollView(
@@ -111,7 +113,7 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                      Card(
                        elevation: 0,
                        child: ExpansionTile(
-                         title: const Text('Repository controls'),
+                         title: Text(context.l10n.repositoryControls),
                          subtitle: Text(repo.alias?.isNotEmpty == true ? repo.alias! : repo.originalUrl,
                              maxLines: 1, overflow: TextOverflow.ellipsis),
                          children: [
@@ -124,7 +126,7 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                              onOpenSourcePicker: () => _showSourcePicker(context),
                              onClear: () {
                                _urlCtrl.clear();
-                               ctrl.setUrl('');
+                               ctrl.setUrl('', context.l10n);
                              },
                            ),
                          ],
@@ -140,7 +142,7 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                        onOpenSourcePicker: () => _showSourcePicker(context),
                        onClear: () {
                          _urlCtrl.clear();
-                         ctrl.setUrl('');
+                         ctrl.setUrl('', context.l10n);
                        },
                      ),
                     const SizedBox(height: 12),
@@ -151,7 +153,7 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                         canNavigateUp: state.currentPath.isNotEmpty,
                         searchCtrl: _searchCtrl,
                         onSearchChanged: (v) => ctrl.setSearch(v),
-                        onNavigateUp: () => ctrl.navigateUp(),
+                        onNavigateUp: () => ctrl.navigateUp(context.l10n),
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -190,18 +192,18 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                           padding: const EdgeInsets.only(bottom: 16),
                           children: [
                             if (dirs.isNotEmpty) ...[
-                              _SectionHeader(title: 'Folders', count: dirs.length),
+                              _SectionHeader(title: context.l10n.folders, count: dirs.length),
                               ...dirs.map(
                                 (it) => _RepoItemTile(
                                   item: it,
                                   subtitle: it.path,
-                                  onTap: () => ctrl.navigateInto(it),
+                                  onTap: () => ctrl.navigateInto(it, context.l10n),
                                 ),
                               ),
                               const Divider(height: 16),
                             ],
                             if (files.isNotEmpty) ...[
-                              _SectionHeader(title: 'Files', count: files.length),
+                              _SectionHeader(title: context.l10n.files, count: files.length),
                               ...files.map(
                                 (it) => _RepoItemTile(
                                   item: it,
@@ -230,14 +232,14 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
     final url = _urlCtrl.text.trim();
     if (url.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Paste a GitHub URL first'),
+        SnackBar(
+          content: Text(context.l10n.pasteAGitHubURLFirst),
           behavior: SnackBarBehavior.floating,
         ),
       );
       return;
     }
-    ctrl.setUrl(url);
+    ctrl.setUrl(url, context.l10n);
     FocusScope.of(context).unfocus();
   }
 
@@ -245,8 +247,8 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
     final url = _urlCtrl.text.trim();
     if (url.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Paste a GitHub URL first'),
+        SnackBar(
+          content: Text(context.l10n.pasteAGitHubURLFirst),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -256,8 +258,8 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
     final parsed = parseGitHubUrl(url);
     if (parsed == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Invalid GitHub URL. Expected repo or folder URL.'),
+        SnackBar(
+          content: Text(context.l10n.invalidGitHubURL),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -268,8 +270,8 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Source added'),
+        SnackBar(
+          content: Text(context.l10n.sourceAdded),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -283,8 +285,8 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
     final sources = state.sources;
     if (sources.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No sources saved yet'),
+        SnackBar(
+          content: Text(context.l10n.noSourcesSavedYet),
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -306,12 +308,12 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Choose source',
+                        context.l10n.chooseSource,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
                     IconButton(
-                      tooltip: 'Manage',
+                      tooltip: context.l10n.manage,
                       onPressed: () {
                         Navigator.of(context).pop();
                         Navigator.of(context).push(
@@ -355,7 +357,7 @@ class _PayloadsStoreScreenState extends ConsumerState<PayloadsStoreScreen> {
 
     if (chosen != null) {
       _urlCtrl.text = chosen.originalUrl;
-      ctrl.setUrl(chosen.originalUrl);
+      ctrl.setUrl(chosen.originalUrl, context.l10n);
     }
   }
 }
@@ -384,12 +386,12 @@ class _HeaderCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     final repoLabel = repo == null
-        ? 'No repo selected'
+        ? context.l10n.noRepoSelected
         : (repo!.alias?.trim().isNotEmpty == true
             ? repo!.alias!.trim()
             : '${repo!.owner}/${repo!.repo}');
 
-    final repoSub = repo == null ? 'Paste a URL, browse, then import payloads.' : repo!.originalUrl;
+    final repoSub = repo == null ? context.l10n.pasteAURLBrowseThenImportPayloads : repo!.originalUrl;
 
     return Card(
       elevation: 0,
@@ -422,7 +424,7 @@ class _HeaderCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  tooltip: 'Pick from saved sources',
+                  tooltip: context.l10n.pickFromSavedSources,
                   onPressed: sources.isEmpty ? null : onOpenSourcePicker,
                   icon: const Icon(Icons.keyboard_arrow_down),
                 ),
@@ -440,7 +442,7 @@ class _HeaderCard extends StatelessWidget {
                 border: const OutlineInputBorder(),
                 prefixIcon: const Icon(Icons.link),
                 suffixIcon: IconButton(
-                  tooltip: 'Clear',
+                  tooltip: context.l10n.clear,
                   onPressed: onClear,
                   icon: const Icon(Icons.clear),
                 ),
@@ -454,7 +456,7 @@ class _HeaderCard extends StatelessWidget {
                   child: FilledButton.icon(
                     onPressed: onBrowse,
                     icon: const Icon(Icons.search),
-                    label: const Text('Browse'),
+                    label: Text(context.l10n.browse),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -462,7 +464,7 @@ class _HeaderCard extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: onAdd,
                     icon: const Icon(Icons.bookmark_add_outlined),
-                    label: const Text('Save source'),
+                    label: Text(context.l10n.saveSource),
                   ),
                 ),
               ],
@@ -512,7 +514,7 @@ class _PathAndSearchBar extends StatelessWidget {
                 ),
               ),
               IconButton(
-                tooltip: 'Up one folder',
+                tooltip: context.l10n.upOneFolder,
                 onPressed: canNavigateUp ? onNavigateUp : null,
                 icon: const Icon(Icons.arrow_upward),
               ),
@@ -525,12 +527,12 @@ class _PathAndSearchBar extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  'Repository root',
+                  context.l10n.repositoryRoot,
                   style: theme.textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
                 ),
               ),
               IconButton(
-                tooltip: 'Up one folder',
+                tooltip: context.l10n.upOneFolder,
                 onPressed: null,
                 icon: const Icon(Icons.arrow_upward),
               ),
@@ -540,9 +542,9 @@ class _PathAndSearchBar extends StatelessWidget {
         TextField(
           controller: searchCtrl,
           onChanged: onSearchChanged,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             prefixIcon: Icon(Icons.search),
-            hintText: 'Search files and folders',
+            hintText: context.l10n.searchFilesAndFolders,
             border: OutlineInputBorder(),
             isDense: true,
           ),
@@ -634,7 +636,7 @@ class _Badge extends StatelessWidget {
     }
 
     final widgets = <Widget>[];
-    widgets.add(Text(likelySupported ? 'Importable' : 'Not supported', style: TextStyle(color: likelySupported ? Colors.green : cs.outline)));
+    widgets.add(Text(likelySupported ? context.l10n.importable : context.l10n.notSupported, style: TextStyle(color: likelySupported ? Colors.green : cs.outline)));
     if (ext == '.ino') {
       widgets.add(const SizedBox(width: 6));
       widgets.add(Container(
@@ -643,7 +645,7 @@ class _Badge extends StatelessWidget {
           color: cs.secondaryContainer,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Text('Converted', style: theme.textTheme.labelSmall?.copyWith(color: cs.onSecondaryContainer)),
+        child: Text(context.l10n.converted, style: theme.textTheme.labelSmall?.copyWith(color: cs.onSecondaryContainer)),
       ));
     }
 
@@ -667,10 +669,10 @@ class _EmptyRepoState extends StatelessWidget {
           children: [
             Icon(Icons.explore_outlined, size: 56, color: theme.colorScheme.onSurfaceVariant),
             const SizedBox(height: 12),
-            Text('Browse a GitHub repository', style: theme.textTheme.titleMedium),
+            Text(context.l10n.browseAGitHubRepository, style: theme.textTheme.titleMedium),
             const SizedBox(height: 6),
             Text(
-              'Paste a repo or folder URL, browse files, and import supported payload formats.',
+              context.l10n.pasteARepoOrFolderURL,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
             ),
@@ -678,7 +680,7 @@ class _EmptyRepoState extends StatelessWidget {
             OutlinedButton.icon(
               onPressed: onPasteExample,
               icon: const Icon(Icons.content_paste_outlined),
-              label: const Text('Paste example URL'),
+              label: Text(context.l10n.pasteExampleURL),
             ),
           ],
         ),
@@ -692,10 +694,10 @@ class _EmptyList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
         padding: EdgeInsets.all(24),
-        child: Text('No matching files or folders'),
+        child: Text(context.l10n.noMatchingFilesOrFolders),
       ),
     );
   }
@@ -715,7 +717,7 @@ class _ErrorView extends StatelessWidget {
           children: [
             const Icon(Icons.error_outline, size: 48),
             const SizedBox(height: 12),
-            Text('Failed to load', style: Theme.of(context).textTheme.titleMedium),
+            Text(context.l10n.failedToLoad, style: Theme.of(context).textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(error, textAlign: TextAlign.center),
           ],
@@ -753,7 +755,7 @@ class _IssuesList extends StatelessWidget {
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
-                    'Line ${i.line}: ${i.message}',
+                    context.l10n.line(i.line.toString(), i.message),
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -766,7 +768,7 @@ class _IssuesList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 6),
             child: Text(
-              '+${issues.length - maxShow} more…',
+              '+${issues.length - maxShow} ${context.l10n.moreThreePoints}',
               style: theme.textTheme.bodySmall?.copyWith(color: cs.onSurfaceVariant),
             ),
           ),
@@ -812,15 +814,15 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
     final repo = store.repo;
 
     if (repo == null) {
-      return const Scaffold(
-        body: Center(child: Text('No repository selected')),
+      return Scaffold(
+        body: Center(child: Text(context.l10n.noRepositorySelected)),
       );
     }
 
     final svc = ref.read(githubStoreServiceProvider);
 
     return FutureBuilder<FilePreview>(
-      future: svc.fetchFilePreview(repo, widget.itemPath),
+      future: svc.fetchFilePreview(repo, widget.itemPath, context.l10n),
       builder: (context, snap) {
         final theme = Theme.of(context);
 
@@ -841,7 +843,7 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
         if (!snap.hasData) {
           return Scaffold(
             appBar: AppBar(title: Text(widget.itemPath.split('/').last)),
-            body: const _ErrorView(error: 'No preview data'),
+            body: _ErrorView(error: context.l10n.noPreviewData),
           );
         }
 
@@ -855,10 +857,10 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
             appBar: AppBar(
               title: Text(widget.itemPath.split('/').last),
               bottom: hasOriginal
-                  ? const TabBar(
+                  ? TabBar(
                       tabs: [
-                        Tab(text: 'Converted'),
-                        Tab(text: 'Original'),
+                        Tab(text: context.l10n.converted),
+                        Tab(text: context.l10n.original),
                       ],
                     )
                   : null,
@@ -892,13 +894,13 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
                       if (preview.wasConverted)
                         OutlinedButton.icon(
                           icon: const Icon(Icons.auto_awesome, size: 16),
-                          label: const Text('Copy converted'),
+                          label: Text(context.l10n.copyConverted),
                           onPressed: () async {
                           await Clipboard.setData(ClipboardData(text: preview.text));
                           if (mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Converted copied'),
+                              SnackBar(
+                                content: Text(context.l10n.convertedCopied),
                                 behavior: SnackBarBehavior.floating,
                               ),
                             );
@@ -909,13 +911,13 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
                       if (preview.wasConverted && hasOriginal)
                         OutlinedButton.icon(
                           icon: const Icon(Icons.copy_all, size: 16),
-                          label: const Text('Copy original'),
+                          label: Text(context.l10n.copyOriginal),
                           onPressed: () async {
                             await Clipboard.setData(ClipboardData(text: preview.originalText!));
                             if (mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Original copied'),
+                                SnackBar(
+                                  content: Text(context.l10n.originalCopied),
                                   behavior: SnackBarBehavior.floating,
                                 ),
                               );
@@ -924,7 +926,7 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
                         ),
                       const Spacer(),
                       IconButton(
-                        tooltip: _wrap ? 'Disable wrap' : 'Enable wrap',
+                        tooltip: _wrap ? context.l10n.disableWrap : context.l10n.enableWrap,
                         onPressed: () => setState(() => _wrap = !_wrap),
                         icon: Icon(_wrap ? Icons.wrap_text : Icons.swap_horiz),
                       ),
@@ -953,7 +955,7 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (preview.issues.isNotEmpty) ...[
-                        Text('Validation summary', style: theme.textTheme.labelLarge),
+                        Text(context.l10n.validationSummary, style: theme.textTheme.labelLarge),
                         const SizedBox(height: 6),
                         _IssuesList(issues: preview.issues),
                         const SizedBox(height: 10),
@@ -964,7 +966,7 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
                             child: preview.isSupported
                                 ? FilledButton.icon(
                                     icon: const Icon(Icons.download),
-                                    label: const Text('Import'),
+                                    label: Text(context.l10n.import),
                                     onPressed: () async {
                                       await _importPreview(context, ref, preview, repo);
                                     },
@@ -972,7 +974,7 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
                                 : OutlinedButton.icon(
                                     onPressed: null,
                                     icon: const Icon(Icons.block),
-                                    label: const Text('Not supported'),
+                                    label: Text(context.l10n.notSupported),
                                   ),
                           ),
                         ],
@@ -1008,8 +1010,8 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
 
         final draft = Payload(
           id: '',
-          name: name.isEmpty ? 'Imported Ducky Script' : name,
-          description: 'Imported from ${repo.owner}/${repo.repo} • source: ${preview.name}',
+          name: name.isEmpty ? context.l10n.importedDuckyScript : name,
+          description: '${context.l10n.importedFrom(repo.owner, repo.repo)} • ${context.l10n.source(preview.name)}',
           script: preview.text,
           tags: [
             'imported',
@@ -1023,13 +1025,13 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
 
         await ref.read(payloadsControllerProvider.notifier).create(draft);
       } else {
-        throw Exception('Unsupported format');
+        throw Exception(context.l10n.unsupportedFormat);
       }
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Imported successfully'),
+          SnackBar(
+            content: Text(context.l10n.importedSuccessfully),
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -1039,7 +1041,7 @@ class _FilePreviewScreenState extends ConsumerState<_FilePreviewScreen> {
       if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Import failed: $e'),
+          content: Text(context.l10n.importFailed(e.toString())),
           behavior: SnackBarBehavior.floating,
         ),
       );

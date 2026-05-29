@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../../l10n/app_localizations.dart';
+
 class ValidationIssue {
   const ValidationIssue({
     required this.line,
@@ -325,6 +327,7 @@ class DuckyScriptValidator {
   ValidationResult validate(
     String script, {
     double delayMultiplier = 1.0,
+    required AppLocalizations l10n,
   }) {
     final issues = <ValidationIssue>[];
 
@@ -460,8 +463,8 @@ class DuckyScriptValidator {
         issues.add(ValidationIssue(
           line: lineNum,
           severity: IssueSeverity.error,
-          message: 'Unknown command: $command',
-          suggestion: 'Did you mean ${_commonTypos[command]}?',
+          message: l10n.unknownCommand(command),
+          suggestion: l10n.didYouMean(_commonTypos[command].toString()),
         ));
         continue;
       }
@@ -498,8 +501,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'STRING_DELAY requires a numeric delay value',
-              suggestion: 'Example: STRING_DELAY 100 Hello',
+              message: l10n.stringDelayRequiresANumericDelayValue,
+              suggestion: l10n.exampleStringDelay100Hello,
             ));
             break;
           }
@@ -508,8 +511,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'STRING_DELAY requires a numeric delay value',
-              suggestion: 'Example: STRING_DELAY 50',
+              message: l10n.stringDelayRequiresANumericDelayValue,
+              suggestion: l10n.exampleStringDelay50,
             ));
             break;
           }
@@ -534,7 +537,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'DEFAULTDELAY requires a numeric value',
+              message: l10n.defaultDelayRequiresANumericValue,
             ));
           } else {
             defaultDelayMs = max(0, ms);
@@ -547,8 +550,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'DELAY requires a time value in milliseconds',
-              suggestion: 'Example: DELAY 500',
+              message: l10n.delayRequiresATimeValueInMilliseconds,
+              suggestion: l10n.exampleDelay500,
             ));
             break;
           }
@@ -558,8 +561,8 @@ class DuckyScriptValidator {
               issues.add(ValidationIssue(
                 line: lineNum,
                 severity: IssueSeverity.error,
-                message: 'DELAY value must be a number or variable',
-                suggestion: 'Example: DELAY 500 or DELAY \$MY_DELAY',
+                message: l10n.delayValueMustBeANumberOrVariable,
+                suggestion: l10n.exampleDelay500OrDelayMyDelay,
               ));
             }
             commitCommand(
@@ -573,8 +576,8 @@ class DuckyScriptValidator {
               issues.add(ValidationIssue(
                 line: lineNum,
                 severity: IssueSeverity.warning,
-                message: 'DELAY minimum value is ${_minDelayMs}ms',
-                suggestion: 'Use DELAY $_minDelayMs or higher',
+                message: l10n.delayMinimumValueIsMS(_minDelayMs),
+                suggestion: l10n.useDelayMinMSOrHigher(_minDelayMs),
               ));
             }
             commitCommand(
@@ -612,8 +615,8 @@ class DuckyScriptValidator {
               issues.add(ValidationIssue(
                 line: lineNum,
                 severity: IssueSeverity.warning,
-                message: 'WAIT_FOR target not recognized: $target',
-                suggestion: 'Use HOST_CONNECTED, UDC_CONFIGURED, KEYBOARD_READY, MOUSE_READY, or SESSION_ARMED',
+                message: l10n.waitForTargetNotRecognized(target),
+                suggestion: l10n.useHostConnectedEtc,
               ));
             }
           }
@@ -638,8 +641,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'DEFINE requires a name and value',
-              suggestion: 'Example: DEFINE APP notepad',
+              message: l10n.defineRequiresANameAndValue,
+              suggestion: l10n.exampleDefineAppNotepad,
             ));
           }
           break;
@@ -650,8 +653,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'VAR requires a variable name',
-              suggestion: 'Example: VAR \$counter = 0',
+              message: l10n.varRequiresAVariableName,
+              suggestion: l10n.exampleVarCounter0,
             ));
           } else {
             final varName = parts[1];
@@ -659,8 +662,8 @@ class DuckyScriptValidator {
               issues.add(ValidationIssue(
                 line: lineNum,
                 severity: IssueSeverity.error,
-                message: 'Variable name must start with \$',
-                suggestion: 'Example: VAR \$counter = 0',
+                message: l10n.variableNameMustStartWithDollar,
+                suggestion: l10n.exampleVarCounter0,
               ));
             }
           }
@@ -672,8 +675,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'FUNCTION requires a name',
-              suggestion: 'Example: FUNCTION my_function',
+              message: l10n.functionRequiresAName,
+              suggestion: l10n.exampleFunctionMyFunction,
             ));
           } else {
             final m = RegExp(r'^FUNCTION\s+([A-Za-z_][A-Za-z0-9_]*)', caseSensitive: false)
@@ -690,7 +693,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'END_FUNCTION without matching FUNCTION',
+              message: l10n.endFunctionWithoutMatchingFunction,
             ));
           } else {
             functionDepth--;
@@ -703,7 +706,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.warning,
-              message: 'RETURN outside of FUNCTION',
+              message: l10n.returnOutsideOfFunction,
             ));
           }
           commitCommand(keyCount: 0, perCharDelayMs: 0, charCount: 0);
@@ -720,7 +723,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'ELSE without matching IF',
+              message: l10n.elseWithoutMatchingIf,
             ));
           }
           break;
@@ -731,7 +734,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'END_IF without matching IF',
+              message: l10n.endIfWithoutMatchingIf,
             ));
           } else {
             ifDepth--;
@@ -750,7 +753,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'END_WHILE without matching WHILE',
+              message: l10n.endWhileWithoutMatchingWhile,
             ));
           } else {
             whileDepth--;
@@ -767,7 +770,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'CATCH without matching TRY',
+              message: l10n.catchWithoutMatchingTry,
             ));
           } else {
             tryHasCatch[tryHasCatch.length - 1] = true;
@@ -780,7 +783,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'END_TRY without matching TRY',
+              message: l10n.endTryWithoutMatchingTry,
             ));
           } else {
             tryDepth--;
@@ -795,8 +798,8 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'REPEAT requires a numeric count',
-              suggestion: 'Example: REPEAT 5',
+              message: l10n.repeatRequiresANumericCount,
+              suggestion: l10n.exampleRepeat5,
             ));
           } else if (lastCommandTotalMs > 0) {
             final repeated = lastCommandTotalMs * count;
@@ -822,7 +825,7 @@ class DuckyScriptValidator {
             issues.add(ValidationIssue(
               line: lineNum,
               severity: IssueSeverity.error,
-              message: 'MOUSE requires an action (CLICK, MOVE, SCROLL, etc.)',
+              message: l10n.mouseRequiresAnAction,
             ));
           }
           final kMs = scaledMs(_baseMouseMs);
@@ -843,8 +846,8 @@ class DuckyScriptValidator {
               issues.add(ValidationIssue(
                 line: lineNum,
                 severity: IssueSeverity.warning,
-                message: 'Function "$funcName" not declared in this script',
-                suggestion: 'Declare it with: FUNCTION $funcName',
+                message: l10n.functionNotDeclaredInThisScript(funcName),
+                suggestion: l10n.declareItWithFunction(funcName),
               ));
             }
             commitCommand(keyCount: 0, perCharDelayMs: 0, charCount: 0);
@@ -894,8 +897,8 @@ class DuckyScriptValidator {
               issues.add(ValidationIssue(
                 line: lineNum,
                 severity: IssueSeverity.warning,
-                message: 'Unknown command: $command',
-                suggestion: _findClosestCommand(command),
+                message: '${l10n.unknownCommand} $command',
+                suggestion: _findClosestCommand(command, l10n),
               ));
             }
           }
@@ -907,53 +910,53 @@ class DuckyScriptValidator {
       issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: '$ifDepth unclosed IF statement(s)',
-        suggestion: 'Add END_IF for each IF',
+        message: l10n.countUnclosedIfStatements(ifDepth),
+        suggestion: l10n.addEndIfForEachIf,
       ));
     }
     if (whileDepth > 0) {
       issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: '$whileDepth unclosed WHILE loop(s)',
-        suggestion: 'Add END_WHILE for each WHILE',
+        message: l10n.countUnclosedWhileLoops(whileDepth),
+        suggestion: l10n.addEndWhileForEachWhile,
       ));
     }
     if (functionDepth > 0) {
       issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: '$functionDepth unclosed FUNCTION(s)',
-        suggestion: 'Add END_FUNCTION for each FUNCTION',
+        message: l10n.countUnclosedFunctions(functionDepth),
+        suggestion: l10n.addEndFunctionForEachFunction,
       ));
     }
     if (tryDepth > 0) {
       issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: '$tryDepth unclosed TRY block(s)',
-        suggestion: 'Add END_TRY for each TRY',
+        message: l10n.countUnclosedTryBlocks(tryDepth),
+        suggestion: l10n.addEndTryForEachTry,
       ));
     }
     if (inRemBlock) {
-      issues.add(const ValidationIssue(
+      issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: 'Unclosed REM_BLOCK (missing END_REM)',
+        message: l10n.unclosedRemBlock,
       ));
     }
     if (inStringBlock) {
-      issues.add(const ValidationIssue(
+      issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: 'Unclosed STRING block (missing END_STRING)',
+        message: l10n.unclosedStringBlock,
       ));
     }
     if (inStringLnBlock) {
-      issues.add(const ValidationIssue(
+      issues.add(ValidationIssue(
         line: 0,
         severity: IssueSeverity.error,
-        message: 'Unclosed STRINGLN block (missing END_STRINGLN)',
+        message: l10n.unclosedStringlnBlock,
       ));
     }
 
@@ -1069,10 +1072,10 @@ class DuckyScriptValidator {
     }
   }
 
-  String? _findClosestCommand(String input) {
+  String? _findClosestCommand(String input, AppLocalizations l10n) {
     final upper = input.toUpperCase();
     if (_commonTypos.containsKey(upper)) {
-      return 'Did you mean ${_commonTypos[upper]}?';
+      return l10n.didYouMean(_commonTypos[upper].toString());
     }
     String? closest;
     int minDistance = 999;
@@ -1083,7 +1086,7 @@ class DuckyScriptValidator {
         closest = cmd;
       }
     }
-    return closest != null ? 'Did you mean $closest?' : null;
+    return closest != null ? l10n.didYouMean(closest) : null;
   }
 
   int _levenshteinDistance(String s1, String s2) {

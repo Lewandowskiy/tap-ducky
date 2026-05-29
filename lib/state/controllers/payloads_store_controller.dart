@@ -7,6 +7,8 @@ import '../../data/services/github_store/github_store_service.dart';
 import '../providers.dart';
 import '../../data/storage/prefs_storage.dart';
 
+import '../../l10n/app_localizations.dart';
+
 @immutable
 class StoreState {
   final bool showAll;
@@ -84,29 +86,29 @@ class PayloadsStoreController extends Notifier<StoreState> {
 
   void setSearch(String q) => state = state.copyWith(searchQuery: q);
 
-  Future<void> setUrl(String url) async {
+  Future<void> setUrl(String url, AppLocalizations l10n) async {
     final parsed = parseGitHubUrl(url);
     if (parsed == null) {
       state = state.copyWith(
         repo: null,
-        listing: const AsyncError('Only GitHub links are supported', StackTrace.empty),
+        listing: AsyncError(l10n.onlyGitHubLinksAreSupported, StackTrace.empty),
       );
       return;
     }
     state = state.copyWith(repo: parsed, currentPath: parsed.path, listing: const AsyncLoading());
     await _saveLast(parsed);
-    await _load();
+    await _load(l10n);
   }
 
-  Future<void> navigateInto(RepoItem item) async {
+  Future<void> navigateInto(RepoItem item, AppLocalizations l10n) async {
     if (state.repo == null) return;
     if (item.type == RepoItemType.dir) {
       state = state.copyWith(currentPath: item.path, listing: const AsyncLoading());
-      await _load();
+      await _load(l10n);
     }
   }
 
-  Future<void> navigateUp() async {
+  Future<void> navigateUp(AppLocalizations l10n) async {
     if (state.repo == null) return;
     final p = state.currentPath;
     if (p.isEmpty) return;
@@ -114,47 +116,47 @@ class PayloadsStoreController extends Notifier<StoreState> {
     if (parts.isEmpty) return;
     final up = parts.length <= 1 ? '' : parts.sublist(0, parts.length - 1).join('/');
     state = state.copyWith(currentPath: up, listing: const AsyncLoading());
-    await _load();
+    await _load(l10n);
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh(AppLocalizations l10n) async {
     if (state.repo == null) return;
     state = state.copyWith(listing: const AsyncLoading());
-    await _load();
+    await _load(l10n);
   }
 
   // --- View toggles ---
-  Future<void> toggleShowMedia() async {
+  Future<void> toggleShowMedia(AppLocalizations l10n) async {
     final newVal = !state.showMedia;
     state = state.copyWith(showMedia: newVal);
     try {
       final prefs = await ref.read(prefsStorageProvider.future);
       await prefs.setString(_showMediaKey, newVal ? '1' : '0');
     } catch (_) {}
-    await refresh();
+    await refresh(l10n);
   }
 
-  Future<void> toggleOnlyImportable() async {
+  Future<void> toggleOnlyImportable(AppLocalizations l10n) async {
     final newVal = !state.onlyImportable;
     state = state.copyWith(onlyImportable: newVal);
     try {
       final prefs = await ref.read(prefsStorageProvider.future);
       await prefs.setString(_onlyImportableKey, newVal ? '1' : '0');
     } catch (_) {}
-    await refresh();
+    await refresh(l10n);
   }
 
-  Future<void> toggleHideUnsupported() async {
+  Future<void> toggleHideUnsupported(AppLocalizations l10n) async {
     final newVal = !state.hideUnsupported;
     state = state.copyWith(hideUnsupported: newVal);
     try {
       final prefs = await ref.read(prefsStorageProvider.future);
       await prefs.setString(_hideUnsupportedKey, newVal ? '1' : '0');
     } catch (_) {}
-    await refresh();
+    await refresh(l10n);
   }
 
-  Future<void> _load() async {
+  Future<void> _load(AppLocalizations l10n) async {
     try {
       final refRepo = state.repo!;
       final items = await _svc.listDirectory(
@@ -162,6 +164,7 @@ class PayloadsStoreController extends Notifier<StoreState> {
         subPath: state.currentPath.replaceFirst(refRepo.path, ''),
         showMedia: state.showMedia,
         showAll: _showAll,
+        l10n: l10n
       );
       state = state.copyWith(listing: AsyncData(items));
     } catch (e, st) {

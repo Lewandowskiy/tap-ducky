@@ -56,8 +56,8 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
   }
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _loadPayload();
     _scriptCtrl.addListener(_onScriptChanged);
   }
@@ -80,7 +80,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
       if (!mounted) return;
       final mul = _currentDelayMultiplier();
       setState(() {
-        _validationResult = _validator.validate(_scriptCtrl.text, delayMultiplier: mul);
+        _validationResult = _validator.validate(_scriptCtrl.text, delayMultiplier: mul, l10n: context.l10n);
         _showValidation = _scriptCtrl.text.trim().isNotEmpty;
       });
       _requestEngineEstimate(_scriptCtrl.text);
@@ -104,7 +104,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
       _isBuiltin = found.isBuiltin;
 
       final mul = _currentDelayMultiplier();
-      _validationResult = _validator.validate(found.script, delayMultiplier: mul);
+      _validationResult = _validator.validate(found.script, delayMultiplier: mul, l10n: context.l10n);
       _showValidation = found.script.trim().isNotEmpty;
       _requestEngineEstimate(found.script);
     }
@@ -160,7 +160,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
           context,
           title: context.l10n.discardChanges,
           message: context.l10n.youHaveUnsavedChangesDiscardThem,
-          confirmLabel: 'Discard',
+          confirmLabel: context.l10n.discard,
           dangerous: true,
         );
         if (ok && context.mounted) {
@@ -221,7 +221,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            context.l10n.thisIsABuildInPayload,
+                            context.l10n.thisIsABuiltInPayload,
                             style: TextStyle(color: cs.onTertiaryContainer),
                           ),
                         ),
@@ -313,7 +313,7 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                         TextFormField(
                           controller: _scriptCtrl,
                           decoration: InputDecoration(
-                            hintText: 'DELAY 500\nSTRING ' + context.l10n.helloWorld + '\nENTER',
+                            hintText: 'DELAY 500\nSTRING ${context.l10n.helloWorld}\nENTER',
                             border: const OutlineInputBorder(),
                             filled: true,
                             fillColor: cs.surfaceContainerHighest,
@@ -579,9 +579,9 @@ class _PayloadEditorScreenState extends ConsumerState<PayloadEditorScreen> {
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
               ),
               SizedBox(height: 8),
-              _SyntaxItem(cmd: 'STRING ' + context.l10n.text, desc: context.l10n.typeText),
-              _SyntaxItem(cmd: 'STRINGLN ' + context.l10n.text, desc: context.l10n.typeTextPlusEnter),
-              _SyntaxItem(cmd: 'DELAY ' + context.l10n.ms, desc: context.l10n.waitMilliseconds),
+              _SyntaxItem(cmd: 'STRING ${context.l10n.text}', desc: context.l10n.typeText),
+              _SyntaxItem(cmd: 'STRINGLN ${context.l10n.text}', desc: context.l10n.typeTextPlusEnter),
+              _SyntaxItem(cmd: 'DELAY ${context.l10n.ms}', desc: context.l10n.waitMilliseconds),
               SizedBox(height: 12),
               Text(
                 'System Keys',
@@ -837,7 +837,7 @@ class _ValidationDialog extends StatelessWidget {
                       Icon(Icons.timer, size: 16, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        context.l10n.estimatedDuration+': ~${engineEstimateMs != null ? formatDuration(engineEstimateMs!) : result.estimatedDurationFormatted}',
+                        '${context.l10n.estimatedDuration}: ~${engineEstimateMs != null ? formatDuration(engineEstimateMs!) : result.estimatedDurationFormatted}',
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ],
@@ -887,7 +887,7 @@ class _ValidationDialog extends StatelessWidget {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Close')),
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(context.l10n.close)),
       ],
     );
   }
@@ -1042,8 +1042,8 @@ class _ParameterDialogState extends State<_ParameterDialog> {
   late bool _required;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final p = widget.initial;
     _keyCtrl = TextEditingController(text: p?.key ?? '');
     _labelCtrl = TextEditingController(text: p?.label ?? '');

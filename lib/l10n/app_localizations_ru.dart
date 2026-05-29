@@ -473,12 +473,10 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count команд',
-      many: '$count команд',
-      few: '$count команд',
-      one: '$count команды',
+      other: '',
+      one: 'ы',
     );
-    return 'На основе $_temp0 и $sec сек задержек';
+    return 'На основе $count команд$_temp0 и $sec сек задержек';
   }
 
   @override
@@ -578,9 +576,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get noDeviceConnected => 'Устройство не подключено';
-
-  @override
-  String get executingThreePoints => 'Выполнение...';
 
   @override
   String get readyToExecute => 'Готово к запуску';
@@ -1057,11 +1052,11 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count пейлоадов',
-      few: '$count пейлоада',
-      one: '1 пейлоад',
+      other: 'ов',
+      few: 'а',
+      one: '',
     );
-    return 'Удалить $_temp0? Это действие нельзя отменить.';
+    return 'Удалить $count пейлоад$_temp0? Это действие нельзя отменить.';
   }
 
   @override
@@ -1083,18 +1078,18 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: 'Импортированы',
-      few: 'Ипортировано',
-      one: 'Импортирован',
+      other: 'ы',
+      few: 'о',
+      one: '',
     );
     String _temp1 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count пейлоадов',
-      few: '$count пейлоада',
-      one: ' 1 пейлоад',
+      other: 'ов',
+      few: 'а',
+      one: '',
     );
-    return '$_temp0 $_temp1.';
+    return 'Импортирован$_temp0 $count пейлоад$_temp1.';
   }
 
   @override
@@ -1194,7 +1189,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get showValidationIssues => 'Показать проблемы валидации';
 
   @override
-  String get thisIsABuildInPayload =>
+  String get thisIsABuiltInPayload =>
       'Это встроенный пейлоад. Вы можете продублировать ее, чтобы создать собственную версию.';
 
   @override
@@ -1338,11 +1333,11 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count команд',
-      few: '$count команды',
-      one: '1 команда',
+      other: '',
+      few: 'ы',
+      one: 'а',
     );
-    return '$_temp0';
+    return '$count команд$_temp0';
   }
 
   @override
@@ -1350,11 +1345,11 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count ошибок',
-      few: '$count ошибки',
-      one: '1 ошибка',
+      other: 'ок',
+      few: 'ки',
+      one: 'ка',
     );
-    return '$_temp0';
+    return '$count ошиб$_temp0';
   }
 
   @override
@@ -1362,11 +1357,11 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count предупреждений',
-      few: '$count предупреждения',
-      one: '1 предупреждение',
+      other: 'й',
+      few: 'я',
+      one: 'е',
     );
-    return '$_temp0';
+    return '$count предупреждени$_temp0';
   }
 
   @override
@@ -1552,11 +1547,11 @@ class AppLocalizationsRu extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count событий',
-      few: '$count события',
-      one: '1 событие',
+      other: 'ий',
+      few: 'ия',
+      one: 'ие',
     );
-    return '$_temp0';
+    return '$count событ$_temp0';
   }
 
   @override
@@ -1590,4 +1585,397 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get dAgo => 'дн назад';
+
+  @override
+  String unknownCommand(String command) {
+    return 'Неизвестная команда: $command';
+  }
+
+  @override
+  String didYouMean(String name) {
+    return 'Возможно, вы имели в виду $name';
+  }
+
+  @override
+  String get stringDelayRequiresANumericDelayValue =>
+      'Для STRING_DELAY требуется числовое значение задержки';
+
+  @override
+  String get exampleStringDelay100Hello => 'Пример: STRING_DELAY 100 Hello';
+
+  @override
+  String get exampleStringDelay50 => 'Пример: STRING_DELAY 50';
+
+  @override
+  String get defaultDelayRequiresANumericValue =>
+      'Для DEFAULTDELAY требуется числовое значение';
+
+  @override
+  String get delayRequiresATimeValueInMilliseconds =>
+      'Для DELAY требуется значение времени в миллисекундах';
+
+  @override
+  String get exampleDelay500 => 'Пример: DELAY 500';
+
+  @override
+  String get delayValueMustBeANumberOrVariable =>
+      'Значение DELAY должно быть числом или переменной';
+
+  @override
+  String get exampleDelay500OrDelayMyDelay =>
+      'Пример: DELAY 500 или DELAY \$MY_DELAY';
+
+  @override
+  String delayMinimumValueIsMS(int min_ms) {
+    return 'Минимальное значение DELAY составляет $min_ms мс';
+  }
+
+  @override
+  String useDelayMinMSOrHigher(int min_ms) {
+    return 'Используйте значение DELAY $min_ms или выше';
+  }
+
+  @override
+  String waitForTargetNotRecognized(String target) {
+    return 'Значение в WAIT_FOR не распознана: $target';
+  }
+
+  @override
+  String get useHostConnectedEtc =>
+      'Используйте HOST_CONNECTED, UDC_CONFIGURED, KEYBOARD_READY, MOUSE_READY или SESSION_ARMED';
+
+  @override
+  String get defineRequiresANameAndValue =>
+      'Для DEFINE требуются имя и значение';
+
+  @override
+  String get exampleDefineAppNotepad => 'Пример: DEFINE APP notepad';
+
+  @override
+  String get varRequiresAVariableName => 'Для VAR требуется имя переменной';
+
+  @override
+  String get exampleVarCounter0 => 'Пример: VAR \$counter = 0';
+
+  @override
+  String get variableNameMustStartWithDollar =>
+      'Имя переменной должно начинаться со знака \$';
+
+  @override
+  String get functionRequiresAName => 'Для FUNCTION требуется имя';
+
+  @override
+  String get exampleFunctionMyFunction => 'Пример: FUNCTION my_function';
+
+  @override
+  String get endFunctionWithoutMatchingFunction =>
+      'Оператор END_FUNCTION не имеет соответствующего FUNCTION';
+
+  @override
+  String get returnOutsideOfFunction =>
+      'Оператор RETURN находится вне функции FUNCTION';
+
+  @override
+  String get elseWithoutMatchingIf =>
+      'Оператор ELSE не имеет соответствующего IF';
+
+  @override
+  String get endIfWithoutMatchingIf =>
+      'Оператор END_IF не имеет соответствующего IF';
+
+  @override
+  String get endWhileWithoutMatchingWhile =>
+      'Оператор END_WHILE не имеет соответствующего WHILE';
+
+  @override
+  String get catchWithoutMatchingTry =>
+      'Оператор CATCH не имеет соответствующего TRY';
+
+  @override
+  String get endTryWithoutMatchingTry =>
+      'Оператор END_TRY не имеет соответствующего TRY';
+
+  @override
+  String get repeatRequiresANumericCount =>
+      'Для REPEAT требуется числовое значение количества повторов';
+
+  @override
+  String get exampleRepeat5 => 'Пример: REPEAT 5';
+
+  @override
+  String get mouseRequiresAnAction =>
+      'Для MOUSE требуется действие (CLICK, MOVE, SCROLL и т. д.)';
+
+  @override
+  String functionNotDeclaredInThisScript(String func_name) {
+    return 'Функция $func_name не объявлена в этом скрипте';
+  }
+
+  @override
+  String declareItWithFunction(String func_name) {
+    return 'Объявите ее с помощью: FUNCTION $func_name';
+  }
+
+  @override
+  String countUnclosedIfStatements(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ых инструкций',
+      few: 'ые инструкции',
+      one: 'ая инструкция',
+    );
+    return '$count незакрыт$_temp0 IF';
+  }
+
+  @override
+  String get addEndIfForEachIf => 'Добавьте END_IF для каждого IF';
+
+  @override
+  String countUnclosedWhileLoops(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ых циклов',
+      few: 'ых цикла',
+      one: 'ый цикл',
+    );
+    return '$count незакрыт$_temp0 WHILE';
+  }
+
+  @override
+  String get addEndWhileForEachWhile => 'Добавьте END_WHILE для каждого WHILE';
+
+  @override
+  String countUnclosedFunctions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ых функций',
+      one: 'ая функция',
+    );
+    return '$count незакрыт$_temp0 FUNCTION';
+  }
+
+  @override
+  String get addEndFunctionForEachFunction =>
+      'Добавьте END_FUNCTION для каждой FUNCTION';
+
+  @override
+  String countUnclosedTryBlocks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ых блоков',
+      few: 'ых блока',
+      one: 'ый блок',
+    );
+    return '$count незакрыт$_temp0 TRY';
+  }
+
+  @override
+  String get addEndTryForEachTry => 'Добавьте END_TRY для каждого TRY';
+
+  @override
+  String get unclosedRemBlock =>
+      'Незакрытый блок REM_BLOCK (отсутствует END_REM)';
+
+  @override
+  String get unclosedStringBlock =>
+      'Незакрытый блок STRING (отсутствует END_STRING)';
+
+  @override
+  String get unclosedStringlnBlock =>
+      'Незакрытый блок STRINGLN (отсутствует END_STRINGLN)';
+
+  @override
+  String get discard => 'Отклонить';
+
+  @override
+  String get sources => 'Источники';
+
+  @override
+  String get showAllIncludingHidden => 'Показать все (включая скрытые)';
+
+  @override
+  String get hideMedia => 'Скрыть медиафайлы';
+
+  @override
+  String get showMedia => 'Показать медиафайлы';
+
+  @override
+  String get refresh => 'Обновить';
+
+  @override
+  String get repositoryControls => 'Управление репозиторием';
+
+  @override
+  String get folders => 'Папки';
+
+  @override
+  String get files => 'Файлы';
+
+  @override
+  String get pasteAGitHubURLFirst => 'Сначала вставьте URL-адрес GitHub';
+
+  @override
+  String get invalidGitHubURL =>
+      'Неверный URL-адрес GitHub. Ожидался URL-адрес репозитория или папки.';
+
+  @override
+  String get sourceAdded => 'Источник добавлен';
+
+  @override
+  String get noSourcesSavedYet => 'Источники пока не сохранены';
+
+  @override
+  String get chooseSource => 'Выберите источник';
+
+  @override
+  String get manage => 'Управление';
+
+  @override
+  String get noRepoSelected => 'Репозиторий не выбран';
+
+  @override
+  String get pasteAURLBrowseThenImportPayloads =>
+      'Вставьте URL-адрес, просмотрите содержимое, затем импортируйте полезные нагрузки.';
+
+  @override
+  String get pickFromSavedSources => 'Выбрать из сохраненных источников';
+
+  @override
+  String get browse => 'Обзор';
+
+  @override
+  String get saveSource => 'Сохранить';
+
+  @override
+  String get upOneFolder => 'На одну папку вверх';
+
+  @override
+  String get repositoryRoot => 'Корень репозитория';
+
+  @override
+  String get searchFilesAndFolders => 'Поиск файлов и папок';
+
+  @override
+  String get importable => 'Доступно для импорта';
+
+  @override
+  String get notSupported => 'Не поддерживается';
+
+  @override
+  String get converted => 'Конвертировано';
+
+  @override
+  String get browseAGitHubRepository => 'Просмотр репозитория GitHub';
+
+  @override
+  String get pasteARepoOrFolderURL =>
+      'Вставьте URL-адрес репозитория или папки, просмотрите файлы и импортируйте поддерживаемые форматы полезных нагрузок.';
+
+  @override
+  String get pasteExampleURL => 'Вставить пример URL';
+
+  @override
+  String get noMatchingFilesOrFolders => 'Нет совпадающих файлов или папок';
+
+  @override
+  String get failedToLoad => 'Не удалось загрузить';
+
+  @override
+  String line(String line, String message) {
+    return 'Строка $line: $message';
+  }
+
+  @override
+  String get moreThreePoints => 'еще…';
+
+  @override
+  String get noRepositorySelected => 'Репозиторий не выбран';
+
+  @override
+  String get noPreviewData => 'Нет данных для предпросмотра';
+
+  @override
+  String get copyConverted => 'Копировать конвертированное';
+
+  @override
+  String get convertedCopied => 'Конвертированные данные скопированы';
+
+  @override
+  String get copyOriginal => 'Копировать оригинал';
+
+  @override
+  String get originalCopied => 'Оригинал скопирован';
+
+  @override
+  String get disableWrap => 'Отключить перенос строк';
+
+  @override
+  String get enableWrap => 'Включить перенос строк';
+
+  @override
+  String get validationSummary => 'Результаты валидации';
+
+  @override
+  String get importedDuckyScript => 'Импортированный DuckyScript';
+
+  @override
+  String importedFrom(String owner, String repo) {
+    return 'Импортировано из: $owner$repo';
+  }
+
+  @override
+  String source(String name) {
+    return 'источник: $name';
+  }
+
+  @override
+  String get unsupportedFormat => 'Неподдерживаемый формат';
+
+  @override
+  String get importedSuccessfully => 'Успешно импортировано';
+
+  @override
+  String importFailed(String error) {
+    return 'Не удалось выполнить импорт: $error';
+  }
+
+  @override
+  String get executingThreePoints => 'Выполнение...';
+
+  @override
+  String get repositoryNotFound => 'Репозиторий не найден';
+
+  @override
+  String get gitHubAPIRateLimitReached => 'Достигнут лимит GitHub API';
+
+  @override
+  String get repositoryBranchOrFolderNotFound =>
+      'Репозиторий, ветка или папка не найдены';
+
+  @override
+  String get expectedADirectoryListing => 'Ожидался список файлов в каталоге';
+
+  @override
+  String get fileNotFound => 'Файл не найден';
+
+  @override
+  String get fileTooLargeToPreview =>
+      'Файл слишком велик для предварительного просмотра/импорта (максимум 256 КБ)';
+
+  @override
+  String get failedToFetchRaw => 'Не удалось загрузить исходные данные';
+
+  @override
+  String get noContent => 'Контент отсутствует';
+
+  @override
+  String get onlyGitHubLinksAreSupported =>
+      'Поддерживаются только ссылки на GitHub';
+
+  @override
+  String get tapDuckyfailedToStart => 'TapDucky не удалось запустится';
 }

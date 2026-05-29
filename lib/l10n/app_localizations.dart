@@ -923,19 +923,19 @@ abstract class AppLocalizations {
   /// No description provided for @original.
   ///
   /// In en, this message translates to:
-  /// **'Original: '**
+  /// **'Original'**
   String get original;
 
   /// No description provided for @adjusted.
   ///
   /// In en, this message translates to:
-  /// **'Adjusted: '**
+  /// **'Adjusted'**
   String get adjusted;
 
   /// No description provided for @basedOnCountCommandsAndSecOfDelays.
   ///
   /// In en, this message translates to:
-  /// **'Based on{count,plural, one{1 command} other{{count} commands}} and {sec} sec of delays'**
+  /// **'Based on {count} command{count,plural, one{} other{s}} and {sec} sec of delays'**
   String basedOnCountCommandsAndSecOfDelays(int count, String sec);
 
   /// No description provided for @slowerSpeedsFasterSpeeds.
@@ -1099,12 +1099,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No device connected'**
   String get noDeviceConnected;
-
-  /// No description provided for @executingThreePoints.
-  ///
-  /// In en, this message translates to:
-  /// **'Executing...'**
-  String get executingThreePoints;
 
   /// No description provided for @readyToExecute.
   ///
@@ -1931,7 +1925,7 @@ abstract class AppLocalizations {
   /// No description provided for @deleteCountPayloadsThisCanNotBeUndone.
   ///
   /// In en, this message translates to:
-  /// **'Delete {count,plural, one{1 payload} other {{count} payloads}}? This cannot be undone.'**
+  /// **'Delete {count} payload{count,plural, one{} other {s}}? This cannot be undone.'**
   String deleteCountPayloadsThisCanNotBeUndone(int count);
 
   /// No description provided for @importPayloads.
@@ -1961,7 +1955,7 @@ abstract class AppLocalizations {
   /// No description provided for @importedCountPayloads.
   ///
   /// In en, this message translates to:
-  /// **'Imported {count,plural, one{1 payload} other {{count} payloads}}.'**
+  /// **'Imported {count} payload{count,plural, one{} other {s}}.'**
   String importedCountPayloads(int count);
 
   /// No description provided for @importFailedError.
@@ -2132,11 +2126,11 @@ abstract class AppLocalizations {
   /// **'Show validation issues'**
   String get showValidationIssues;
 
-  /// No description provided for @thisIsABuildInPayload.
+  /// No description provided for @thisIsABuiltInPayload.
   ///
   /// In en, this message translates to:
   /// **'This is a built-in payload. You can duplicate it to create a custom version.'**
-  String get thisIsABuildInPayload;
+  String get thisIsABuiltInPayload;
 
   /// No description provided for @basicInfo.
   ///
@@ -2399,19 +2393,19 @@ abstract class AppLocalizations {
   /// No description provided for @countCommands.
   ///
   /// In en, this message translates to:
-  /// **'{count,plural, one{1 command} other{{count} commands}}'**
+  /// **'{count} command{count,plural, one{} other{s}}'**
   String countCommands(int count);
 
   /// No description provided for @countErrors.
   ///
   /// In en, this message translates to:
-  /// **'{count,plural, one{1 error} other{{count} errors}}'**
+  /// **'{count} error{count,plural, one{} other{s}}'**
   String countErrors(int count);
 
   /// No description provided for @countWarnings.
   ///
   /// In en, this message translates to:
-  /// **'{count,plural, one{1 warning} other{{count} warnings}}'**
+  /// **'{count} warning{count,plural, one{} other{s}}'**
   String countWarnings(int count);
 
   /// No description provided for @validationResults.
@@ -2735,7 +2729,7 @@ abstract class AppLocalizations {
   /// No description provided for @countEvents.
   ///
   /// In en, this message translates to:
-  /// **'{count,plural, one{1 event} other{{count} events}}'**
+  /// **'{count} event{count,plural, one{} other{s}}'**
   String countEvents(int count);
 
   /// No description provided for @executionDetails.
@@ -2797,6 +2791,624 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'d ago'**
   String get dAgo;
+
+  /// No description provided for @unknownCommand.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown command: {command}'**
+  String unknownCommand(String command);
+
+  /// No description provided for @didYouMean.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you mean {name}?'**
+  String didYouMean(String name);
+
+  /// No description provided for @stringDelayRequiresANumericDelayValue.
+  ///
+  /// In en, this message translates to:
+  /// **'STRING_DELAY requires a numeric delay value'**
+  String get stringDelayRequiresANumericDelayValue;
+
+  /// No description provided for @exampleStringDelay100Hello.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: STRING_DELAY 100 Hello'**
+  String get exampleStringDelay100Hello;
+
+  /// No description provided for @exampleStringDelay50.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: STRING_DELAY 50'**
+  String get exampleStringDelay50;
+
+  /// No description provided for @defaultDelayRequiresANumericValue.
+  ///
+  /// In en, this message translates to:
+  /// **'DEFAULTDELAY requires a numeric value'**
+  String get defaultDelayRequiresANumericValue;
+
+  /// No description provided for @delayRequiresATimeValueInMilliseconds.
+  ///
+  /// In en, this message translates to:
+  /// **'DELAY requires a time value in milliseconds'**
+  String get delayRequiresATimeValueInMilliseconds;
+
+  /// No description provided for @exampleDelay500.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: DELAY 500'**
+  String get exampleDelay500;
+
+  /// No description provided for @delayValueMustBeANumberOrVariable.
+  ///
+  /// In en, this message translates to:
+  /// **'DELAY value must be a number or variable'**
+  String get delayValueMustBeANumberOrVariable;
+
+  /// No description provided for @exampleDelay500OrDelayMyDelay.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: DELAY 500 or DELAY \$MY_DELAY'**
+  String get exampleDelay500OrDelayMyDelay;
+
+  /// No description provided for @delayMinimumValueIsMS.
+  ///
+  /// In en, this message translates to:
+  /// **'DELAY minimum value is {min_ms}ms'**
+  String delayMinimumValueIsMS(int min_ms);
+
+  /// No description provided for @useDelayMinMSOrHigher.
+  ///
+  /// In en, this message translates to:
+  /// **'Use DELAY {min_ms} or higher'**
+  String useDelayMinMSOrHigher(int min_ms);
+
+  /// No description provided for @waitForTargetNotRecognized.
+  ///
+  /// In en, this message translates to:
+  /// **'WAIT_FOR target not recognized: {target}'**
+  String waitForTargetNotRecognized(String target);
+
+  /// No description provided for @useHostConnectedEtc.
+  ///
+  /// In en, this message translates to:
+  /// **'Use HOST_CONNECTED, UDC_CONFIGURED, KEYBOARD_READY, MOUSE_READY, or SESSION_ARMED'**
+  String get useHostConnectedEtc;
+
+  /// No description provided for @defineRequiresANameAndValue.
+  ///
+  /// In en, this message translates to:
+  /// **'DEFINE requires a name and value'**
+  String get defineRequiresANameAndValue;
+
+  /// No description provided for @exampleDefineAppNotepad.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: DEFINE APP notepad'**
+  String get exampleDefineAppNotepad;
+
+  /// No description provided for @varRequiresAVariableName.
+  ///
+  /// In en, this message translates to:
+  /// **'VAR requires a variable name'**
+  String get varRequiresAVariableName;
+
+  /// No description provided for @exampleVarCounter0.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: VAR \$counter = 0'**
+  String get exampleVarCounter0;
+
+  /// No description provided for @variableNameMustStartWithDollar.
+  ///
+  /// In en, this message translates to:
+  /// **'Variable name must start with \$'**
+  String get variableNameMustStartWithDollar;
+
+  /// No description provided for @functionRequiresAName.
+  ///
+  /// In en, this message translates to:
+  /// **'FUNCTION requires a name'**
+  String get functionRequiresAName;
+
+  /// No description provided for @exampleFunctionMyFunction.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: FUNCTION my_function'**
+  String get exampleFunctionMyFunction;
+
+  /// No description provided for @endFunctionWithoutMatchingFunction.
+  ///
+  /// In en, this message translates to:
+  /// **'END_FUNCTION without matching FUNCTION'**
+  String get endFunctionWithoutMatchingFunction;
+
+  /// No description provided for @returnOutsideOfFunction.
+  ///
+  /// In en, this message translates to:
+  /// **'RETURN outside of FUNCTION'**
+  String get returnOutsideOfFunction;
+
+  /// No description provided for @elseWithoutMatchingIf.
+  ///
+  /// In en, this message translates to:
+  /// **'ELSE without matching IF'**
+  String get elseWithoutMatchingIf;
+
+  /// No description provided for @endIfWithoutMatchingIf.
+  ///
+  /// In en, this message translates to:
+  /// **'END_IF without matching IF'**
+  String get endIfWithoutMatchingIf;
+
+  /// No description provided for @endWhileWithoutMatchingWhile.
+  ///
+  /// In en, this message translates to:
+  /// **'END_WHILE without matching WHILE'**
+  String get endWhileWithoutMatchingWhile;
+
+  /// No description provided for @catchWithoutMatchingTry.
+  ///
+  /// In en, this message translates to:
+  /// **'CATCH without matching TRY'**
+  String get catchWithoutMatchingTry;
+
+  /// No description provided for @endTryWithoutMatchingTry.
+  ///
+  /// In en, this message translates to:
+  /// **'END_TRY without matching TRY'**
+  String get endTryWithoutMatchingTry;
+
+  /// No description provided for @repeatRequiresANumericCount.
+  ///
+  /// In en, this message translates to:
+  /// **'REPEAT requires a numeric count'**
+  String get repeatRequiresANumericCount;
+
+  /// No description provided for @exampleRepeat5.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: REPEAT 5'**
+  String get exampleRepeat5;
+
+  /// No description provided for @mouseRequiresAnAction.
+  ///
+  /// In en, this message translates to:
+  /// **'MOUSE requires an action (CLICK, MOVE, SCROLL, etc.)'**
+  String get mouseRequiresAnAction;
+
+  /// No description provided for @functionNotDeclaredInThisScript.
+  ///
+  /// In en, this message translates to:
+  /// **'Function {func_name} not declared in this script'**
+  String functionNotDeclaredInThisScript(String func_name);
+
+  /// No description provided for @declareItWithFunction.
+  ///
+  /// In en, this message translates to:
+  /// **'Declare it with: FUNCTION {func_name}'**
+  String declareItWithFunction(String func_name);
+
+  /// No description provided for @countUnclosedIfStatements.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unclosed IF statement{count,plural, one{} other{s}}'**
+  String countUnclosedIfStatements(int count);
+
+  /// No description provided for @addEndIfForEachIf.
+  ///
+  /// In en, this message translates to:
+  /// **'Add END_IF for each IF'**
+  String get addEndIfForEachIf;
+
+  /// No description provided for @countUnclosedWhileLoops.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unclosed WHILE loop{count,plural, one{} other{s}}'**
+  String countUnclosedWhileLoops(int count);
+
+  /// No description provided for @addEndWhileForEachWhile.
+  ///
+  /// In en, this message translates to:
+  /// **'Add END_WHILE for each WHILE'**
+  String get addEndWhileForEachWhile;
+
+  /// No description provided for @countUnclosedFunctions.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unclosed function{count,plural, one{} other{s}}'**
+  String countUnclosedFunctions(int count);
+
+  /// No description provided for @addEndFunctionForEachFunction.
+  ///
+  /// In en, this message translates to:
+  /// **'Add END_FUNCTION for each FUNCTION'**
+  String get addEndFunctionForEachFunction;
+
+  /// No description provided for @countUnclosedTryBlocks.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} unclosed TRY block{count,plural, one{} other{s}}'**
+  String countUnclosedTryBlocks(int count);
+
+  /// No description provided for @addEndTryForEachTry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add END_TRY for each TRY'**
+  String get addEndTryForEachTry;
+
+  /// No description provided for @unclosedRemBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unclosed REM_BLOCK (missing END_REM)'**
+  String get unclosedRemBlock;
+
+  /// No description provided for @unclosedStringBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unclosed STRING block (missing END_STRING)'**
+  String get unclosedStringBlock;
+
+  /// No description provided for @unclosedStringlnBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unclosed STRINGLN block (missing END_STRINGLN)'**
+  String get unclosedStringlnBlock;
+
+  /// No description provided for @discard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
+  /// No description provided for @sources.
+  ///
+  /// In en, this message translates to:
+  /// **'Sources'**
+  String get sources;
+
+  /// No description provided for @showAllIncludingHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all (including hidden)'**
+  String get showAllIncludingHidden;
+
+  /// No description provided for @hideMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide media'**
+  String get hideMedia;
+
+  /// No description provided for @showMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Show media'**
+  String get showMedia;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @repositoryControls.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository controls'**
+  String get repositoryControls;
+
+  /// No description provided for @folders.
+  ///
+  /// In en, this message translates to:
+  /// **'Folders'**
+  String get folders;
+
+  /// No description provided for @files.
+  ///
+  /// In en, this message translates to:
+  /// **'Files'**
+  String get files;
+
+  /// No description provided for @pasteAGitHubURLFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a GitHub URL first'**
+  String get pasteAGitHubURLFirst;
+
+  /// No description provided for @invalidGitHubURL.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid GitHub URL. Expected repo or folder URL.'**
+  String get invalidGitHubURL;
+
+  /// No description provided for @sourceAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Source added'**
+  String get sourceAdded;
+
+  /// No description provided for @noSourcesSavedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No sources saved yet'**
+  String get noSourcesSavedYet;
+
+  /// No description provided for @chooseSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose source'**
+  String get chooseSource;
+
+  /// No description provided for @manage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manage;
+
+  /// No description provided for @noRepoSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No repo selected'**
+  String get noRepoSelected;
+
+  /// No description provided for @pasteAURLBrowseThenImportPayloads.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a URL, browse, then import payloads.'**
+  String get pasteAURLBrowseThenImportPayloads;
+
+  /// No description provided for @pickFromSavedSources.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick from saved sources'**
+  String get pickFromSavedSources;
+
+  /// No description provided for @browse.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse'**
+  String get browse;
+
+  /// No description provided for @saveSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Save source'**
+  String get saveSource;
+
+  /// No description provided for @upOneFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Up one folder'**
+  String get upOneFolder;
+
+  /// No description provided for @repositoryRoot.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository root'**
+  String get repositoryRoot;
+
+  /// No description provided for @searchFilesAndFolders.
+  ///
+  /// In en, this message translates to:
+  /// **'Search files and folders'**
+  String get searchFilesAndFolders;
+
+  /// No description provided for @importable.
+  ///
+  /// In en, this message translates to:
+  /// **'Importable'**
+  String get importable;
+
+  /// No description provided for @notSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not supported'**
+  String get notSupported;
+
+  /// No description provided for @converted.
+  ///
+  /// In en, this message translates to:
+  /// **'Converted'**
+  String get converted;
+
+  /// No description provided for @browseAGitHubRepository.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse a GitHub repository'**
+  String get browseAGitHubRepository;
+
+  /// No description provided for @pasteARepoOrFolderURL.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a repo or folder URL, browse files, and import supported payload formats.'**
+  String get pasteARepoOrFolderURL;
+
+  /// No description provided for @pasteExampleURL.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste example URL'**
+  String get pasteExampleURL;
+
+  /// No description provided for @noMatchingFilesOrFolders.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching files or folders'**
+  String get noMatchingFilesOrFolders;
+
+  /// No description provided for @failedToLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load'**
+  String get failedToLoad;
+
+  /// No description provided for @line.
+  ///
+  /// In en, this message translates to:
+  /// **'Line {line}: {message}'**
+  String line(String line, String message);
+
+  /// No description provided for @moreThreePoints.
+  ///
+  /// In en, this message translates to:
+  /// **'more…'**
+  String get moreThreePoints;
+
+  /// No description provided for @noRepositorySelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No repository selected'**
+  String get noRepositorySelected;
+
+  /// No description provided for @noPreviewData.
+  ///
+  /// In en, this message translates to:
+  /// **'No preview data'**
+  String get noPreviewData;
+
+  /// No description provided for @copyConverted.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy converted'**
+  String get copyConverted;
+
+  /// No description provided for @convertedCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Converted copied'**
+  String get convertedCopied;
+
+  /// No description provided for @copyOriginal.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy original'**
+  String get copyOriginal;
+
+  /// No description provided for @originalCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Original copied'**
+  String get originalCopied;
+
+  /// No description provided for @disableWrap.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable wrap'**
+  String get disableWrap;
+
+  /// No description provided for @enableWrap.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable wrap'**
+  String get enableWrap;
+
+  /// No description provided for @validationSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation summary'**
+  String get validationSummary;
+
+  /// No description provided for @importedDuckyScript.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported Ducky Script'**
+  String get importedDuckyScript;
+
+  /// No description provided for @importedFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported from: {owner}{repo}'**
+  String importedFrom(String owner, String repo);
+
+  /// No description provided for @source.
+  ///
+  /// In en, this message translates to:
+  /// **'source: {name}'**
+  String source(String name);
+
+  /// No description provided for @unsupportedFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported format'**
+  String get unsupportedFormat;
+
+  /// No description provided for @importedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported successfully'**
+  String get importedSuccessfully;
+
+  /// No description provided for @importFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed: {error}'**
+  String importFailed(String error);
+
+  /// No description provided for @executingThreePoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Executing'**
+  String get executingThreePoints;
+
+  /// No description provided for @repositoryNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository not found'**
+  String get repositoryNotFound;
+
+  /// No description provided for @gitHubAPIRateLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub API rate limit reached'**
+  String get gitHubAPIRateLimitReached;
+
+  /// No description provided for @repositoryBranchOrFolderNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Repository, branch, or folder not found'**
+  String get repositoryBranchOrFolderNotFound;
+
+  /// No description provided for @expectedADirectoryListing.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected a directory listing'**
+  String get expectedADirectoryListing;
+
+  /// No description provided for @fileNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'File not found'**
+  String get fileNotFound;
+
+  /// No description provided for @fileTooLargeToPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'File too large to preview/import (max 256KB)'**
+  String get fileTooLargeToPreview;
+
+  /// No description provided for @failedToFetchRaw.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to fetch raw'**
+  String get failedToFetchRaw;
+
+  /// No description provided for @noContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No content'**
+  String get noContent;
+
+  /// No description provided for @onlyGitHubLinksAreSupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Only GitHub links are supported'**
+  String get onlyGitHubLinksAreSupported;
+
+  /// No description provided for @tapDuckyfailedToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'TapDucky failed to start'**
+  String get tapDuckyfailedToStart;
 }
 
 class _AppLocalizationsDelegate

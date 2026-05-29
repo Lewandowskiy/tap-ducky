@@ -30,8 +30,7 @@ class _TapState {
   Timer? timer;
 }
 
-class _AppShellState extends ConsumerState<AppShell>
-    with WidgetsBindingObserver {
+class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver {
   StreamSubscription<HardwareKeyEvent>? _keysSub;
   bool _isForeground = true;
 
@@ -68,9 +67,7 @@ class _AppShellState extends ConsumerState<AppShell>
     if (state == AppLifecycleState.resumed) {
       _isForeground = true;
       ref.read(schedulerControllerProvider.notifier).onAppResumed();
-    } else if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.detached) {
+    } else if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive || state == AppLifecycleState.detached) {
       _isForeground = false;
     }
   }
@@ -89,9 +86,7 @@ class _AppShellState extends ConsumerState<AppShell>
 
     if (!e.isUp) return;
 
-    final down =
-        _downAtMs.remove(e.keyCode) ??
-        (e.downTimeMs != 0 ? e.downTimeMs : e.eventTimeMs);
+    final down = _downAtMs.remove(e.keyCode) ?? (e.downTimeMs != 0 ? e.downTimeMs : e.eventTimeMs);
     final duration = (e.eventTimeMs - down).abs();
 
     if (duration >= _longPressMinMs) {
@@ -141,10 +136,7 @@ class _AppShellState extends ConsumerState<AppShell>
     s?.timer?.cancel();
   }
 
-  bool _tryEmergencyPanicByVolumeCombo(
-    HardwareKeyEvent e,
-    int releasedKeyHeldMs,
-  ) {
+  bool _tryEmergencyPanicByVolumeCombo( HardwareKeyEvent e, int releasedKeyHeldMs) {
     final exec = ref.read(executionControllerProvider);
     if (!exec.isRunning) return false;
     if (e.keyCode != 24 && e.keyCode != 25) return false;
@@ -175,12 +167,7 @@ class _AppShellState extends ConsumerState<AppShell>
     if (settings == null) return;
 
     final hotkeys = settings.hotkeys;
-    final order = <String>[
-      'stop_execution',
-      'arm_toggle',
-      'execute_recent',
-      'execute_selected',
-    ];
+    final order = <String>['stop_execution', 'arm_toggle', 'execute_recent', 'execute_selected'];
 
     for (final action in order) {
       final binding = hotkeys[action] ?? '';
@@ -204,25 +191,16 @@ class _AppShellState extends ConsumerState<AppShell>
     final g = gestureToken.toLowerCase();
 
     bool hasAll(List<String> tokens) => tokens.every((t) => b.contains(t));
-    bool isDouble() =>
-        b.contains('double') || b.contains('2x') || b.contains('twice');
-    bool isTriple() =>
-        b.contains('triple') || b.contains('3x') || b.contains('thrice');
-    bool isLong() =>
-        b.contains('long') || b.contains('hold') || b.contains('press');
+    bool isDouble() => b.contains('double') || b.contains('2x') || b.contains('twice');
+    bool isTriple() => b.contains('triple') || b.contains('3x') || b.contains('thrice');
+    bool isLong() => b.contains('long') || b.contains('hold') || b.contains('press');
 
-    if (g == 'volume_up_double_tap')
-      return hasAll(['volume', 'up']) && isDouble();
-    if (g == 'volume_down_double_tap')
-      return hasAll(['volume', 'down']) && isDouble();
-    if (g == 'volume_up_triple_tap')
-      return hasAll(['volume', 'up']) && isTriple();
-    if (g == 'volume_down_triple_tap')
-      return hasAll(['volume', 'down']) && isTriple();
-    if (g == 'volume_up_long_press')
-      return hasAll(['volume', 'up']) && isLong();
-    if (g == 'volume_down_long_press')
-      return hasAll(['volume', 'down']) && isLong();
+    if (g == 'volume_up_double_tap') return hasAll(['volume', 'up']) && isDouble();
+    if (g == 'volume_down_double_tap') return hasAll(['volume', 'down']) && isDouble();
+    if (g == 'volume_up_triple_tap') return hasAll(['volume', 'up']) && isTriple();
+    if (g == 'volume_down_triple_tap') return hasAll(['volume', 'down']) && isTriple();
+    if (g == 'volume_up_long_press') return hasAll(['volume', 'up']) && isLong();
+    if (g == 'volume_down_long_press') return hasAll(['volume', 'down']) && isLong();
 
     return false;
   }
@@ -281,18 +259,14 @@ class _AppShellState extends ConsumerState<AppShell>
     if (payloads == null || payloads.isEmpty) return;
 
     final selectedId = ref.read(selectedPayloadIdProvider);
-    final payload = selectedId != null
-        ? _findPayloadById(payloads, selectedId)
-        : payloads.first;
+    final payload = selectedId != null ? _findPayloadById(payloads, selectedId) : payloads.first;
     if (payload == null) return;
 
     final params = _defaultParamsOrNull(payload);
     if (params == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            context.l10n.selectedPayloadRequiresParametersOpenExecuteToConfigureAndRun,
-          ),
+          content: Text(context.l10n.selectedPayloadRequiresParametersOpenExecuteToConfigureAndRun),
           duration: Duration(seconds: 2),
         ),
       );
@@ -301,9 +275,7 @@ class _AppShellState extends ConsumerState<AppShell>
     }
 
     await _ensureArmed();
-    await ref
-        .read(executionControllerProvider.notifier)
-        .runPayload(payload, params);
+    await ref.read(executionControllerProvider.notifier).runPayload(payload, params);
   }
 
   Future<void> _executeMostRecentPayload() async {
@@ -323,9 +295,7 @@ class _AppShellState extends ConsumerState<AppShell>
     } catch (_) {}
 
     final selectedId = ref.read(selectedPayloadIdProvider);
-    final candidateId = (lastId != null && lastId.trim().isNotEmpty)
-        ? lastId
-        : selectedId;
+    final candidateId = (lastId != null && lastId.trim().isNotEmpty) ? lastId : selectedId;
 
     Payload? payload;
     if (candidateId != null) {
@@ -337,9 +307,7 @@ class _AppShellState extends ConsumerState<AppShell>
     if (params == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            context.l10n.mostRecentPayloadRequiresParametersOpenExecuteToConfigureAndRun,
-          ),
+          content: Text(context.l10n.mostRecentPayloadRequiresParametersOpenExecuteToConfigureAndRun,),
           duration: Duration(seconds: 2),
         ),
       );
@@ -348,9 +316,7 @@ class _AppShellState extends ConsumerState<AppShell>
     }
 
     await _ensureArmed();
-    await ref
-        .read(executionControllerProvider.notifier)
-        .runPayload(payload, params);
+    await ref.read(executionControllerProvider.notifier).runPayload(payload, params);
   }
 
   @override

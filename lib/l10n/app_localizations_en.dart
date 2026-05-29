@@ -458,20 +458,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get estimatedDuration => 'Estimated Duration';
 
   @override
-  String get original => 'Original: ';
+  String get original => 'Original';
 
   @override
-  String get adjusted => 'Adjusted: ';
+  String get adjusted => 'Adjusted';
 
   @override
   String basedOnCountCommandsAndSecOfDelays(int count, String sec) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count commands',
-      one: '1 command',
+      other: 's',
+      one: '',
     );
-    return 'Based on$_temp0 and $sec sec of delays';
+    return 'Based on $count command$_temp0 and $sec sec of delays';
   }
 
   @override
@@ -571,9 +571,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noDeviceConnected => 'No device connected';
-
-  @override
-  String get executingThreePoints => 'Executing...';
 
   @override
   String get readyToExecute => 'Ready to execute';
@@ -1045,10 +1042,10 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count payloads',
-      one: '1 payload',
+      other: 's',
+      one: '',
     );
-    return 'Delete $_temp0? This cannot be undone.';
+    return 'Delete $count payload$_temp0? This cannot be undone.';
   }
 
   @override
@@ -1069,10 +1066,10 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count payloads',
-      one: '1 payload',
+      other: 's',
+      one: '',
     );
-    return 'Imported $_temp0.';
+    return 'Imported $count payload$_temp0.';
   }
 
   @override
@@ -1170,7 +1167,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showValidationIssues => 'Show validation issues';
 
   @override
-  String get thisIsABuildInPayload =>
+  String get thisIsABuiltInPayload =>
       'This is a built-in payload. You can duplicate it to create a custom version.';
 
   @override
@@ -1314,10 +1311,10 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count commands',
-      one: '1 command',
+      other: 's',
+      one: '',
     );
-    return '$_temp0';
+    return '$count command$_temp0';
   }
 
   @override
@@ -1325,10 +1322,10 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count errors',
-      one: '1 error',
+      other: 's',
+      one: '',
     );
-    return '$_temp0';
+    return '$count error$_temp0';
   }
 
   @override
@@ -1336,10 +1333,10 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count warnings',
-      one: '1 warning',
+      other: 's',
+      one: '',
     );
-    return '$_temp0';
+    return '$count warning$_temp0';
   }
 
   @override
@@ -1523,10 +1520,10 @@ class AppLocalizationsEn extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count events',
-      one: '1 event',
+      other: 's',
+      one: '',
     );
-    return '$_temp0';
+    return '$count event$_temp0';
   }
 
   @override
@@ -1560,4 +1557,384 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dAgo => 'd ago';
+
+  @override
+  String unknownCommand(String command) {
+    return 'Unknown command: $command';
+  }
+
+  @override
+  String didYouMean(String name) {
+    return 'Did you mean $name?';
+  }
+
+  @override
+  String get stringDelayRequiresANumericDelayValue =>
+      'STRING_DELAY requires a numeric delay value';
+
+  @override
+  String get exampleStringDelay100Hello => 'Example: STRING_DELAY 100 Hello';
+
+  @override
+  String get exampleStringDelay50 => 'Example: STRING_DELAY 50';
+
+  @override
+  String get defaultDelayRequiresANumericValue =>
+      'DEFAULTDELAY requires a numeric value';
+
+  @override
+  String get delayRequiresATimeValueInMilliseconds =>
+      'DELAY requires a time value in milliseconds';
+
+  @override
+  String get exampleDelay500 => 'Example: DELAY 500';
+
+  @override
+  String get delayValueMustBeANumberOrVariable =>
+      'DELAY value must be a number or variable';
+
+  @override
+  String get exampleDelay500OrDelayMyDelay =>
+      'Example: DELAY 500 or DELAY \$MY_DELAY';
+
+  @override
+  String delayMinimumValueIsMS(int min_ms) {
+    return 'DELAY minimum value is ${min_ms}ms';
+  }
+
+  @override
+  String useDelayMinMSOrHigher(int min_ms) {
+    return 'Use DELAY $min_ms or higher';
+  }
+
+  @override
+  String waitForTargetNotRecognized(String target) {
+    return 'WAIT_FOR target not recognized: $target';
+  }
+
+  @override
+  String get useHostConnectedEtc =>
+      'Use HOST_CONNECTED, UDC_CONFIGURED, KEYBOARD_READY, MOUSE_READY, or SESSION_ARMED';
+
+  @override
+  String get defineRequiresANameAndValue => 'DEFINE requires a name and value';
+
+  @override
+  String get exampleDefineAppNotepad => 'Example: DEFINE APP notepad';
+
+  @override
+  String get varRequiresAVariableName => 'VAR requires a variable name';
+
+  @override
+  String get exampleVarCounter0 => 'Example: VAR \$counter = 0';
+
+  @override
+  String get variableNameMustStartWithDollar =>
+      'Variable name must start with \$';
+
+  @override
+  String get functionRequiresAName => 'FUNCTION requires a name';
+
+  @override
+  String get exampleFunctionMyFunction => 'Example: FUNCTION my_function';
+
+  @override
+  String get endFunctionWithoutMatchingFunction =>
+      'END_FUNCTION without matching FUNCTION';
+
+  @override
+  String get returnOutsideOfFunction => 'RETURN outside of FUNCTION';
+
+  @override
+  String get elseWithoutMatchingIf => 'ELSE without matching IF';
+
+  @override
+  String get endIfWithoutMatchingIf => 'END_IF without matching IF';
+
+  @override
+  String get endWhileWithoutMatchingWhile => 'END_WHILE without matching WHILE';
+
+  @override
+  String get catchWithoutMatchingTry => 'CATCH without matching TRY';
+
+  @override
+  String get endTryWithoutMatchingTry => 'END_TRY without matching TRY';
+
+  @override
+  String get repeatRequiresANumericCount => 'REPEAT requires a numeric count';
+
+  @override
+  String get exampleRepeat5 => 'Example: REPEAT 5';
+
+  @override
+  String get mouseRequiresAnAction =>
+      'MOUSE requires an action (CLICK, MOVE, SCROLL, etc.)';
+
+  @override
+  String functionNotDeclaredInThisScript(String func_name) {
+    return 'Function $func_name not declared in this script';
+  }
+
+  @override
+  String declareItWithFunction(String func_name) {
+    return 'Declare it with: FUNCTION $func_name';
+  }
+
+  @override
+  String countUnclosedIfStatements(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 's',
+      one: '',
+    );
+    return '$count unclosed IF statement$_temp0';
+  }
+
+  @override
+  String get addEndIfForEachIf => 'Add END_IF for each IF';
+
+  @override
+  String countUnclosedWhileLoops(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 's',
+      one: '',
+    );
+    return '$count unclosed WHILE loop$_temp0';
+  }
+
+  @override
+  String get addEndWhileForEachWhile => 'Add END_WHILE for each WHILE';
+
+  @override
+  String countUnclosedFunctions(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 's',
+      one: '',
+    );
+    return '$count unclosed function$_temp0';
+  }
+
+  @override
+  String get addEndFunctionForEachFunction =>
+      'Add END_FUNCTION for each FUNCTION';
+
+  @override
+  String countUnclosedTryBlocks(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 's',
+      one: '',
+    );
+    return '$count unclosed TRY block$_temp0';
+  }
+
+  @override
+  String get addEndTryForEachTry => 'Add END_TRY for each TRY';
+
+  @override
+  String get unclosedRemBlock => 'Unclosed REM_BLOCK (missing END_REM)';
+
+  @override
+  String get unclosedStringBlock =>
+      'Unclosed STRING block (missing END_STRING)';
+
+  @override
+  String get unclosedStringlnBlock =>
+      'Unclosed STRINGLN block (missing END_STRINGLN)';
+
+  @override
+  String get discard => 'Discard';
+
+  @override
+  String get sources => 'Sources';
+
+  @override
+  String get showAllIncludingHidden => 'Show all (including hidden)';
+
+  @override
+  String get hideMedia => 'Hide media';
+
+  @override
+  String get showMedia => 'Show media';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get repositoryControls => 'Repository controls';
+
+  @override
+  String get folders => 'Folders';
+
+  @override
+  String get files => 'Files';
+
+  @override
+  String get pasteAGitHubURLFirst => 'Paste a GitHub URL first';
+
+  @override
+  String get invalidGitHubURL =>
+      'Invalid GitHub URL. Expected repo or folder URL.';
+
+  @override
+  String get sourceAdded => 'Source added';
+
+  @override
+  String get noSourcesSavedYet => 'No sources saved yet';
+
+  @override
+  String get chooseSource => 'Choose source';
+
+  @override
+  String get manage => 'Manage';
+
+  @override
+  String get noRepoSelected => 'No repo selected';
+
+  @override
+  String get pasteAURLBrowseThenImportPayloads =>
+      'Paste a URL, browse, then import payloads.';
+
+  @override
+  String get pickFromSavedSources => 'Pick from saved sources';
+
+  @override
+  String get browse => 'Browse';
+
+  @override
+  String get saveSource => 'Save source';
+
+  @override
+  String get upOneFolder => 'Up one folder';
+
+  @override
+  String get repositoryRoot => 'Repository root';
+
+  @override
+  String get searchFilesAndFolders => 'Search files and folders';
+
+  @override
+  String get importable => 'Importable';
+
+  @override
+  String get notSupported => 'Not supported';
+
+  @override
+  String get converted => 'Converted';
+
+  @override
+  String get browseAGitHubRepository => 'Browse a GitHub repository';
+
+  @override
+  String get pasteARepoOrFolderURL =>
+      'Paste a repo or folder URL, browse files, and import supported payload formats.';
+
+  @override
+  String get pasteExampleURL => 'Paste example URL';
+
+  @override
+  String get noMatchingFilesOrFolders => 'No matching files or folders';
+
+  @override
+  String get failedToLoad => 'Failed to load';
+
+  @override
+  String line(String line, String message) {
+    return 'Line $line: $message';
+  }
+
+  @override
+  String get moreThreePoints => 'more…';
+
+  @override
+  String get noRepositorySelected => 'No repository selected';
+
+  @override
+  String get noPreviewData => 'No preview data';
+
+  @override
+  String get copyConverted => 'Copy converted';
+
+  @override
+  String get convertedCopied => 'Converted copied';
+
+  @override
+  String get copyOriginal => 'Copy original';
+
+  @override
+  String get originalCopied => 'Original copied';
+
+  @override
+  String get disableWrap => 'Disable wrap';
+
+  @override
+  String get enableWrap => 'Enable wrap';
+
+  @override
+  String get validationSummary => 'Validation summary';
+
+  @override
+  String get importedDuckyScript => 'Imported Ducky Script';
+
+  @override
+  String importedFrom(String owner, String repo) {
+    return 'Imported from: $owner$repo';
+  }
+
+  @override
+  String source(String name) {
+    return 'source: $name';
+  }
+
+  @override
+  String get unsupportedFormat => 'Unsupported format';
+
+  @override
+  String get importedSuccessfully => 'Imported successfully';
+
+  @override
+  String importFailed(String error) {
+    return 'Import failed: $error';
+  }
+
+  @override
+  String get executingThreePoints => 'Executing';
+
+  @override
+  String get repositoryNotFound => 'Repository not found';
+
+  @override
+  String get gitHubAPIRateLimitReached => 'GitHub API rate limit reached';
+
+  @override
+  String get repositoryBranchOrFolderNotFound =>
+      'Repository, branch, or folder not found';
+
+  @override
+  String get expectedADirectoryListing => 'Expected a directory listing';
+
+  @override
+  String get fileNotFound => 'File not found';
+
+  @override
+  String get fileTooLargeToPreview =>
+      'File too large to preview/import (max 256KB)';
+
+  @override
+  String get failedToFetchRaw => 'Failed to fetch raw';
+
+  @override
+  String get noContent => 'No content';
+
+  @override
+  String get onlyGitHubLinksAreSupported => 'Only GitHub links are supported';
+
+  @override
+  String get tapDuckyfailedToStart => 'TapDucky failed to start';
 }
