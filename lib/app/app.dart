@@ -5,6 +5,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tap_ducky/l10n/app_localizations.dart';
+import '../extension/context_extensions.dart';
 import '../state/controllers/locale_controller.dart';
 
 import '../state/controllers/app_settings_controller.dart';
@@ -32,9 +33,7 @@ class TapDuckyApp extends ConsumerWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: const [Locale('en'), Locale('ru')],
             theme: AppTheme.light(dynamicScheme: enabled ? lightDynamic : null),
-            darkTheme: AppTheme.dark(
-              dynamicScheme: enabled ? darkDynamic : null,
-            ),
+            darkTheme: AppTheme.dark(dynamicScheme: enabled ? darkDynamic : null,),
             home: const _BootScreen(),
           );
         },
@@ -49,9 +48,7 @@ class TapDuckyApp extends ConsumerWidget {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: const [Locale('en'), Locale('ru')],
             theme: AppTheme.light(dynamicScheme: enabled ? lightDynamic : null),
-            darkTheme: AppTheme.dark(
-              dynamicScheme: enabled ? darkDynamic : null,
-            ),
+            darkTheme: AppTheme.dark(dynamicScheme: enabled ? darkDynamic : null,),
             home: _ErrorScreen(error: e),
           );
         },
@@ -66,12 +63,8 @@ class TapDuckyApp extends ConsumerWidget {
               locale: locale,
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: const [Locale('en'), Locale('ru')],
-              theme: AppTheme.light(
-                dynamicScheme: enabled ? lightDynamic : null,
-              ),
-              darkTheme: AppTheme.dark(
-                dynamicScheme: enabled ? darkDynamic : null,
-              ),
+              theme: AppTheme.light(dynamicScheme: enabled ? lightDynamic : null,),
+              darkTheme: AppTheme.dark(dynamicScheme: enabled ? darkDynamic : null,),
               themeMode: settings.themeMode,
               routerConfig: router,
             );
@@ -117,10 +110,7 @@ class _ErrorScreen extends StatelessWidget {
               children: [
                 const Icon(Icons.error_outline, size: 44),
                 const SizedBox(height: 12),
-                const Text(
-                  'TapDucky failed to start',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
+                Text(context.l10n.tapDuckyfailedToStart, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 Text('$error', textAlign: TextAlign.center),
               ],
