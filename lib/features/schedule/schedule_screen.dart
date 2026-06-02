@@ -9,6 +9,8 @@ import '../../state/controllers/scheduler_controller.dart';
 import '../../widgets/confirm_dialog.dart';
 import '../../widgets/empty_state.dart';
 
+import '../../extension/context_extensions.dart';
+
 class ScheduleScreen extends ConsumerWidget {
   const ScheduleScreen({super.key});
 
@@ -19,10 +21,10 @@ class ScheduleScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Schedule'),
+        title: Text(context.l10n.schedule),
         actions: [
           IconButton(
-            tooltip: 'New schedule',
+            tooltip: context.l10n.newSchedule,
             onPressed: () => context.go('${const ScheduleRoute().location}/new'),
             icon: const Icon(Icons.add),
           ),
@@ -38,7 +40,7 @@ class ScheduleScreen extends ConsumerWidget {
               children: [
                 Icon(Icons.error_outline, size: 64, color: Theme.of(context).colorScheme.error),
                 const SizedBox(height: 16),
-                Text('Failed to load schedules', style: Theme.of(context).textTheme.titleLarge),
+                Text(context.l10n.failedToLoadSchedules, style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text('$e', textAlign: TextAlign.center),
               ],
@@ -48,13 +50,13 @@ class ScheduleScreen extends ConsumerWidget {
         data: (tasks) {
           if (tasks.isEmpty) {
             return EmptyState(
-              title: 'No schedules configured',
-              subtitle: 'Create a schedule to automatically run a payload on a timer or trigger.',
+              title: context.l10n.noSchedulesConfigured,
+              subtitle: context.l10n.createAScheduleToAutomatically,
               icon: Icons.schedule,
               action: FilledButton.icon(
                 onPressed: () => context.go('${const ScheduleRoute().location}/new'),
                 icon: const Icon(Icons.add),
-                label: const Text('Create schedule'),
+                label: Text(context.l10n.createSchedule),
               ),
             );
           }
@@ -65,7 +67,7 @@ class ScheduleScreen extends ConsumerWidget {
             for (final p in payloads) {
               if (p.id == id) return p.name;
             }
-            return 'Unknown payload';
+            return context.l10n.unknownPayload;
           }
 
           final activeCount = tasks.where((t) => t.enabled).length;
@@ -95,9 +97,9 @@ class ScheduleScreen extends ConsumerWidget {
                         onDelete: () async {
                           final ok = await showConfirmDialog(
                             context,
-                            title: 'Delete schedule',
-                            message: 'Delete "${t.name}"?',
-                            confirmLabel: 'Delete',
+                            title: context.l10n.deleteSchedule,
+                            message: context.l10n.deleteScheduleMessage(t.name),
+                            confirmLabel: context.l10n.delete,
                             dangerous: true,
                           );
                           if (!ok) return;
@@ -115,7 +117,7 @@ class ScheduleScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.go('${const ScheduleRoute().location}/new'),
         icon: const Icon(Icons.add),
-        label: const Text('New Schedule'),
+        label: Text(context.l10n.newSchedule),
       ),
     );
   }
@@ -147,7 +149,7 @@ class _StatisticsBar extends StatelessWidget {
           Expanded(
             child: _StatChip(
               icon: Icons.schedule,
-              label: 'Total',
+              label: context.l10n.total,
               value: '$totalCount',
               color: cs.primary,
             ),
@@ -156,7 +158,7 @@ class _StatisticsBar extends StatelessWidget {
           Expanded(
             child: _StatChip(
               icon: Icons.check_circle,
-              label: 'Active',
+              label: context.l10n.active,
               value: '$activeCount',
               color: cs.secondary,
             ),
@@ -165,7 +167,7 @@ class _StatisticsBar extends StatelessWidget {
           Expanded(
             child: _StatChip(
               icon: Icons.event,
-              label: 'One-time',
+              label: context.l10n.oneTime,
               value: '$oneTimeCount',
               color: cs.secondary,
             ),
@@ -327,7 +329,7 @@ class _ScheduleCard extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    _triggerLabel(task.trigger),
+                                    _triggerLabel(task.trigger, context.l10n),
                                     style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.w700,
@@ -381,7 +383,7 @@ class _ScheduleCard extends StatelessWidget {
                               Icon(Icons.event, size: 14, color: cs.onSurfaceVariant),
                               const SizedBox(width: 6),
                               Text(
-                                _formatRunAt(task.runAt!),
+                                _formatRunAt(task.runAt!, context.l10n),
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: cs.onSurfaceVariant,
@@ -397,7 +399,7 @@ class _ScheduleCard extends StatelessWidget {
                               Icon(Icons.access_time, size: 14, color: cs.onSurfaceVariant),
                               const SizedBox(width: 6),
                               Text(
-                                'Window: ${task.windowStart}–${task.windowEnd}',
+                                context.l10n.windowStartEnd(task.windowStart.toString(), task.windowEnd.toString()),
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: cs.onSurfaceVariant,
@@ -413,7 +415,7 @@ class _ScheduleCard extends StatelessWidget {
                               Icon(Icons.history, size: 14, color: cs.primary),
                               const SizedBox(width: 6),
                               Text(
-                                'Last run: ${_formatLastRun(task.lastRunAt!)}',
+                                context.l10n.lastRun(_formatLastRun(task.lastRunAt!, context.l10n)),
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: cs.primary,
@@ -433,7 +435,7 @@ class _ScheduleCard extends StatelessWidget {
                         child: OutlinedButton.icon(
                           onPressed: onEdit,
                           icon: const Icon(Icons.edit, size: 16),
-                          label: const Text('Edit'),
+                          label: Text(context.l10n.edit),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                           ),
@@ -502,23 +504,23 @@ class _ScheduleCard extends StatelessWidget {
     }
   }
 
-  String _triggerLabel(String trigger) {
+  String _triggerLabel(String trigger, l10n) {
     switch (trigger) {
       case 'device_connected':
-        return 'SESSION ARMED';
+        return l10n.sessionArmedUpper;
       case 'app_cold_start':
-        return 'APP START';
+        return l10n.appStartUpper;
       case 'app_foreground':
       case 'app_launch':
-        return 'APP OPEN';
+        return l10n.appOpenUpper;
       case 'one_time':
-        return 'ONE-TIME';
+        return l10n.oneTimeUpper;
       default:
         return trigger.toUpperCase();
     }
   }
 
-  String _formatRunAt(DateTime dt) {
+  String _formatRunAt(DateTime dt, l10n) {
     final now = DateTime.now();
     final diff = dt.difference(now);
 
@@ -527,26 +529,26 @@ class _ScheduleCard extends StatelessWidget {
     }
 
     if (diff.inMinutes < 60) {
-      return 'In ${diff.inMinutes}m';
+      return l10n.diffInMins(diff.inMinutes);
     }
     if (diff.inHours < 24) {
-      return 'In ${diff.inHours}h ${diff.inMinutes % 60}m';
+      return l10n.diffInHours(diff.inHours, diff.inMinutes % 60);
     }
     if (diff.inDays < 7) {
-      return 'In ${diff.inDays}d';
+      return l10n.diffInDays(diff.inDays);
     }
 
     return '${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')} ${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 
-  String _formatLastRun(DateTime dt) {
+  String _formatLastRun(DateTime dt, l10n) {
     final now = DateTime.now();
     final diff = now.difference(dt);
 
-    if (diff.inSeconds < 60) return '${diff.inSeconds}s ago';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}m ago';
-    if (diff.inHours < 24) return '${diff.inHours}h ago';
-    if (diff.inDays < 7) return '${diff.inDays}d ago';
+    if (diff.inSeconds < 60) return l10n.sAgo(diff.inSeconds);
+    if (diff.inMinutes < 60) return l10n.mAgo(diff.inMinutes);
+    if (diff.inHours < 24) return l10n.hAgo(diff.inHours);
+    if (diff.inDays < 7) return l10n.dAgo(diff.inDays);
 
     return '${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')} ${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }

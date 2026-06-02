@@ -1575,16 +1575,24 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get sAgo => 'с назад';
+  String sAgo(int sec) {
+    return 'с назад';
+  }
 
   @override
-  String get mAgo => 'мин назад';
+  String mAgo(int min) {
+    return 'мин назад';
+  }
 
   @override
-  String get hAgo => 'ч назад';
+  String hAgo(int hour) {
+    return 'ч назад';
+  }
 
   @override
-  String get dAgo => 'дн назад';
+  String dAgo(int day) {
+    return 'дн назад';
+  }
 
   @override
   String unknownCommand(String command) {
@@ -1978,4 +1986,181 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get tapDuckyfailedToStart => 'TapDucky не удалось запустится';
+
+  @override
+  String get newSchedule => 'Новое расписание';
+
+  @override
+  String get failedToLoadSchedules => 'Не удалось загрузить расписания';
+
+  @override
+  String get noSchedulesConfigured => 'Расписания не настроены';
+
+  @override
+  String get createAScheduleToAutomatically =>
+      'Создайте расписание для автоматического запуска пейлоада по таймеру или триггеру.';
+
+  @override
+  String get createSchedule => 'Создать расписание';
+
+  @override
+  String get unknownPayload => 'Неизвестный пейлоад';
+
+  @override
+  String get deleteSchedule => 'Удалить расписание';
+
+  @override
+  String deleteScheduleMessage(String name) {
+    return 'Удалить «$name»?';
+  }
+
+  @override
+  String get active => 'Активно';
+
+  @override
+  String get oneTime => 'Однократно';
+
+  @override
+  String windowStartEnd(String start, String end) {
+    return 'Окно: $start–$end';
+  }
+
+  @override
+  String lastRun(String last) {
+    return 'Последний запуск: $last';
+  }
+
+  @override
+  String get edit => 'Редактировать';
+
+  @override
+  String get sessionArmedUpper => 'СЕССИЯ ГОТОВА';
+
+  @override
+  String get appStartUpper => 'ЗАПУСК ПРИЛОЖЕНИЯ';
+
+  @override
+  String get appOpenUpper => 'ОТКРЫТИЕ ПРИЛОЖЕНИЯ';
+
+  @override
+  String get oneTimeUpper => 'ОДНОКРАТНО';
+
+  @override
+  String diffInMins(int diff) {
+    return 'Через $diff мин';
+  }
+
+  @override
+  String diffInHoursAndMins(int diffH, int minsM) {
+    return 'Через $diffH ч $minsM мин';
+  }
+
+  @override
+  String diffInDays(int diff) {
+    return 'Через $diff дн.';
+  }
+
+  @override
+  String get editSchedule => 'Редактировать расписание';
+
+  @override
+  String get createAPayloadFirstThenCreateASchedule =>
+      'Сначала создайте пейлоад, а затем добавьте расписание.';
+
+  @override
+  String get basicConfiguration => 'Базовая конфигурация';
+
+  @override
+  String get scheduleName => 'Название расписания';
+
+  @override
+  String get egMorningRoutine => 'Пр., Утренний скрипт';
+
+  @override
+  String get triggerType => 'Тип триггера';
+
+  @override
+  String get scheduleTime => 'Время расписания';
+
+  @override
+  String get executionTime => 'Время выполнения';
+
+  @override
+  String get tapToSet => 'Нажмите, чтобы установить';
+
+  @override
+  String get timeWindowOptional => 'Временное окно (необязательно)';
+
+  @override
+  String get restrictExecutionToSpecificHoursOfTheDay =>
+      'Ограничить выполнение определенными часами в течение дня';
+
+  @override
+  String get startTime => 'Время начала';
+
+  @override
+  String get endTime => 'Время окончания';
+
+  @override
+  String get parameterOverrides => 'Переопределение параметров';
+
+  @override
+  String defaultSelectedPayload(String name) {
+    return 'По умолчанию: $name';
+  }
+
+  @override
+  String get specificDateAndTime => 'Определенная дата и время';
+
+  @override
+  String get coldStartOnly => 'Только холодный запуск';
+
+  @override
+  String get appOpen => 'Открытие приложения';
+
+  @override
+  String get foregroundEntry => 'Переход на передний план';
+
+  @override
+  String get sessionArmed => 'Сессия переведена в режим готовности';
+
+  @override
+  String get usbGadgetActive => 'USB-гаджет активен';
+
+  @override
+  String get oneTimeExecution => 'Однократное выполнение';
+
+  @override
+  String get runsOnceAtTheSpecifiedDateAndTime =>
+      'Запускается один раз в указанные дату и время (если они попадают в необязательное временное окно).';
+
+  @override
+  String get appStartColdStart => 'Запуск приложения (холодный запуск)';
+
+  @override
+  String get runsOnceWhenTapDuckyStartsFromAColdStart =>
+      'Запускается один раз при «холодном» запуске TapDucky. Триггер не срабатывает при возврате приложения из фонового режима.';
+
+  @override
+  String get appOpenForeground => 'Открытие приложения (передний план)';
+
+  @override
+  String get runsWhenTapDuckyComesToTheForeground =>
+      'Запускается каждый раз, когда TapDucky переходит на передний план (при переключении обратно на приложение). Может срабатывать многократно.';
+
+  @override
+  String get sessionArmedTrigger => 'Триггер готовности сессии';
+
+  @override
+  String get runsWhenTheHIDSessionIsArmed =>
+      'Запускается, когда сессия HID переводится в режим готовности (USB-гаджет привязывается к UDC). Срабатывает при нажатии кнопки «Подготовить сессию».';
+
+  @override
+  String get unknownTrigger => 'Неизвестный триггер';
+
+  @override
+  String get unknownTriggerType => 'Неизвестный тип триггера.';
+
+  @override
+  String get appStart => 'Запуск приложения';
 }

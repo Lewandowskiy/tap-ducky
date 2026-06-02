@@ -6,6 +6,8 @@ import '../../state/controllers/payloads_controller.dart';
 import '../../state/controllers/scheduler_controller.dart';
 import '../../widgets/empty_state.dart';
 
+import '../../extension/context_extensions.dart';
+
 class ScheduleEditorScreen extends ConsumerStatefulWidget {
   const ScheduleEditorScreen._({super.key, required this.isNew, this.taskId});
 
@@ -43,7 +45,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
     super.dispose();
   }
 
-  void _loadIfNeeded(List<Payload> payloads, SchedulerController ctrl) {
+  void _loadIfNeeded(List<Payload> payloads, SchedulerController ctrl, l10n) {
     if (_loaded) return;
 
     if (!widget.isNew) {
@@ -60,7 +62,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
         }
       }
     } else {
-      _name.text = 'New schedule';
+      _name.text = l10n.newSchedule;
       _windowStart.text = '';
       _windowEnd.text = '';
       _trigger = 'one_time';
@@ -84,7 +86,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.isNew ? 'New Schedule' : 'Edit Schedule'),
+        title: Text(widget.isNew ? context.l10n.newSchedule : context.l10n.editSchedule),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -97,7 +99,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                 await _save(schedulesCtrl, payloads);
               },
               icon: const Icon(Icons.check, size: 18),
-              label: const Text('Save'),
+              label: Text(context.l10n.save),
             ),
           ),
         ],
@@ -112,7 +114,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
               children: [
                 Icon(Icons.error_outline, size: 64, color: cs.error),
                 const SizedBox(height: 16),
-                Text('Failed to load payloads', style: Theme.of(context).textTheme.titleLarge),
+                Text(context.l10n.failedToLoadPayloads, style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: 8),
                 Text('$e', textAlign: TextAlign.center),
               ],
@@ -121,14 +123,14 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
         ),
         data: (payloads) {
           if (payloads.isEmpty) {
-            return const EmptyState(
-              title: 'No payloads available',
-              subtitle: 'Create a payload first, then create a schedule.',
+            return EmptyState(
+              title: context.l10n.noPayloadsAvailable,
+              subtitle: context.l10n.createAPayloadFirstThenCreateASchedule,
               icon: Icons.inventory_2_outlined,
             );
           }
 
-          _loadIfNeeded(payloads, schedulesCtrl);
+          _loadIfNeeded(payloads, schedulesCtrl, context.l10n);
 
           final selectedPayload = _findPayload(payloads, _payloadId) ?? payloads.first;
           _payloadId = selectedPayload.id;
@@ -139,14 +141,14 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
             children: [
               _SectionCard(
                 icon: Icons.settings,
-                title: 'Basic Configuration',
+                title: context.l10n.basicConfiguration,
                 color: cs.primary,
                 children: [
                   TextField(
                     controller: _name,
                     decoration: InputDecoration(
-                      labelText: 'Schedule Name',
-                      hintText: 'e.g., Morning Routine',
+                      labelText: context.l10n.scheduleName,
+                      hintText: context.l10n.egMorningRoutine,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.label),
                       filled: true,
@@ -157,7 +159,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                   DropdownButtonFormField<String>(
                     value: _payloadId,
                     decoration: InputDecoration(
-                      labelText: 'Payload',
+                      labelText: context.l10n.payload,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.inventory_2),
                       filled: true,
@@ -176,7 +178,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
               const SizedBox(height: 16),
               _SectionCard(
                 icon: Icons.flash_on,
-                title: 'Trigger Type',
+                title: context.l10n.triggerType,
                 color: cs.primary,
                 children: [
                   _TriggerSelector(
@@ -191,7 +193,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
               if (_trigger == 'one_time') ...[
                 _SectionCard(
                   icon: Icons.event,
-                  title: 'Schedule Time',
+                  title: context.l10n.scheduleTime,
                   color: cs.secondary,
                   children: [
                     InkWell(
@@ -220,7 +222,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Execution Time',
+                                    context.l10n.executionTime,
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w600,
@@ -229,7 +231,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    _runAt == null ? 'Tap to set' : _formatDateTime(_runAt!),
+                                    _runAt == null ? context.l10n.tapToSet : _formatDateTime(_runAt!),
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w700,
@@ -250,11 +252,11 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
               ],
               _SectionCard(
                 icon: Icons.access_time_filled,
-                title: 'Time Window (Optional)',
+                title: context.l10n.timeWindowOptional,
                 color: cs.primary,
                 children: [
                   Text(
-                    'Restrict execution to specific hours of the day',
+                    context.l10n.restrictExecutionToSpecificHoursOfTheDay,
                     style: TextStyle(
                       fontSize: 13,
                       color: cs.onSurfaceVariant,
@@ -268,7 +270,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                           controller: _windowStart,
                           readOnly: true,
                           decoration: InputDecoration(
-                            labelText: 'Start Time',
+                            labelText: context.l10n.startTime,
                             hintText: '09:00',
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.wb_twilight),
@@ -287,7 +289,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                           controller: _windowEnd,
                           readOnly: true,
                           decoration: InputDecoration(
-                            labelText: 'End Time',
+                            labelText: context.l10n.endTime,
                             hintText: '17:00',
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.nightlight),
@@ -305,7 +307,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                 const SizedBox(height: 16),
                 _SectionCard(
                   icon: Icons.tune,
-                  title: 'Parameter Overrides',
+                  title: context.l10n.parameterOverrides,
                   color: cs.secondary,
                   children: [
                     for (int i = 0; i < selectedPayload.parameters.length; i++) ...[
@@ -316,7 +318,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
                           labelText: selectedPayload.parameters[i].label,
                           hintText: selectedPayload.parameters[i].defaultValue,
                           helperText:
-                              'Default: ${selectedPayload.parameters[i].defaultValue}',
+                              context.l10n.defaultSelectedPayload(selectedPayload.parameters[i].defaultValue),
                           border: const OutlineInputBorder(),
                           prefixIcon: const Icon(Icons.code),
                           filled: true,
@@ -418,7 +420,7 @@ class _ScheduleEditorScreenState extends ConsumerState<ScheduleEditorScreen> {
     if (widget.isNew) {
       await ctrl.createNew(
         payloadId: payloadId,
-        name: _name.text.trim().isEmpty ? 'Schedule' : _name.text.trim(),
+        name: _name.text.trim().isEmpty ? context.l10n.schedule : _name.text.trim(),
         trigger: _trigger,
         runAt: _trigger == 'one_time' ? _runAt : null,
         windowStart: windowStart,
@@ -514,29 +516,29 @@ class _TriggerSelector extends StatelessWidget {
       _TriggerOption(
         value: 'one_time',
         icon: Icons.event,
-        label: 'One-time',
-        subtitle: 'Specific date & time',
+        label: context.l10n.oneTime,
+        subtitle: context.l10n.specificDateAndTime,
         color: cs.primary,
       ),
       _TriggerOption(
         value: 'app_cold_start',
         icon: Icons.power_settings_new,
-        label: 'App Start',
-        subtitle: 'Cold start only',
+        label: context.l10n.appStart,
+        subtitle: context.l10n.coldStartOnly,
         color: cs.secondary,
       ),
       _TriggerOption(
         value: 'app_foreground',
         icon: Icons.open_in_new,
-        label: 'App Open',
-        subtitle: 'Foreground entry',
+        label: context.l10n.appOpen,
+        subtitle: context.l10n.foregroundEntry,
         color: cs.primary,
       ),
       _TriggerOption(
         value: 'device_connected',
         icon: Icons.usb,
-        label: 'Session Armed',
-        subtitle: 'USB gadget active',
+        label: context.l10n.sessionArmed,
+        subtitle: context.l10n.usbGadgetActive,
         color: cs.primary,
       ),
     ];
@@ -667,36 +669,36 @@ class _TriggerExplanation extends StatelessWidget {
 
     switch (trigger) {
       case 'one_time':
-        title = 'One-time Execution';
+        title = context.l10n.oneTimeExecution;
         explanation =
-            'Runs once at the specified date and time (if within the optional time window).';
+            context.l10n.runsOnceAtTheSpecifiedDateAndTime;
         icon = Icons.event;
         color = cs.primary;
         break;
       case 'app_cold_start':
-        title = 'App Start (Cold Start)';
+        title = context.l10n.appStartColdStart;
         explanation =
-            'Runs once when TapDucky starts from a cold start. It does not run when returning from background.';
+            context.l10n.runsOnceWhenTapDuckyStartsFromAColdStart;
         icon = Icons.power_settings_new;
         color = cs.primary;
         break;
       case 'app_foreground':
-        title = 'App Open (Foreground)';
+        title = context.l10n.appOpenForeground;
         explanation =
-            'Runs when TapDucky comes to the foreground (switching back to the app). It can run multiple times.';
+            context.l10n.runsWhenTapDuckyComesToTheForeground;
         icon = Icons.open_in_new;
         color = cs.primary;
         break;
       case 'device_connected':
-        title = 'Session Armed Trigger';
+        title = context.l10n.sessionArmedTrigger;
         explanation =
-            'Runs when the HID session is armed (USB gadget binds to UDC). This fires when you tap "Arm Session".';
+            context.l10n.runsWhenTheHIDSessionIsArmed;
         icon = Icons.usb;
         color = cs.primary;
         break;
       default:
-        title = 'Unknown Trigger';
-        explanation = 'Unknown trigger type.';
+        title = context.l10n.unknownTrigger;
+        explanation = context.l10n.unknownTriggerType;
         icon = Icons.help_outline;
         color = cs.onSurfaceVariant;
     }

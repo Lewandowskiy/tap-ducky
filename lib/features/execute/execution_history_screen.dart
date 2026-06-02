@@ -402,10 +402,10 @@ class _ExecutionGroupTileState extends State<_ExecutionGroupTile> {
     final now = DateTime.now();
     final diff = now.difference(dt);
 
-    if (diff.inSeconds < 60) return '${diff.inSeconds}${context.l10n.sAgo}';
-    if (diff.inMinutes < 60) return '${diff.inMinutes}${context.l10n.mAgo}';
-    if (diff.inHours < 24) return '${diff.inHours}${context.l10n.hAgo}';
-    if (diff.inDays < 7) return '${diff.inDays}${context.l10n.dAgo}';
+    if (diff.inSeconds < 60) return context.l10n.sAgo(diff.inSeconds);
+    if (diff.inMinutes < 60) return context.l10n.mAgo(diff.inMinutes);
+    if (diff.inHours < 24) return context.l10n.hAgo(diff.inHours);
+    if (diff.inDays < 7) return context.l10n.dAgo(diff.inDays);
 
     return '${dt.month.toString().padLeft(2, '0')}-${dt.day.toString().padLeft(2, '0')} '
         '${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';

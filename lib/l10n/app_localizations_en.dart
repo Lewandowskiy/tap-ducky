@@ -1547,16 +1547,24 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get sAgo => 's ago';
+  String sAgo(int sec) {
+    return '${sec}s ago';
+  }
 
   @override
-  String get mAgo => 'm ago';
+  String mAgo(int min) {
+    return '${min}m ago';
+  }
 
   @override
-  String get hAgo => 'h ago';
+  String hAgo(int hour) {
+    return '${hour}h ago';
+  }
 
   @override
-  String get dAgo => 'd ago';
+  String dAgo(int day) {
+    return '${day}d ago';
+  }
 
   @override
   String unknownCommand(String command) {
@@ -1937,4 +1945,181 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tapDuckyfailedToStart => 'TapDucky failed to start';
+
+  @override
+  String get newSchedule => 'New Schedule';
+
+  @override
+  String get failedToLoadSchedules => 'Failed to load schedules';
+
+  @override
+  String get noSchedulesConfigured => 'No schedules configured';
+
+  @override
+  String get createAScheduleToAutomatically =>
+      'Create a schedule to automatically run a payload on a timer or trigger.';
+
+  @override
+  String get createSchedule => 'Create schedule';
+
+  @override
+  String get unknownPayload => 'Unknown payload';
+
+  @override
+  String get deleteSchedule => 'Delete schedule';
+
+  @override
+  String deleteScheduleMessage(String name) {
+    return 'Delete: \"$name\"?';
+  }
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get oneTime => 'One-time';
+
+  @override
+  String windowStartEnd(String start, String end) {
+    return 'Window: $start-$end';
+  }
+
+  @override
+  String lastRun(String last) {
+    return 'Last run: $last';
+  }
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get sessionArmedUpper => 'SESSION ARMED';
+
+  @override
+  String get appStartUpper => 'APP START';
+
+  @override
+  String get appOpenUpper => 'APP OPEN';
+
+  @override
+  String get oneTimeUpper => 'ONE-TIME';
+
+  @override
+  String diffInMins(int diff) {
+    return 'In ${diff}m';
+  }
+
+  @override
+  String diffInHoursAndMins(int diffH, int minsM) {
+    return 'In ${diffH}h ${minsM}m';
+  }
+
+  @override
+  String diffInDays(int diff) {
+    return 'In ${diff}d';
+  }
+
+  @override
+  String get editSchedule => 'Edit Schedule';
+
+  @override
+  String get createAPayloadFirstThenCreateASchedule =>
+      'Create a payload first, then create a schedule.';
+
+  @override
+  String get basicConfiguration => 'Basic Configuration';
+
+  @override
+  String get scheduleName => 'Schedule Name';
+
+  @override
+  String get egMorningRoutine => 'e.g., Morning Routine';
+
+  @override
+  String get triggerType => 'Trigger Type';
+
+  @override
+  String get scheduleTime => 'Schedule Time';
+
+  @override
+  String get executionTime => 'Execution Time';
+
+  @override
+  String get tapToSet => 'Tap to set';
+
+  @override
+  String get timeWindowOptional => 'Time Window (Optional)';
+
+  @override
+  String get restrictExecutionToSpecificHoursOfTheDay =>
+      'Restrict execution to specific hours of the day';
+
+  @override
+  String get startTime => 'Start Time';
+
+  @override
+  String get endTime => 'End Time';
+
+  @override
+  String get parameterOverrides => 'Parameter Overrides';
+
+  @override
+  String defaultSelectedPayload(String name) {
+    return 'Default: $name';
+  }
+
+  @override
+  String get specificDateAndTime => 'Specific date & time';
+
+  @override
+  String get coldStartOnly => 'Cold start only';
+
+  @override
+  String get appOpen => 'App Open';
+
+  @override
+  String get foregroundEntry => 'Foreground entry';
+
+  @override
+  String get sessionArmed => 'Session Armed';
+
+  @override
+  String get usbGadgetActive => 'USB gadget active';
+
+  @override
+  String get oneTimeExecution => 'One-time Execution';
+
+  @override
+  String get runsOnceAtTheSpecifiedDateAndTime =>
+      'Runs once at the specified date and time (if within the optional time window).';
+
+  @override
+  String get appStartColdStart => 'App Start (Cold Start)';
+
+  @override
+  String get runsOnceWhenTapDuckyStartsFromAColdStart =>
+      'Runs once when TapDucky starts from a cold start. It does not run when returning from background.';
+
+  @override
+  String get appOpenForeground => 'App Open (Foreground)';
+
+  @override
+  String get runsWhenTapDuckyComesToTheForeground =>
+      'Runs when TapDucky comes to the foreground (switching back to the app). It can run multiple times.';
+
+  @override
+  String get sessionArmedTrigger => 'Session Armed Trigger';
+
+  @override
+  String get runsWhenTheHIDSessionIsArmed =>
+      'Runs when the HID session is armed (USB gadget binds to UDC). This fires when you tap \"Arm Session\".';
+
+  @override
+  String get unknownTrigger => 'Unknown Trigger';
+
+  @override
+  String get unknownTriggerType => 'Unknown trigger type.';
+
+  @override
+  String get appStart => 'App Start';
 }

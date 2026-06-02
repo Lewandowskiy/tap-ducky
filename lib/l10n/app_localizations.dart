@@ -2771,26 +2771,26 @@ abstract class AppLocalizations {
   /// No description provided for @sAgo.
   ///
   /// In en, this message translates to:
-  /// **'s ago'**
-  String get sAgo;
+  /// **'{sec}s ago'**
+  String sAgo(int sec);
 
   /// No description provided for @mAgo.
   ///
   /// In en, this message translates to:
-  /// **'m ago'**
-  String get mAgo;
+  /// **'{min}m ago'**
+  String mAgo(int min);
 
   /// No description provided for @hAgo.
   ///
   /// In en, this message translates to:
-  /// **'h ago'**
-  String get hAgo;
+  /// **'{hour}h ago'**
+  String hAgo(int hour);
 
   /// No description provided for @dAgo.
   ///
   /// In en, this message translates to:
-  /// **'d ago'**
-  String get dAgo;
+  /// **'{day}d ago'**
+  String dAgo(int day);
 
   /// No description provided for @unknownCommand.
   ///
@@ -3409,6 +3409,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'TapDucky failed to start'**
   String get tapDuckyfailedToStart;
+
+  /// No description provided for @newSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'New Schedule'**
+  String get newSchedule;
+
+  /// No description provided for @failedToLoadSchedules.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load schedules'**
+  String get failedToLoadSchedules;
+
+  /// No description provided for @noSchedulesConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'No schedules configured'**
+  String get noSchedulesConfigured;
+
+  /// No description provided for @createAScheduleToAutomatically.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a schedule to automatically run a payload on a timer or trigger.'**
+  String get createAScheduleToAutomatically;
+
+  /// No description provided for @createSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Create schedule'**
+  String get createSchedule;
+
+  /// No description provided for @unknownPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown payload'**
+  String get unknownPayload;
+
+  /// No description provided for @deleteSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete schedule'**
+  String get deleteSchedule;
+
+  /// No description provided for @deleteScheduleMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete: \"{name}\"?'**
+  String deleteScheduleMessage(String name);
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @oneTime.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time'**
+  String get oneTime;
+
+  /// No description provided for @windowStartEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Window: {start}-{end}'**
+  String windowStartEnd(String start, String end);
+
+  /// No description provided for @lastRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Last run: {last}'**
+  String lastRun(String last);
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @sessionArmedUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'SESSION ARMED'**
+  String get sessionArmedUpper;
+
+  /// No description provided for @appStartUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'APP START'**
+  String get appStartUpper;
+
+  /// No description provided for @appOpenUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'APP OPEN'**
+  String get appOpenUpper;
+
+  /// No description provided for @oneTimeUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'ONE-TIME'**
+  String get oneTimeUpper;
+
+  /// No description provided for @diffInMins.
+  ///
+  /// In en, this message translates to:
+  /// **'In {diff}m'**
+  String diffInMins(int diff);
+
+  /// No description provided for @diffInHoursAndMins.
+  ///
+  /// In en, this message translates to:
+  /// **'In {diffH}h {minsM}m'**
+  String diffInHoursAndMins(int diffH, int minsM);
+
+  /// No description provided for @diffInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'In {diff}d'**
+  String diffInDays(int diff);
+
+  /// No description provided for @editSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Schedule'**
+  String get editSchedule;
+
+  /// No description provided for @createAPayloadFirstThenCreateASchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a payload first, then create a schedule.'**
+  String get createAPayloadFirstThenCreateASchedule;
+
+  /// No description provided for @basicConfiguration.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Configuration'**
+  String get basicConfiguration;
+
+  /// No description provided for @scheduleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Name'**
+  String get scheduleName;
+
+  /// No description provided for @egMorningRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g., Morning Routine'**
+  String get egMorningRoutine;
+
+  /// No description provided for @triggerType.
+  ///
+  /// In en, this message translates to:
+  /// **'Trigger Type'**
+  String get triggerType;
+
+  /// No description provided for @scheduleTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Time'**
+  String get scheduleTime;
+
+  /// No description provided for @executionTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution Time'**
+  String get executionTime;
+
+  /// No description provided for @tapToSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to set'**
+  String get tapToSet;
+
+  /// No description provided for @timeWindowOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Window (Optional)'**
+  String get timeWindowOptional;
+
+  /// No description provided for @restrictExecutionToSpecificHoursOfTheDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Restrict execution to specific hours of the day'**
+  String get restrictExecutionToSpecificHoursOfTheDay;
+
+  /// No description provided for @startTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
+  String get startTime;
+
+  /// No description provided for @endTime.
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
+  String get endTime;
+
+  /// No description provided for @parameterOverrides.
+  ///
+  /// In en, this message translates to:
+  /// **'Parameter Overrides'**
+  String get parameterOverrides;
+
+  /// No description provided for @defaultSelectedPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Default: {name}'**
+  String defaultSelectedPayload(String name);
+
+  /// No description provided for @specificDateAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Specific date & time'**
+  String get specificDateAndTime;
+
+  /// No description provided for @coldStartOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Cold start only'**
+  String get coldStartOnly;
+
+  /// No description provided for @appOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'App Open'**
+  String get appOpen;
+
+  /// No description provided for @foregroundEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Foreground entry'**
+  String get foregroundEntry;
+
+  /// No description provided for @sessionArmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Armed'**
+  String get sessionArmed;
+
+  /// No description provided for @usbGadgetActive.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget active'**
+  String get usbGadgetActive;
+
+  /// No description provided for @oneTimeExecution.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time Execution'**
+  String get oneTimeExecution;
+
+  /// No description provided for @runsOnceAtTheSpecifiedDateAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs once at the specified date and time (if within the optional time window).'**
+  String get runsOnceAtTheSpecifiedDateAndTime;
+
+  /// No description provided for @appStartColdStart.
+  ///
+  /// In en, this message translates to:
+  /// **'App Start (Cold Start)'**
+  String get appStartColdStart;
+
+  /// No description provided for @runsOnceWhenTapDuckyStartsFromAColdStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs once when TapDucky starts from a cold start. It does not run when returning from background.'**
+  String get runsOnceWhenTapDuckyStartsFromAColdStart;
+
+  /// No description provided for @appOpenForeground.
+  ///
+  /// In en, this message translates to:
+  /// **'App Open (Foreground)'**
+  String get appOpenForeground;
+
+  /// No description provided for @runsWhenTapDuckyComesToTheForeground.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs when TapDucky comes to the foreground (switching back to the app). It can run multiple times.'**
+  String get runsWhenTapDuckyComesToTheForeground;
+
+  /// No description provided for @sessionArmedTrigger.
+  ///
+  /// In en, this message translates to:
+  /// **'Session Armed Trigger'**
+  String get sessionArmedTrigger;
+
+  /// No description provided for @runsWhenTheHIDSessionIsArmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs when the HID session is armed (USB gadget binds to UDC). This fires when you tap \"Arm Session\".'**
+  String get runsWhenTheHIDSessionIsArmed;
+
+  /// No description provided for @unknownTrigger.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Trigger'**
+  String get unknownTrigger;
+
+  /// No description provided for @unknownTriggerType.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown trigger type.'**
+  String get unknownTriggerType;
+
+  /// No description provided for @appStart.
+  ///
+  /// In en, this message translates to:
+  /// **'App Start'**
+  String get appStart;
 }
 
 class _AppLocalizationsDelegate
