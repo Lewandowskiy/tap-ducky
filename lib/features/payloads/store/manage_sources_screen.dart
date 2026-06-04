@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/services/github_store/models.dart';
 import '../../../state/controllers/payloads_store_controller.dart';
 
+import '../../../extension/context_extensions.dart';
+
 class ManageSourcesScreen extends ConsumerStatefulWidget {
   const ManageSourcesScreen({super.key});
 
@@ -26,11 +28,11 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Manage Sources'),
+        title: Text(context.l10n.manageSources),
         actions: [
           if (!_editMode)
             IconButton(
-              tooltip: 'Edit',
+              tooltip: context.l10n.edit,
               icon: const Icon(Icons.tune),
               onPressed: () => setState(() {
                 _editMode = true;
@@ -39,7 +41,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
             )
           else ...[
             IconButton(
-              tooltip: 'Select all',
+              tooltip: context.l10n.selectAll,
               onPressed: sources.isEmpty
                   ? null
                   : () => setState(() {
@@ -54,7 +56,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
               icon: const Icon(Icons.select_all),
             ),
             IconButton(
-              tooltip: 'Delete selected',
+              tooltip: context.l10n.deleteSelected,
               onPressed: !hasSelection
                   ? null
                   : () async {
@@ -70,7 +72,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('Removed ${toRemove.length} source(s)'),
+                            content: Text(context.l10n.removedCountSources(toRemove.length)),
                             behavior: SnackBarBehavior.floating,
                           ),
                         );
@@ -79,7 +81,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
               icon: const Icon(Icons.delete_outline),
             ),
             IconButton(
-              tooltip: 'Done',
+              tooltip: context.l10n.done,
               icon: const Icon(Icons.check),
               onPressed: () => setState(() {
                 _editMode = false;
@@ -91,8 +93,8 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
       ),
       body: sources.isEmpty
           ? _EmptyState(
-              title: 'No sources yet',
-              subtitle: 'Add a source from the store screen, then manage it here.',
+              title: context.l10n.noSourcesYet,
+              subtitle: context.l10n.addASourceFromTheStore,
               icon: Icons.bookmarks_outlined,
             )
           : Column(
@@ -108,7 +110,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            'Reorder sources, rename, or select multiple to delete.',
+                            context.l10n.reorderSourcesRename,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -197,13 +199,13 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
     final res = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Remove source'),
-        content: Text('Remove "$alias" from your sources?'),
+        title: Text(context.l10n.removeSource),
+        content: Text(context.l10n.removeAliasFromYourSources(alias)),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Cancel')),
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(context.l10n.cancel)),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Remove'),
+            child: Text(context.l10n.remove),
           ),
         ],
       ),
@@ -213,7 +215,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
       await ctrl.removeSource(refRepo);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Source removed'), behavior: SnackBarBehavior.floating),
+          SnackBar(content: Text(context.l10n.sourceRemoved), behavior: SnackBarBehavior.floating),
         );
       }
       return true;
@@ -238,7 +240,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Rename source', style: Theme.of(context).textTheme.titleLarge),
+              Text(context.l10n.renameSource, style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 8),
               Text(
                 refRepo.originalUrl,
@@ -253,8 +255,8 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
                 controller: textCtrl,
                 autofocus: true,
                 textInputAction: TextInputAction.done,
-                decoration: const InputDecoration(
-                  labelText: 'Display name',
+                decoration: InputDecoration(
+                  labelText: context.l10n.displayName,
                   border: OutlineInputBorder(),
                 ),
                 onSubmitted: (_) => Navigator.of(context).pop(textCtrl.text.trim()),
@@ -265,14 +267,14 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: const Text('Cancel'),
+                      child: Text(context.l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: FilledButton(
                       onPressed: () => Navigator.of(context).pop(textCtrl.text.trim()),
-                      child: const Text('Save'),
+                      child: Text(context.l10n.save),
                     ),
                   ),
                 ],
@@ -288,7 +290,7 @@ class _ManageSourcesScreenState extends ConsumerState<ManageSourcesScreen> {
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Source renamed'), behavior: SnackBarBehavior.floating),
+        SnackBar(content: Text(context.l10n.sourceRenamed), behavior: SnackBarBehavior.floating),
       );
     }
   }
@@ -342,12 +344,12 @@ class _SourceTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            tooltip: 'Rename',
+            tooltip: context.l10n.rename,
             onPressed: onRename,
             icon: const Icon(Icons.edit_outlined),
           ),
           IconButton(
-            tooltip: 'Remove',
+            tooltip: context.l10n.remove,
             onPressed: () async {
               await onRemove();
             },

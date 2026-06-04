@@ -13,6 +13,8 @@ import '../../widgets/confirm_dialog.dart';
 import '../../widgets/section_header.dart';
 import 'usb_id_selector_dialog.dart';
 
+import '../../extension/context_extensions.dart';
+
 class AdvancedSettingsScreen extends ConsumerWidget {
   const AdvancedSettingsScreen({super.key});
 
@@ -22,18 +24,18 @@ class AdvancedSettingsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Advanced settings'),
+        title: Text(context.l10n.advancedSettings),
         actions: [
           IconButton(
-            tooltip: 'Reset',
+            tooltip: context.l10n.reset,
             onPressed: async.hasValue
                 ? () async {
                     final ok = await showConfirmDialog(
                       context,
-                      title: 'Reset advanced settings',
+                      title: context.l10n.resetAdvancedSettings,
                       message:
-                          'Reset command presets, hotkeys, and default VID/PID to defaults?',
-                      confirmLabel: 'Reset',
+                          context.l10n.resetCommandPresetsHotkeys,
+                      confirmLabel: context.l10n.reset,
                       dangerous: true,
                     );
                     if (!ok) return;
@@ -49,7 +51,7 @@ class AdvancedSettingsScreen extends ConsumerWidget {
       body: async.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, st) =>
-            Center(child: Text('Failed to load advanced settings: $e')),
+            Center(child: Text(context.l10n.failedToLoadAdvancedSettings(e.toString()))),
         data: (s) => _Body(settings: s),
       ),
     );
@@ -78,12 +80,14 @@ class _BodyState extends ConsumerState<_Body> {
   late Future<List<KeyboardLayoutInfo>> _keyboardLayoutsFuture;
   late Future<List<String>> _udcsFuture;
 
-  static const Map<String, String> _hotkeyTitles = <String, String>{
-    'arm_toggle': 'Arm / Disarm session',
-    'stop_execution': 'Stop execution',
-    'execute_recent': 'Execute most recent',
-    'execute_selected': 'Execute selected payload',
-  };
+  Map<String, String> get hotkeyTitles {
+    return {
+      'arm_toggle': context.l10n.armDisarmSession,
+      'stop_execution': context.l10n.stopExecution,
+      'execute_recent': context.l10n.executeRecent,
+      'execute_selected': context.l10n.executeSelectedPayload,
+    };
+  }
   static const List<String> _dialCodes = <String>[
     '38250',
     '38251',
@@ -189,7 +193,7 @@ class _BodyState extends ConsumerState<_Body> {
     try {
       final trimmed = hex.trim();
       if (trimmed.isEmpty) {
-        return (value: null, error: 'Cannot be empty');
+        return (value: null, error: context.l10n.cannotBeEmpty);
       }
       final normalized = trimmed.toLowerCase();
       int parsed;
@@ -199,11 +203,11 @@ class _BodyState extends ConsumerState<_Body> {
         parsed = int.parse(normalized, radix: 16);
       }
       if (parsed < 0 || parsed > 0xFFFF) {
-        return (value: null, error: 'Must be 0x0000–0xFFFF');
+        return (value: null, error: context.l10n.mustBe0x0000To0xFFFF);
       }
       return (value: parsed, error: null);
     } catch (_) {
-      return (value: null, error: 'Invalid hex format');
+      return (value: null, error: context.l10n.invalidHexFormat);
     }
   }
 
@@ -278,7 +282,7 @@ class _BodyState extends ConsumerState<_Body> {
     return ListView(
       children: [
         const SizedBox(height: 10),
-        const SectionHeader(title: 'USB gadget defaults'),
+        SectionHeader(title: context.l10n.usbGadgetDefaults),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Card(
@@ -290,10 +294,10 @@ class _BodyState extends ConsumerState<_Body> {
                   ListTile(
                     contentPadding: EdgeInsets.zero,
                     leading: const Icon(Icons.manage_search),
-                    title: const Text('Pick VID/PID from USB IDs database'),
+                    title: Text(context.l10n.pickVidPidFromUsbIDsDatabase),
                     subtitle: _resolvedNames == null
                         ? Text(
-                            'Search by vendor or product name. Recommended to match a real device fingerprint.',
+                            context.l10n.searchByVendorOrProductName,
                             style: TextStyle(color: cs.onSurfaceVariant),
                           )
                         : FutureBuilder<({String? vendor, String? product})>(
@@ -304,19 +308,19 @@ class _BodyState extends ConsumerState<_Body> {
                               if (snap.connectionState ==
                                   ConnectionState.waiting) {
                                 return Text(
-                                  'Looking up vendor/product…',
+                                  context.l10n.lookingUpVendorProduct,
                                   style: TextStyle(color: cs.onSurfaceVariant),
                                 );
                               }
                               if (snap.hasError) {
                                 return Text(
-                                  'Lookup failed. You can still enter VID/PID manually.',
+                                  context.l10n.lookupFailed,
                                   style: TextStyle(color: cs.onSurfaceVariant),
                                 );
                               }
                               if (v == null && p == null) {
                                 return Text(
-                                  'No match found in database for current VID/PID.',
+                                  context.l10n.noMatchFound,
                                   style: TextStyle(color: cs.onSurfaceVariant),
                                 );
                               }
@@ -341,7 +345,7 @@ class _BodyState extends ConsumerState<_Body> {
                         child: TextField(
                           controller: _vidCtrl,
                           decoration: InputDecoration(
-                            labelText: 'Default VID (hex)',
+                            labelText: context.l10n.defaultVidHex,
                             hintText: '0x1D6B',
                             errorText: _vidError,
                             helperText: _vidParsed != null
@@ -365,7 +369,7 @@ class _BodyState extends ConsumerState<_Body> {
                         child: TextField(
                           controller: _pidCtrl,
                           decoration: InputDecoration(
-                            labelText: 'Default PID (hex)',
+                            labelText: context.l10n.defaultPidHex,
                             hintText: '0x0104',
                             errorText: _pidError,
                             helperText: _pidParsed != null
@@ -407,7 +411,7 @@ class _BodyState extends ConsumerState<_Body> {
                         if (!hasCurrent && current.isNotEmpty)
                           DropdownMenuItem(
                             value: current,
-                            child: Text('Current (${current.toUpperCase()})'),
+                            child: Text(context.l10n.current(current.toUpperCase())),
                           ),
                         ...baseItems,
                       ];
@@ -419,13 +423,13 @@ class _BodyState extends ConsumerState<_Body> {
                       return DropdownButtonFormField<String>(
                         value: value,
                         decoration: InputDecoration(
-                          labelText: 'Keyboard layout',
+                          labelText: context.l10n.keyboardLayout,
                           helperText:
                               snap.connectionState == ConnectionState.waiting
-                              ? 'Loading supported layouts…'
+                              ? context.l10n.loadingSupportedLayouts
                               : (dynamicItems.isNotEmpty
-                                    ? 'From backend'
-                                    : 'Fallback list'),
+                                    ? context.l10n.fromBackend
+                                    : context.l10n.fallbackList),
                         ),
                         items: items,
                         onChanged: (v) async {
@@ -450,9 +454,9 @@ class _BodyState extends ConsumerState<_Body> {
                       final currentRaw = widget.settings.preferredUdc.trim();
                       final current = currentRaw.isEmpty ? 'auto' : currentRaw;
                       final items = <DropdownMenuItem<String>>[
-                        const DropdownMenuItem(
+                        DropdownMenuItem(
                           value: 'auto',
-                          child: Text('Auto (try all UDCs)'),
+                          child: Text(context.l10n.autoTryAllUdcs),
                         ),
                         ...udcs.map(
                           (u) => DropdownMenuItem(value: u, child: Text(u)),
@@ -464,7 +468,7 @@ class _BodyState extends ConsumerState<_Body> {
                         if (!hasCurrent && current != 'auto')
                           DropdownMenuItem(
                             value: current,
-                            child: Text('Current ($current)'),
+                            child: Text(context.l10n.currentWithBrackets(current)),
                           ),
                         ...items,
                       ];
@@ -472,11 +476,11 @@ class _BodyState extends ConsumerState<_Body> {
                       return DropdownButtonFormField<String>(
                         value: hasCurrent ? current : mergedItems.first.value,
                         decoration: InputDecoration(
-                          labelText: 'Preferred UDC',
+                          labelText: context.l10n.preferredUDC,
                           helperText:
                               snap.connectionState == ConnectionState.waiting
-                              ? 'Loading UDC list…'
-                              : 'Auto will fallback across available UDCs',
+                              ? context.l10n.loadingUdcList
+                              : context.l10n.autoWillFallbackAcrossAvailableUDCs,
                         ),
                         items: mergedItems,
                         onChanged: (v) async {
@@ -490,7 +494,7 @@ class _BodyState extends ConsumerState<_Body> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'These values are used when activating USB gadget profiles. Choosing a VID/PID that matches a real device improves operator realism and reduces UI mistakes.',
+                    context.l10n.usbGadgetDefaultsDescription,
                     style: TextStyle(color: cs.onSurfaceVariant),
                   ),
                 ],
@@ -499,7 +503,7 @@ class _BodyState extends ConsumerState<_Body> {
           ),
         ),
         const SizedBox(height: 10),
-        const SectionHeader(title: 'Command presets'),
+        SectionHeader(title: context.l10n.commandPresets),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Card(
@@ -519,9 +523,9 @@ class _BodyState extends ConsumerState<_Body> {
                 ],
                 ListTile(
                   leading: const Icon(Icons.add),
-                  title: const Text('Add preset'),
-                  subtitle: const Text(
-                    'Adds a reusable script fragment for the Execute console',
+                  title: Text(context.l10n.addPreset),
+                  subtitle: Text(
+                    context.l10n.addsAReusableScriptFragment,
                   ),
                   onTap: () => _addPresetDialog(context, ref),
                 ),
@@ -530,7 +534,7 @@ class _BodyState extends ConsumerState<_Body> {
           ),
         ),
         const SizedBox(height: 10),
-        const SectionHeader(title: 'Hotkeys'),
+        SectionHeader(title: context.l10n.hotkeys),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Card(
@@ -538,35 +542,35 @@ class _BodyState extends ConsumerState<_Body> {
               children: [
                 _HotkeyTile(
                   action: 'arm_toggle',
-                  title: _hotkeyTitles['arm_toggle']!,
+                  title: hotkeyTitles['arm_toggle']!,
                   allHotkeys: hotkeys,
-                  actionTitles: _hotkeyTitles,
+                  actionTitles: hotkeyTitles,
                 ),
                 const Divider(height: 1),
                 _HotkeyTile(
                   action: 'stop_execution',
-                  title: _hotkeyTitles['stop_execution']!,
+                  title: hotkeyTitles['stop_execution']!,
                   allHotkeys: hotkeys,
-                  actionTitles: _hotkeyTitles,
+                  actionTitles: hotkeyTitles,
                 ),
                 const Divider(height: 1),
                 _HotkeyTile(
                   action: 'execute_recent',
-                  title: _hotkeyTitles['execute_recent']!,
+                  title: hotkeyTitles['execute_recent']!,
                   allHotkeys: hotkeys,
-                  actionTitles: _hotkeyTitles,
+                  actionTitles: hotkeyTitles,
                 ),
                 const Divider(height: 1),
                 _HotkeyTile(
                   action: 'execute_selected',
-                  title: _hotkeyTitles['execute_selected']!,
+                  title: hotkeyTitles['execute_selected']!,
                   allHotkeys: hotkeys,
-                  actionTitles: _hotkeyTitles,
+                  actionTitles: hotkeyTitles,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   child: Text(
-                    'Choose a hardware gesture to trigger an action. A gesture can only be assigned to one action.',
+                    context.l10n.hotkeysDescription,
                     style: TextStyle(color: cs.onSurfaceVariant),
                   ),
                 ),
@@ -575,7 +579,7 @@ class _BodyState extends ConsumerState<_Body> {
           ),
         ),
         const SizedBox(height: 10),
-        const SectionHeader(title: 'Dial shortcuts'),
+        SectionHeader(title: context.l10n.dialShortcuts),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Card(
@@ -586,7 +590,7 @@ class _BodyState extends ConsumerState<_Body> {
               ),
               error: (e, st) => Padding(
                 padding: const EdgeInsets.all(16),
-                child: Text('Failed to load dial shortcuts: $e'),
+                child: Text(context.l10n.failedToLoadDialShortcuts(e.toString())),
               ),
               data: (settings) {
                 final bindings = _normalizeDialShortcuts(
@@ -606,7 +610,7 @@ class _BodyState extends ConsumerState<_Body> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                       child: Text(
-                        'Dial *#*#CODE#*#* in the phone app. Only the listed codes are supported.',
+                        context.l10n.dialShortcutsDescription,
                         style: TextStyle(color: cs.onSurfaceVariant),
                       ),
                     ),
@@ -626,22 +630,22 @@ class _BodyState extends ConsumerState<_Body> {
     final res = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('New preset'),
+        title: Text(context.l10n.newPreset),
         content: TextField(
           controller: ctrl,
           maxLines: 8,
-          decoration: const InputDecoration(
-            hintText: 'Example:\nDELAY 250\nSTRING hello\nENTER',
+          decoration: InputDecoration(
+            hintText: context.l10n.newPresetExample,
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(null),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(ctrl.text),
-            child: const Text('Add'),
+            child: Text(context.l10n.add),
           ),
         ],
       ),
@@ -723,8 +727,8 @@ class _DialShortcutTile extends StatelessWidget {
     }
     final hasSelected = selectedPayload != null;
     final subtitle = mode == 'payload'
-        ? (hasSelected ? selectedPayload!.name : 'Select a payload')
-        : 'Last executed script';
+        ? (hasSelected ? selectedPayload!.name : context.l10n.selectAPayload)
+        : context.l10n.lastExecutedScript;
 
     return ExpansionTile(
       tilePadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -738,9 +742,9 @@ class _DialShortcutTile extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Text(
-                'Target',
+                context.l10n.target,
                 style: TextStyle(fontWeight: FontWeight.w700),
               ),
             ),
@@ -754,14 +758,14 @@ class _DialShortcutTile extends StatelessWidget {
                 child: DropdownButton<String>(
                   value: mode,
                   style: TextStyle(color: cs.onSurface),
-                  items: const [
+                  items: [
                     DropdownMenuItem(
                       value: 'last',
-                      child: Text('Last executed'),
+                      child: Text(context.l10n.lastExecuted),
                     ),
                     DropdownMenuItem(
                       value: 'payload',
-                      child: Text('Selected payload'),
+                      child: Text(context.l10n.selectedPayload),
                     ),
                   ],
                   onChanged: (v) {
@@ -784,9 +788,9 @@ class _DialShortcutTile extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Text(
-                  'Payload',
+                  context.l10n.payload,
                   style: TextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
@@ -802,7 +806,7 @@ class _DialShortcutTile extends StatelessWidget {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: hasSelected ? selectedPayload!.id : null,
-                    hint: const Text('Select payload'),
+                    hint: Text(context.l10n.selectPayload),
                     style: TextStyle(color: cs.onSurface),
                     items: payloads
                         .map(
@@ -835,7 +839,7 @@ class _DialShortcutTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 6),
               child: Text(
-                'No payloads available to bind.',
+                context.l10n.noPayloadsAvailableToBind,
                 style: TextStyle(fontSize: 12, color: cs.onSurfaceVariant),
               ),
             ),
@@ -866,9 +870,9 @@ class _PresetTile extends ConsumerWidget {
             case 'delete':
               final ok = await showConfirmDialog(
                 context,
-                title: 'Delete preset',
-                message: 'Delete preset ${index + 1}?',
-                confirmLabel: 'Delete',
+                title: context.l10n.deletePreset,
+                message: context.l10n.deletePresetCount(index + 1),
+                confirmLabel: context.l10n.delete,
                 dangerous: true,
               );
               if (!ok) return;
@@ -878,9 +882,9 @@ class _PresetTile extends ConsumerWidget {
               return;
           }
         },
-        itemBuilder: (context) => const [
-          PopupMenuItem(value: 'edit', child: Text('Edit')),
-          PopupMenuItem(value: 'delete', child: Text('Delete')),
+        itemBuilder: (context) => [
+          PopupMenuItem(value: 'edit', child: Text(context.l10n.edit)),
+          PopupMenuItem(value: 'delete', child: Text(context.l10n.delete)),
         ],
       ),
       onTap: () => _edit(context, ref),
@@ -892,7 +896,7 @@ class _PresetTile extends ConsumerWidget {
     final res = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Edit preset ${index + 1}'),
+        title: Text(context.l10n.editPresetCount(index + 1)),
         content: TextField(
           controller: ctrl,
           maxLines: 10,
@@ -901,11 +905,11 @@ class _PresetTile extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(null),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.of(context).pop(ctrl.text),
-            child: const Text('Save'),
+            child: Text(context.l10n.save),
           ),
         ],
       ),
@@ -939,15 +943,15 @@ class _HotkeyTile extends ConsumerWidget {
 
   static const String _none = '—';
 
-  List<_HotkeyOption> _options() {
-    return const [
-      _HotkeyOption('—', 'None', 'Disable this hotkey'),
-      _HotkeyOption('Volume Up (double-tap)', 'Volume Up', 'Double-tap'),
-      _HotkeyOption('Volume Up (triple-tap)', 'Volume Up', 'Triple-tap'),
-      _HotkeyOption('Volume Up (long-press)', 'Volume Up', 'Long-press'),
-      _HotkeyOption('Volume Down (double-tap)', 'Volume Down', 'Double-tap'),
-      _HotkeyOption('Volume Down (triple-tap)', 'Volume Down', 'Triple-tap'),
-      _HotkeyOption('Volume Down (long-press)', 'Volume Down', 'Long-press'),
+  List<_HotkeyOption> _options(l10n) {
+    return [
+      _HotkeyOption('—', l10n.none, l10n.disableThisHotkey),
+      _HotkeyOption(l10n.volumeUpDoubleTap, l10n.volumeUp, l10n.doubleTap),
+      _HotkeyOption(l10n.volumeUpTripleTap, l10n.volumeUp, l10n.tripleTap),
+      _HotkeyOption(l10n.volumeUpLongPress, l10n.volumeUp, l10n.longPress),
+      _HotkeyOption(l10n.volumeDownDoubleTap, l10n.volumeDown, l10n.doubleTap),
+      _HotkeyOption(l10n.volumeDownTripleTap, l10n.volumeDown, l10n.tripleTap),
+      _HotkeyOption(l10n.volumeDownLongPress, l10n.volumeDown, l10n.longPress),
     ];
   }
 
@@ -967,7 +971,7 @@ class _HotkeyTile extends ConsumerWidget {
   }
 
   Future<String?> _pickBinding(BuildContext context, String current) {
-    final opts = _options();
+    final opts = _options(context.l10n);
     final groupValue = _norm(current);
 
     return showModalBottomSheet<String>(
@@ -991,7 +995,7 @@ class _HotkeyTile extends ConsumerWidget {
               ListTile(
                 title: Text(title),
                 subtitle: Text(
-                  'Select a gesture',
+                  context.l10n.selectAGesture,
                   style: TextStyle(color: cs.onSurfaceVariant),
                 ),
               ),
@@ -1008,7 +1012,7 @@ class _HotkeyTile extends ConsumerWidget {
                         usedBy != null && !selected && o.value != _none;
                     final extra = usedBy == null
                         ? ''
-                        : ' (Assigned to ${actionTitles[usedBy] ?? usedBy})';
+                        : context.l10n.assignedToAction(actionTitles[usedBy] ?? usedBy);
 
                     return ListTile(
                       enabled: !disabled,
@@ -1063,9 +1067,9 @@ class _HotkeyTile extends ConsumerWidget {
 
         if (stored != normalized && context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
               content: Text(
-                'This gesture is already assigned to another action.',
+                context.l10n.thisGestureIsAlreadyAssigned,
               ),
               duration: Duration(seconds: 2),
             ),

@@ -2122,4 +2122,337 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get appStart => 'App Start';
+
+  @override
+  String get selectAll => 'Select all';
+
+  @override
+  String removedCountSources(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 's',
+      one: '',
+    );
+    return 'Removed $count source$_temp0';
+  }
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get noSourcesYet => 'No sources yet';
+
+  @override
+  String get addASourceFromTheStore =>
+      'Add a source from the store screen, then manage it here.';
+
+  @override
+  String get reorderSourcesRename =>
+      'Reorder sources, rename, or select multiple to delete.';
+
+  @override
+  String get removeSource => 'Remove source';
+
+  @override
+  String removeAliasFromYourSources(String alias) {
+    return 'Remove $alias from your sources?';
+  }
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String get sourceRemoved => 'Source removed';
+
+  @override
+  String get renameSource => 'Rename source';
+
+  @override
+  String get displayName => 'Display name';
+
+  @override
+  String get sourceRenamed => 'Source renamed';
+
+  @override
+  String get rename => 'Rename';
+
+  @override
+  String get resetAdvancedSettings => 'Reset advanced settings';
+
+  @override
+  String get resetCommandPresetsHotkeys =>
+      'Reset command presets, hotkeys, and default VID/PID to defaults?';
+
+  @override
+  String failedToLoadAdvancedSettings(String error) {
+    return 'Failed to load advanced settings: $error';
+  }
+
+  @override
+  String get armDisarmSession => 'Arm / Disarm session';
+
+  @override
+  String get stopExecution => 'Stop execution';
+
+  @override
+  String get executeRecent => 'Execute most recent';
+
+  @override
+  String get executeSelected => 'Execute selected payload';
+
+  @override
+  String get cannotBeEmpty => 'Cannot be empty';
+
+  @override
+  String get mustBe0x0000To0xFFFF => 'Must be 0x0000–0xFFFF';
+
+  @override
+  String get invalidHexFormat => 'Invalid hex format';
+
+  @override
+  String get usbGadgetDefaults => 'USB gadget defaults';
+
+  @override
+  String get pickVidPidFromUsbIDsDatabase =>
+      'Pick VID/PID from USB IDs database';
+
+  @override
+  String get searchByVendorOrProductName =>
+      'Search by vendor or product name. Recommended to match a real device fingerprint.';
+
+  @override
+  String get lookingUpVendorProduct => 'Looking up vendor/product…';
+
+  @override
+  String get lookupFailed =>
+      'Lookup failed. You can still enter VID/PID manually.';
+
+  @override
+  String get noMatchFound => 'No match found in database for current VID/PID.';
+
+  @override
+  String get defaultVidHex => 'Default VID (hex)';
+
+  @override
+  String get defaultPidHex => 'Default PID (hex)';
+
+  @override
+  String current(String current) {
+    return 'Current $current';
+  }
+
+  @override
+  String get keyboardLayout => 'Keyboard layout';
+
+  @override
+  String get loadingSupportedLayouts => 'Loading supported layouts…';
+
+  @override
+  String get fromBackend => 'From backend';
+
+  @override
+  String get fallbackList => 'Fallback list';
+
+  @override
+  String get autoTryAllUdcs => 'Auto (try all UDCs)';
+
+  @override
+  String currentWithBrackets(String current) {
+    return 'Current ($current)';
+  }
+
+  @override
+  String get preferredUDC => 'Preferred UDC';
+
+  @override
+  String get loadingUdcList => 'Loading UDC list…';
+
+  @override
+  String get autoWillFallbackAcrossAvailableUDCs =>
+      'Auto will fallback across available UDCs';
+
+  @override
+  String get usbGadgetDefaultsDescription =>
+      'These values are used when activating USB gadget profiles. Choosing a VID/PID that matches a real device improves operator realism and reduces UI mistakes.';
+
+  @override
+  String get commandPresets => 'Command presets';
+
+  @override
+  String get addPreset => 'Add preset';
+
+  @override
+  String get addsAReusableScriptFragment =>
+      'Adds a reusable script fragment for the Execute console';
+
+  @override
+  String get hotkeys => 'Hotkeys';
+
+  @override
+  String get hotkeysDescription =>
+      'Choose a hardware gesture to trigger an action. A gesture can only be assigned to one action.';
+
+  @override
+  String get dialShortcuts => 'Dial shortcuts';
+
+  @override
+  String failedToLoadDialShortcuts(String error) {
+    return 'Failed to load dial shortcuts: $error';
+  }
+
+  @override
+  String get dialShortcutsDescription =>
+      'Dial *#*#CODE#*#* in the phone app. Only the listed codes are supported.';
+
+  @override
+  String get newPreset => 'New preset';
+
+  @override
+  String get newPresetExample => 'Example:\nDELAY 250\nSTRING hello\nENTER';
+
+  @override
+  String get selectAPayload => 'Select a payload';
+
+  @override
+  String get lastExecutedScript => 'Last executed script';
+
+  @override
+  String get target => 'Target';
+
+  @override
+  String get lastExecuted => 'Last executed';
+
+  @override
+  String get noPayloadsAvailableToBind => 'No payloads available to bind.';
+
+  @override
+  String get deletePreset => 'Delete preset';
+
+  @override
+  String deletePresetCount(int count) {
+    return 'Delete preset $count?';
+  }
+
+  @override
+  String editPresetCount(int count) {
+    return 'Edit preset $count';
+  }
+
+  @override
+  String get disableThisHotkey => 'Disable this hotkey';
+
+  @override
+  String get volumeUpDoubleTap => 'Volume Up (double-tap)';
+
+  @override
+  String get volumeUpTripleTap => 'Volume Up (triple-tap)';
+
+  @override
+  String get volumeUpLongPress => 'Volume Up (long-press)';
+
+  @override
+  String get volumeDownDoubleTap => 'Volume Down (double-tap)';
+
+  @override
+  String get volumeDownTripleTap => 'Volume Down (triple-tap)';
+
+  @override
+  String get volumeDownLongPress => 'Volume Down (long-press)';
+
+  @override
+  String get volumeUp => 'Volume Up';
+
+  @override
+  String get volumeDown => 'Volume Down';
+
+  @override
+  String get doubleTap => 'Double-tap';
+
+  @override
+  String get tripleTap => 'Triple-tap';
+
+  @override
+  String get longPress => 'Long-press';
+
+  @override
+  String get selectAGesture => 'Select a gesture';
+
+  @override
+  String assignedToAction(String action) {
+    return '(Assigned to $action)';
+  }
+
+  @override
+  String get thisGestureIsAlreadyAssigned =>
+      'This gesture is already assigned to another action.';
+
+  @override
+  String get selectVidPid => 'Select VID/PID';
+
+  @override
+  String get vendorProduct => 'Vendor → Product';
+
+  @override
+  String get searchProduct => 'Search product';
+
+  @override
+  String get typeAVendorName =>
+      'Type a vendor name (e.g., Logitech, Apple, Samsung), then pick a product.';
+
+  @override
+  String get vendorName => 'Vendor name';
+
+  @override
+  String failedToSearchVendors(String error) {
+    return 'Failed to search vendors: $error';
+  }
+
+  @override
+  String get enterAtLeast2CharactersToSearch =>
+      'Enter at least 2 characters to search.';
+
+  @override
+  String get noVendorsFound => 'No vendors found.';
+
+  @override
+  String get backToVendors => 'Back to vendors';
+
+  @override
+  String get productNameWithinVendor => 'Product name (within vendor)';
+
+  @override
+  String failedToLoadProducts(String error) {
+    return 'Failed to load products: $error';
+  }
+
+  @override
+  String get noProductsFoundForThisVendor =>
+      'No products found for this vendor.';
+
+  @override
+  String get searchByProductName =>
+      'Search by product name (e.g., “Keyboard”, “Gamepad”, “Receiver”). Results include vendor and IDs.';
+
+  @override
+  String get productName => 'Product name';
+
+  @override
+  String failedToSearchProducts(String error) {
+    return 'Failed to search products: $error';
+  }
+
+  @override
+  String get noProductsFound => 'No products found.';
+
+  @override
+  String failedToLoadVendors(String error) {
+    return 'Failed to load vendors: $error';
+  }
+
+  @override
+  String get selectPayload => 'Select payload';
+
+  @override
+  String get executeSelectedPayload => 'Execute selected payload';
 }

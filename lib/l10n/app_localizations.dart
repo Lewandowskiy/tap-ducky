@@ -3721,6 +3721,576 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'App Start'**
   String get appStart;
+
+  /// No description provided for @selectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get selectAll;
+
+  /// No description provided for @removedCountSources.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed {count} source{count,plural, one{} other{s}}'**
+  String removedCountSources(int count);
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @noSourcesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No sources yet'**
+  String get noSourcesYet;
+
+  /// No description provided for @addASourceFromTheStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a source from the store screen, then manage it here.'**
+  String get addASourceFromTheStore;
+
+  /// No description provided for @reorderSourcesRename.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder sources, rename, or select multiple to delete.'**
+  String get reorderSourcesRename;
+
+  /// No description provided for @removeSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove source'**
+  String get removeSource;
+
+  /// No description provided for @removeAliasFromYourSources.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {alias} from your sources?'**
+  String removeAliasFromYourSources(String alias);
+
+  /// No description provided for @remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// No description provided for @sourceRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Source removed'**
+  String get sourceRemoved;
+
+  /// No description provided for @renameSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename source'**
+  String get renameSource;
+
+  /// No description provided for @displayName.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get displayName;
+
+  /// No description provided for @sourceRenamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Source renamed'**
+  String get sourceRenamed;
+
+  /// No description provided for @rename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get rename;
+
+  /// No description provided for @resetAdvancedSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset advanced settings'**
+  String get resetAdvancedSettings;
+
+  /// No description provided for @resetCommandPresetsHotkeys.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset command presets, hotkeys, and default VID/PID to defaults?'**
+  String get resetCommandPresetsHotkeys;
+
+  /// No description provided for @failedToLoadAdvancedSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load advanced settings: {error}'**
+  String failedToLoadAdvancedSettings(String error);
+
+  /// No description provided for @armDisarmSession.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm / Disarm session'**
+  String get armDisarmSession;
+
+  /// No description provided for @stopExecution.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop execution'**
+  String get stopExecution;
+
+  /// No description provided for @executeRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute most recent'**
+  String get executeRecent;
+
+  /// No description provided for @executeSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute selected payload'**
+  String get executeSelected;
+
+  /// No description provided for @cannotBeEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot be empty'**
+  String get cannotBeEmpty;
+
+  /// No description provided for @mustBe0x0000To0xFFFF.
+  ///
+  /// In en, this message translates to:
+  /// **'Must be 0x0000–0xFFFF'**
+  String get mustBe0x0000To0xFFFF;
+
+  /// No description provided for @invalidHexFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid hex format'**
+  String get invalidHexFormat;
+
+  /// No description provided for @usbGadgetDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'USB gadget defaults'**
+  String get usbGadgetDefaults;
+
+  /// No description provided for @pickVidPidFromUsbIDsDatabase.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick VID/PID from USB IDs database'**
+  String get pickVidPidFromUsbIDsDatabase;
+
+  /// No description provided for @searchByVendorOrProductName.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by vendor or product name. Recommended to match a real device fingerprint.'**
+  String get searchByVendorOrProductName;
+
+  /// No description provided for @lookingUpVendorProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking up vendor/product…'**
+  String get lookingUpVendorProduct;
+
+  /// No description provided for @lookupFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Lookup failed. You can still enter VID/PID manually.'**
+  String get lookupFailed;
+
+  /// No description provided for @noMatchFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No match found in database for current VID/PID.'**
+  String get noMatchFound;
+
+  /// No description provided for @defaultVidHex.
+  ///
+  /// In en, this message translates to:
+  /// **'Default VID (hex)'**
+  String get defaultVidHex;
+
+  /// No description provided for @defaultPidHex.
+  ///
+  /// In en, this message translates to:
+  /// **'Default PID (hex)'**
+  String get defaultPidHex;
+
+  /// No description provided for @current.
+  ///
+  /// In en, this message translates to:
+  /// **'Current {current}'**
+  String current(String current);
+
+  /// No description provided for @keyboardLayout.
+  ///
+  /// In en, this message translates to:
+  /// **'Keyboard layout'**
+  String get keyboardLayout;
+
+  /// No description provided for @loadingSupportedLayouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading supported layouts…'**
+  String get loadingSupportedLayouts;
+
+  /// No description provided for @fromBackend.
+  ///
+  /// In en, this message translates to:
+  /// **'From backend'**
+  String get fromBackend;
+
+  /// No description provided for @fallbackList.
+  ///
+  /// In en, this message translates to:
+  /// **'Fallback list'**
+  String get fallbackList;
+
+  /// No description provided for @autoTryAllUdcs.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto (try all UDCs)'**
+  String get autoTryAllUdcs;
+
+  /// No description provided for @currentWithBrackets.
+  ///
+  /// In en, this message translates to:
+  /// **'Current ({current})'**
+  String currentWithBrackets(String current);
+
+  /// No description provided for @preferredUDC.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred UDC'**
+  String get preferredUDC;
+
+  /// No description provided for @loadingUdcList.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading UDC list…'**
+  String get loadingUdcList;
+
+  /// No description provided for @autoWillFallbackAcrossAvailableUDCs.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto will fallback across available UDCs'**
+  String get autoWillFallbackAcrossAvailableUDCs;
+
+  /// No description provided for @usbGadgetDefaultsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'These values are used when activating USB gadget profiles. Choosing a VID/PID that matches a real device improves operator realism and reduces UI mistakes.'**
+  String get usbGadgetDefaultsDescription;
+
+  /// No description provided for @commandPresets.
+  ///
+  /// In en, this message translates to:
+  /// **'Command presets'**
+  String get commandPresets;
+
+  /// No description provided for @addPreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Add preset'**
+  String get addPreset;
+
+  /// No description provided for @addsAReusableScriptFragment.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds a reusable script fragment for the Execute console'**
+  String get addsAReusableScriptFragment;
+
+  /// No description provided for @hotkeys.
+  ///
+  /// In en, this message translates to:
+  /// **'Hotkeys'**
+  String get hotkeys;
+
+  /// No description provided for @hotkeysDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a hardware gesture to trigger an action. A gesture can only be assigned to one action.'**
+  String get hotkeysDescription;
+
+  /// No description provided for @dialShortcuts.
+  ///
+  /// In en, this message translates to:
+  /// **'Dial shortcuts'**
+  String get dialShortcuts;
+
+  /// No description provided for @failedToLoadDialShortcuts.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load dial shortcuts: {error}'**
+  String failedToLoadDialShortcuts(String error);
+
+  /// No description provided for @dialShortcutsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Dial *#*#CODE#*#* in the phone app. Only the listed codes are supported.'**
+  String get dialShortcutsDescription;
+
+  /// No description provided for @newPreset.
+  ///
+  /// In en, this message translates to:
+  /// **'New preset'**
+  String get newPreset;
+
+  /// No description provided for @newPresetExample.
+  ///
+  /// In en, this message translates to:
+  /// **'Example:\nDELAY 250\nSTRING hello\nENTER'**
+  String get newPresetExample;
+
+  /// No description provided for @selectAPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a payload'**
+  String get selectAPayload;
+
+  /// No description provided for @lastExecutedScript.
+  ///
+  /// In en, this message translates to:
+  /// **'Last executed script'**
+  String get lastExecutedScript;
+
+  /// No description provided for @target.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get target;
+
+  /// No description provided for @lastExecuted.
+  ///
+  /// In en, this message translates to:
+  /// **'Last executed'**
+  String get lastExecuted;
+
+  /// No description provided for @noPayloadsAvailableToBind.
+  ///
+  /// In en, this message translates to:
+  /// **'No payloads available to bind.'**
+  String get noPayloadsAvailableToBind;
+
+  /// No description provided for @deletePreset.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete preset'**
+  String get deletePreset;
+
+  /// No description provided for @deletePresetCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete preset {count}?'**
+  String deletePresetCount(int count);
+
+  /// No description provided for @editPresetCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit preset {count}'**
+  String editPresetCount(int count);
+
+  /// No description provided for @disableThisHotkey.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable this hotkey'**
+  String get disableThisHotkey;
+
+  /// No description provided for @volumeUpDoubleTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Up (double-tap)'**
+  String get volumeUpDoubleTap;
+
+  /// No description provided for @volumeUpTripleTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Up (triple-tap)'**
+  String get volumeUpTripleTap;
+
+  /// No description provided for @volumeUpLongPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Up (long-press)'**
+  String get volumeUpLongPress;
+
+  /// No description provided for @volumeDownDoubleTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Down (double-tap)'**
+  String get volumeDownDoubleTap;
+
+  /// No description provided for @volumeDownTripleTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Down (triple-tap)'**
+  String get volumeDownTripleTap;
+
+  /// No description provided for @volumeDownLongPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Down (long-press)'**
+  String get volumeDownLongPress;
+
+  /// No description provided for @volumeUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Up'**
+  String get volumeUp;
+
+  /// No description provided for @volumeDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume Down'**
+  String get volumeDown;
+
+  /// No description provided for @doubleTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Double-tap'**
+  String get doubleTap;
+
+  /// No description provided for @tripleTap.
+  ///
+  /// In en, this message translates to:
+  /// **'Triple-tap'**
+  String get tripleTap;
+
+  /// No description provided for @longPress.
+  ///
+  /// In en, this message translates to:
+  /// **'Long-press'**
+  String get longPress;
+
+  /// No description provided for @selectAGesture.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a gesture'**
+  String get selectAGesture;
+
+  /// No description provided for @assignedToAction.
+  ///
+  /// In en, this message translates to:
+  /// **'(Assigned to {action})'**
+  String assignedToAction(String action);
+
+  /// No description provided for @thisGestureIsAlreadyAssigned.
+  ///
+  /// In en, this message translates to:
+  /// **'This gesture is already assigned to another action.'**
+  String get thisGestureIsAlreadyAssigned;
+
+  /// No description provided for @selectVidPid.
+  ///
+  /// In en, this message translates to:
+  /// **'Select VID/PID'**
+  String get selectVidPid;
+
+  /// No description provided for @vendorProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor → Product'**
+  String get vendorProduct;
+
+  /// No description provided for @searchProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Search product'**
+  String get searchProduct;
+
+  /// No description provided for @typeAVendorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a vendor name (e.g., Logitech, Apple, Samsung), then pick a product.'**
+  String get typeAVendorName;
+
+  /// No description provided for @vendorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor name'**
+  String get vendorName;
+
+  /// No description provided for @failedToSearchVendors.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to search vendors: {error}'**
+  String failedToSearchVendors(String error);
+
+  /// No description provided for @enterAtLeast2CharactersToSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter at least 2 characters to search.'**
+  String get enterAtLeast2CharactersToSearch;
+
+  /// No description provided for @noVendorsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No vendors found.'**
+  String get noVendorsFound;
+
+  /// No description provided for @backToVendors.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to vendors'**
+  String get backToVendors;
+
+  /// No description provided for @productNameWithinVendor.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name (within vendor)'**
+  String get productNameWithinVendor;
+
+  /// No description provided for @failedToLoadProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load products: {error}'**
+  String failedToLoadProducts(String error);
+
+  /// No description provided for @noProductsFoundForThisVendor.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found for this vendor.'**
+  String get noProductsFoundForThisVendor;
+
+  /// No description provided for @searchByProductName.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by product name (e.g., “Keyboard”, “Gamepad”, “Receiver”). Results include vendor and IDs.'**
+  String get searchByProductName;
+
+  /// No description provided for @productName.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name'**
+  String get productName;
+
+  /// No description provided for @failedToSearchProducts.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to search products: {error}'**
+  String failedToSearchProducts(String error);
+
+  /// No description provided for @noProductsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No products found.'**
+  String get noProductsFound;
+
+  /// No description provided for @failedToLoadVendors.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load vendors: {error}'**
+  String failedToLoadVendors(String error);
+
+  /// No description provided for @selectPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Select payload'**
+  String get selectPayload;
+
+  /// No description provided for @executeSelectedPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Execute selected payload'**
+  String get executeSelectedPayload;
 }
 
 class _AppLocalizationsDelegate

@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/db/usb_ids_db.dart';
 
+import '../../extension/context_extensions.dart';
+
 Future<UsbProduct?> showUsbIdSelectorDialog(BuildContext context, WidgetRef ref) async {
   final dbAsync = await ref.read(usbIdsDbProvider.future);
   return showDialog<UsbProduct>(
@@ -194,16 +196,16 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Select VID/PID'),
+          title: Text(context.l10n.selectVidPid),
           leading: IconButton(
             icon: const Icon(Icons.close),
             onPressed: () => Navigator.of(context).pop(null),
           ),
           bottom: TabBar(
             controller: _tabs,
-            tabs: const [
-              Tab(text: 'Vendor → Product'),
-              Tab(text: 'Search product'),
+            tabs: [
+              Tab(text: context.l10n.vendorProduct),
+              Tab(text: context.l10n.searchProduct),
             ],
           ),
         ),
@@ -231,14 +233,14 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Type a vendor name (e.g., Logitech, Apple, Samsung), then pick a product.',
+                  context.l10n.typeAVendorName,
                   style: TextStyle(color: cs.onSurfaceVariant),
                 ),
                 const SizedBox(height: 10),
                 TextField(
                   controller: _vendorQuery,
                   decoration: InputDecoration(
-                    labelText: 'Vendor name',
+                    labelText: context.l10n.vendorName,
                     prefixIcon: const Icon(Icons.store),
                     suffixIcon: _vendorQuery.text.isEmpty
                         ? null
@@ -255,18 +257,18 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
             child: _vendorLoading
                 ? const Center(child: CircularProgressIndicator())
                 : _vendorError != null
-                    ? Center(child: Text('Failed to search vendors: $_vendorError'))
+                    ? Center(child: Text(context.l10n.failedToLoadVendors(_vendorError.toString())))
                     : _vendorQuery.text.trim().length < 2
                         ? Center(
                             child: Text(
-                              'Enter at least 2 characters to search.',
+                              context.l10n.enterAtLeast2CharactersToSearch,
                               style: TextStyle(color: cs.onSurfaceVariant),
                             ),
                           )
                         : _vendors.isEmpty
                             ? Center(
                                 child: Text(
-                                  'No vendors found.',
+                                  context.l10n.noVendorsFound,
                                   style: TextStyle(color: cs.onSurfaceVariant),
                                 ),
                               )
@@ -307,7 +309,7 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
                       });
                     },
                     icon: const Icon(Icons.arrow_back),
-                    tooltip: 'Back to vendors',
+                    tooltip: context.l10n.backToVendors,
                   ),
                   const SizedBox(width: 8),
                   Expanded(
@@ -324,7 +326,7 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
               TextField(
                 controller: _productQuery,
                 decoration: InputDecoration(
-                  labelText: 'Product name (within vendor)',
+                  labelText: context.l10n.productNameWithinVendor,
                   prefixIcon: const Icon(Icons.usb),
                   suffixIcon: _productQuery.text.isEmpty
                       ? null
@@ -341,11 +343,11 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
           child: _vendorProductsLoading
               ? const Center(child: CircularProgressIndicator())
               : _vendorProductsError != null
-                  ? Center(child: Text('Failed to load products: $_vendorProductsError'))
+                  ? Center(child: Text(context.l10n.failedToLoadProducts(_vendorProductsError.toString())))
                   : _vendorProducts.isEmpty
                       ? Center(
                           child: Text(
-                            'No products found for this vendor.',
+                            context.l10n.noProductsFoundForThisVendor,
                             style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant),
                           ),
                         )
@@ -377,14 +379,14 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Search by product name (e.g., “Keyboard”, “Gamepad”, “Receiver”). Results include vendor and IDs.',
+                context.l10n.searchByProductName,
                 style: TextStyle(color: cs.onSurfaceVariant),
               ),
               const SizedBox(height: 10),
               TextField(
                 controller: _globalProductQuery,
                 decoration: InputDecoration(
-                  labelText: 'Product name',
+                  labelText: context.l10n.productName,
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: _globalProductQuery.text.isEmpty
                       ? null
@@ -401,18 +403,18 @@ class _UsbIdSelectorDialogState extends State<_UsbIdSelectorDialog> with TickerP
           child: _globalProductsLoading
               ? const Center(child: CircularProgressIndicator())
               : _globalProductsError != null
-                  ? Center(child: Text('Failed to search products: $_globalProductsError'))
+                  ? Center(child: Text(context.l10n.failedToSearchProducts(_globalProductsError.toString())))
                   : _globalProductQuery.text.trim().length < 2
                       ? Center(
                           child: Text(
-                            'Enter at least 2 characters to search.',
+                            context.l10n.enterAtLeast2CharactersToSearch,
                             style: TextStyle(color: cs.onSurfaceVariant),
                           ),
                         )
                       : _globalProducts.isEmpty
                           ? Center(
                               child: Text(
-                                'No products found.',
+                                context.l10n.noProductsFound,
                                 style: TextStyle(color: cs.onSurfaceVariant),
                               ),
                             )

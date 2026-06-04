@@ -2163,4 +2163,354 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get appStart => 'Запуск приложения';
+
+  @override
+  String get selectAll => 'Выбрать все';
+
+  @override
+  String removedCountSources(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ены',
+      one: 'ен',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ов',
+      few: 'а',
+      one: '',
+    );
+    return 'Удал$_temp0 $count источник$_temp1';
+  }
+
+  @override
+  String get done => 'Готово';
+
+  @override
+  String get noSourcesYet => 'Источники пока не добавлены';
+
+  @override
+  String get addASourceFromTheStore =>
+      'Добавьте источник на экране магазина, а затем управляйте им здесь.';
+
+  @override
+  String get reorderSourcesRename =>
+      'Изменить порядок источников, переименовывание или выбор нескольких для удаления.';
+
+  @override
+  String get removeSource => 'Удалить источник';
+
+  @override
+  String removeAliasFromYourSources(String alias) {
+    return 'Удалить «$alias» из списка источников?';
+  }
+
+  @override
+  String get remove => 'Удалить';
+
+  @override
+  String get sourceRemoved => 'Источник удален';
+
+  @override
+  String get renameSource => 'Переименовать источник';
+
+  @override
+  String get displayName => 'Отображаемое имя';
+
+  @override
+  String get sourceRenamed => 'Источник переименован';
+
+  @override
+  String get rename => 'Переименовать';
+
+  @override
+  String get resetAdvancedSettings => 'Сбросить расширенные настройки';
+
+  @override
+  String get resetCommandPresetsHotkeys =>
+      'Сбросить пресеты команд, горячие клавиши и значения VID/PID по умолчанию до исходных?';
+
+  @override
+  String failedToLoadAdvancedSettings(String error) {
+    return 'Не удалось загрузить расширенные настройки: $error';
+  }
+
+  @override
+  String get armDisarmSession => 'Подготовить / отключить сессию';
+
+  @override
+  String get stopExecution => 'Остановить выполнение';
+
+  @override
+  String get executeRecent => 'Выполнить последний запущенный';
+
+  @override
+  String get executeSelected => 'Выполнить выбранную полезную нагрузку';
+
+  @override
+  String get cannotBeEmpty => 'Поле не может быть пустым';
+
+  @override
+  String get mustBe0x0000To0xFFFF =>
+      'Значение должно быть в диапазоне 0x0000–0xFFFF';
+
+  @override
+  String get invalidHexFormat => 'Неверный шестнадцатеричный формат';
+
+  @override
+  String get usbGadgetDefaults => 'Настройки USB-гаджета по умолчанию';
+
+  @override
+  String get pickVidPidFromUsbIDsDatabase =>
+      'Выбрать VID/PID из базы данных USB ID';
+
+  @override
+  String get searchByVendorOrProductName =>
+      'Поиск по имени производителя или названию продукта. Рекомендуется для имитации отпечатка реального устройства.';
+
+  @override
+  String get lookingUpVendorProduct => 'Поиск производителя/продукта…';
+
+  @override
+  String get lookupFailed =>
+      'Не удалось выполнить поиск. Вы можете ввести значения VID/PID вручную.';
+
+  @override
+  String get noMatchFound =>
+      'В базе данных не найдено совпадений для текущих VID/PID.';
+
+  @override
+  String get defaultVidHex => 'VID по умол. (hex)';
+
+  @override
+  String get defaultPidHex => 'PID по умол. (hex)';
+
+  @override
+  String current(String current) {
+    return 'Текущий: $current';
+  }
+
+  @override
+  String get keyboardLayout => 'Раскладка клавиатуры';
+
+  @override
+  String get loadingSupportedLayouts => 'Загрузка поддерживаемых раскладок…';
+
+  @override
+  String get fromBackend => 'С бэкенда';
+
+  @override
+  String get fallbackList => 'Резервный список';
+
+  @override
+  String get autoTryAllUdcs => 'Авто (пробовать все UDC)';
+
+  @override
+  String currentWithBrackets(String current) {
+    return 'Текущий ($current)';
+  }
+
+  @override
+  String get preferredUDC => 'Предпочтительный UDC';
+
+  @override
+  String get loadingUdcList => 'Загрузка списка UDC…';
+
+  @override
+  String get autoWillFallbackAcrossAvailableUDCs =>
+      'В автоматическом режиме система будет\nперебирать доступные контроллеры UDC';
+
+  @override
+  String get usbGadgetDefaultsDescription =>
+      'Данные значения используются при активации профилей USB-гаджета. Выбор VID/PID, соответствующих реальному устройству, повышает правдоподобность имитации и снижает вероятность ошибок интерфейса на целевом хосте.';
+
+  @override
+  String get commandPresets => 'Пресеты команд';
+
+  @override
+  String get addPreset => 'Добавить пресет';
+
+  @override
+  String get addsAReusableScriptFragment =>
+      'Добавляет фрагмент скрипта для повторного использования в консоли выполнения';
+
+  @override
+  String get hotkeys => 'Горячие клавиши';
+
+  @override
+  String get hotkeysDescription =>
+      'Выберите аппаратный жест для триггера действия. Жест может быть назначен только на одно действие.';
+
+  @override
+  String get dialShortcuts => 'Быстрый вызов';
+
+  @override
+  String failedToLoadDialShortcuts(String error) {
+    return 'Не удалось загрузить коды быстрого вызова: $error';
+  }
+
+  @override
+  String get dialShortcutsDescription =>
+      'Наберите код *#*#КОД#*#* в приложении «Телефон». Поддерживаются только перечисленные коды.';
+
+  @override
+  String get newPreset => 'Новый пресет';
+
+  @override
+  String get newPresetExample => 'Пример:\nDELAY 250\nSTRING привет\nENTER';
+
+  @override
+  String get selectAPayload => 'Выберите пейлоад';
+
+  @override
+  String get lastExecutedScript => 'Последний выполненный скрипт';
+
+  @override
+  String get target => 'Целевое действие';
+
+  @override
+  String get lastExecuted => 'Последний запуск';
+
+  @override
+  String get noPayloadsAvailableToBind =>
+      'Нет доступных полезных нагрузок для привязки.';
+
+  @override
+  String get deletePreset => 'Удалить пресет';
+
+  @override
+  String deletePresetCount(int count) {
+    return 'Удалить preset $count?';
+  }
+
+  @override
+  String editPresetCount(int count) {
+    return 'Редактировать preset $count';
+  }
+
+  @override
+  String get disableThisHotkey => 'Отключить эту горячую клавишу';
+
+  @override
+  String get volumeUpDoubleTap =>
+      'Кнопка увеличения громкости (двойное нажатие)';
+
+  @override
+  String get volumeUpTripleTap =>
+      'Кнопка увеличения громкости (тройное нажатие)';
+
+  @override
+  String get volumeUpLongPress =>
+      'Кнопка увеличения громкости (длительное нажатие)';
+
+  @override
+  String get volumeDownDoubleTap =>
+      'Кнопка уменьшения громкости (двойное нажатие)';
+
+  @override
+  String get volumeDownTripleTap =>
+      'Кнопка уменьшения громкости (тройное нажатие)';
+
+  @override
+  String get volumeDownLongPress =>
+      'Кнопка уменьшения громкости (длительное нажатие)';
+
+  @override
+  String get volumeUp => 'Увеличение громкости';
+
+  @override
+  String get volumeDown => 'Уменьшение громкости';
+
+  @override
+  String get doubleTap => 'Двойное нажатие';
+
+  @override
+  String get tripleTap => 'Тройное нажатие';
+
+  @override
+  String get longPress => 'Длительное нажатие';
+
+  @override
+  String get selectAGesture => 'Выберите жест';
+
+  @override
+  String assignedToAction(String action) {
+    return '(Назначено на действие: $action)';
+  }
+
+  @override
+  String get thisGestureIsAlreadyAssigned =>
+      'Этот жест уже назначен на другое действие.';
+
+  @override
+  String get selectVidPid => 'Выбрать VID/PID';
+
+  @override
+  String get vendorProduct => 'Производ. → Продукт';
+
+  @override
+  String get searchProduct => 'Поиск продукта';
+
+  @override
+  String get typeAVendorName =>
+      'Введите имя производителя (например, Logitech, Apple, Samsung), затем выберите продукт.';
+
+  @override
+  String get vendorName => 'Имя производителя';
+
+  @override
+  String failedToSearchVendors(String error) {
+    return 'Не удалось выполнить поиск производителей: $error';
+  }
+
+  @override
+  String get enterAtLeast2CharactersToSearch =>
+      'Введите не менее 2 символов для поиска.';
+
+  @override
+  String get noVendorsFound => 'Производители не найдены.';
+
+  @override
+  String get backToVendors => 'Назад к производителям';
+
+  @override
+  String get productNameWithinVendor =>
+      'Название продукта (у данного производителя)';
+
+  @override
+  String failedToLoadProducts(String error) {
+    return 'Не удалось загрузить продукты: $error';
+  }
+
+  @override
+  String get noProductsFoundForThisVendor =>
+      'У этого производителя продукты не найдены.';
+
+  @override
+  String get searchByProductName =>
+      'Поиск по названию продукта (например, «Keyboard», «Gamepad», «Receiver»). Результаты содержат имя производителя и идентификаторы.';
+
+  @override
+  String get productName => 'Название продукта';
+
+  @override
+  String failedToSearchProducts(String error) {
+    return 'Не удалось выполнить поиск продуктов: $error';
+  }
+
+  @override
+  String get noProductsFound => 'Продукты не найдены.';
+
+  @override
+  String failedToLoadVendors(String error) {
+    return 'Не удалось загрузить производителей: $error';
+  }
+
+  @override
+  String get selectPayload => 'Выбрать пейлоад';
+
+  @override
+  String get executeSelectedPayload => 'Выполнить выбранный пейлоад';
 }
