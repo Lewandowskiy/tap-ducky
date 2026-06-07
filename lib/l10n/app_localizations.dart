@@ -4291,6 +4291,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Execute selected payload'**
   String get executeSelectedPayload;
+
+  /// No description provided for @executingPayload.
+  ///
+  /// In en, this message translates to:
+  /// **'Executing: {name}'**
+  String executingPayload(String name);
+
+  /// No description provided for @lastRunSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Last run: success'**
+  String get lastRunSuccess;
+
+  /// No description provided for @lastRunError.
+  ///
+  /// In en, this message translates to:
+  /// **'Last run: error'**
+  String get lastRunError;
+
+  /// No description provided for @commandCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Command copied to clipboard'**
+  String get commandCopiedToClipboard;
+
+  /// No description provided for @tapDuckyNeedsElevatedPrivileges.
+  ///
+  /// In en, this message translates to:
+  /// **'TapDucky needs elevated privileges'**
+  String get tapDuckyNeedsElevatedPrivileges;
+
+  /// No description provided for @whyRootAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Why Root Access?'**
+  String get whyRootAccess;
+
+  /// No description provided for @whyRootAccessDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'TapDucky requires root access to interact with the Linux kernel\'s USB gadget subsystem (ConfigFS). This low-level access is necessary to:'**
+  String get whyRootAccessDescription;
+
+  /// No description provided for @emulateUsbHidKeyboardDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Emulate USB HID keyboard devices'**
+  String get emulateUsbHidKeyboardDevices;
+
+  /// No description provided for @simulateMouseAndPointerInput.
+  ///
+  /// In en, this message translates to:
+  /// **'Simulate mouse and pointer input'**
+  String get simulateMouseAndPointerInput;
+
+  /// No description provided for @configureUsbGadgetDrivers.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure USB gadget drivers in /config/usb_gadget/'**
+  String get configureUsbGadgetDrivers;
+
+  /// No description provided for @writeHidReportsToDevHidgCharacterDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Write HID reports to /dev/hidg* character devices'**
+  String get writeHidReportsToDevHidgCharacterDevices;
+
+  /// No description provided for @requirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Requirements'**
+  String get requirements;
+
+  /// No description provided for @rootedAndroidDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooted Android Device'**
+  String get rootedAndroidDevice;
+
+  /// No description provided for @installMagiskKernelSUOrSuperSU.
+  ///
+  /// In en, this message translates to:
+  /// **'Install Magisk, KernelSU, or SuperSU'**
+  String get installMagiskKernelSUOrSuperSU;
+
+  /// No description provided for @kernelMustSupportConfigFSUSBGadgets.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel must support ConfigFS USB gadgets'**
+  String get kernelMustSupportConfigFSUSBGadgets;
+
+  /// No description provided for @grantRootPermission.
+  ///
+  /// In en, this message translates to:
+  /// **'Grant Root Permission'**
+  String get grantRootPermission;
+
+  /// No description provided for @allowTapDuckyWhenPromptedByRootManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow TapDucky when prompted by root manager'**
+  String get allowTapDuckyWhenPromptedByRootManager;
+
+  /// No description provided for @testRootAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Root Access'**
+  String get testRootAccess;
+
+  /// No description provided for @openATerminalAppEgTermuxAndRun.
+  ///
+  /// In en, this message translates to:
+  /// **'Open a terminal app (e.g., Termux) and run:'**
+  String get openATerminalAppEgTermuxAndRun;
+
+  /// No description provided for @ifYouSeeUid0RootRootAccessIsWorking.
+  ///
+  /// In en, this message translates to:
+  /// **'If you see \"uid=0(root)\", root access is working.'**
+  String get ifYouSeeUid0RootRootAccessIsWorking;
+
+  /// No description provided for @rootingGuide.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooting Guide'**
+  String get rootingGuide;
+
+  /// No description provided for @restartTheAppToReCheckRootAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart the app to re-check root access'**
+  String get restartTheAppToReCheckRootAccess;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @howToRootYourDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'How to Root Your Device'**
+  String get howToRootYourDevice;
+
+  /// No description provided for @popularRootMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular Root Methods:'**
+  String get popularRootMethods;
+
+  /// No description provided for @magiskRecommended.
+  ///
+  /// In en, this message translates to:
+  /// **'Magisk (Recommended)'**
+  String get magiskRecommended;
+
+  /// No description provided for @universalSystemlessRootSolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Universal systemless root solution'**
+  String get universalSystemlessRootSolution;
+
+  /// No description provided for @kernelSU.
+  ///
+  /// In en, this message translates to:
+  /// **'KernelSU'**
+  String get kernelSU;
+
+  /// No description provided for @kernelBasedRootForModernDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel-based root for modern devices'**
+  String get kernelBasedRootForModernDevices;
+
+  /// No description provided for @rootingMayVoidWarranty.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooting may void warranty and has security implications. Proceed at your own risk.'**
+  String get rootingMayVoidWarranty;
+
+  /// No description provided for @urlCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'URL copied to clipboard'**
+  String get urlCopiedToClipboard;
 }
 
 class _AppLocalizationsDelegate

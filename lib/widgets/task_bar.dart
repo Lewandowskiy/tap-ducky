@@ -5,6 +5,8 @@ import '../app/router.dart';
 import '../state/controllers/execution_controller.dart';
 import '../state/controllers/hid_status_controller.dart';
 
+import '../extension/context_extensions.dart';
+
 class TaskBarExpandedNotifier extends Notifier<bool> {
   @override
   bool build() => false;
@@ -27,10 +29,10 @@ class TaskBar extends ConsumerWidget {
     final bg = cs.surfaceContainerHighest;
 
     final title = exec.isRunning
-        ? 'Executing: ${exec.payloadName ?? 'payload'}'
+        ? context.l10n.executingPayload(exec.payloadName ?? 'payload')
         : (exec.success == null
-            ? 'Ready'
-            : (exec.success == true ? 'Last run: success' : 'Last run: error'));
+            ? context.l10n.ready
+            : (exec.success == true ? context.l10n.lastRunSuccess : context.l10n.lastRunError));
 
     final subtitle = exec.isRunning
         ? '${(exec.progress * 100).clamp(0, 100).toStringAsFixed(0)}% • ${exec.status}'
@@ -84,21 +86,21 @@ class TaskBar extends ConsumerWidget {
                                 _chip(
                                   context,
                                   icon: Icons.list_alt,
-                                  label: 'Logs',
+                                  label: context.l10n.logs,
                                   onTap: () => context.push(const LogsRoute().location),
                                 ),
                                 const SizedBox(width: 8),
                                 _chip(
                                   context,
                                   icon: Icons.phone_android,
-                                  label: 'Device',
+                                  label: context.l10n.device,
                                   onTap: () => context.push(const DeviceRoute().location),
                                 ),
                                 const SizedBox(width: 8),
                                 _chip(
                                   context,
                                   icon: hid.sessionArmed ? Icons.lock_open : Icons.lock_outline,
-                                  label: hid.sessionArmed ? 'Armed' : 'Disarmed',
+                                  label: hid.sessionArmed ? context.l10n.armed : context.l10n.disarmed,
                                   onTap: () => ref.read(hidStatusControllerProvider.notifier).toggleSessionArmed(),
                                 ),
                                 if (exec.isRunning) ...[
@@ -106,7 +108,7 @@ class TaskBar extends ConsumerWidget {
                                   _chip(
                                     context,
                                     icon: Icons.stop,
-                                    label: 'Stop',
+                                    label: context.l10n.stop,
                                     onTap: () => ref.read(executionControllerProvider.notifier).stop(),
                                     dangerous: true,
                                   ),

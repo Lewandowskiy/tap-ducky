@@ -913,10 +913,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get usbGadgetSessionStatus => 'Статус сессии USB-гаджета';
 
   @override
-  String get rootAvailable => 'Root доступен';
+  String get rootAvailable => 'Root-доступ';
 
   @override
-  String get hidSupported => 'HID поддерживается';
+  String get hidSupported => 'Поддержка HID';
 
   @override
   String get hidSession => 'Сессия HID';
@@ -2513,4 +2513,114 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get executeSelectedPayload => 'Выполнить выбранный пейлоад';
+
+  @override
+  String executingPayload(String name) {
+    return 'Выполнение: $name';
+  }
+
+  @override
+  String get lastRunSuccess => 'Последний запуск: успешно';
+
+  @override
+  String get lastRunError => 'Последний запуск: ошибка';
+
+  @override
+  String get commandCopiedToClipboard => 'Команда скопирована в буфер обмена';
+
+  @override
+  String get tapDuckyNeedsElevatedPrivileges =>
+      'Приложению TapDucky требуются повышенные привилегии';
+
+  @override
+  String get whyRootAccess => 'Зачем нужен Root-доступ?';
+
+  @override
+  String get whyRootAccessDescription =>
+      'TapDucky необходим Root-доступ для взаимодействия с подсистемой USB-гаджетов ядра Linux (ConfigFS). Данный низкоуровневый доступ требуется, чтобы:';
+
+  @override
+  String get emulateUsbHidKeyboardDevices =>
+      'Эмулировать устройства USB HID-клавиатуры';
+
+  @override
+  String get simulateMouseAndPointerInput =>
+      'Имитировать ввод мыши и указателя';
+
+  @override
+  String get configureUsbGadgetDrivers =>
+      'Настраивать драйверы USB-гаджета в директории /config/usb_gadget/';
+
+  @override
+  String get writeHidReportsToDevHidgCharacterDevices =>
+      'Записывать HID-отчеты в символьные устройства /dev/hidg*';
+
+  @override
+  String get requirements => 'Требования';
+
+  @override
+  String get rootedAndroidDevice => 'Устройство Android с Root-доступом';
+
+  @override
+  String get installMagiskKernelSUOrSuperSU =>
+      'Установить Magisk, KernelSU или SuperSU';
+
+  @override
+  String get kernelMustSupportConfigFSUSBGadgets =>
+      'Ядро должно поддерживать USB-гаджеты ConfigFS';
+
+  @override
+  String get grantRootPermission => 'Предоставить Root-права';
+
+  @override
+  String get allowTapDuckyWhenPromptedByRootManager =>
+      'Разрешите доступ для TapDucky при появлении запроса от менеджера Root-прав';
+
+  @override
+  String get testRootAccess => 'Проверить Root-доступ';
+
+  @override
+  String get openATerminalAppEgTermuxAndRun =>
+      'Откройте терминальное приложение (например, Termux) и выполните:';
+
+  @override
+  String get ifYouSeeUid0RootRootAccessIsWorking =>
+      'Если отображается строка «uid=0(root)», значит, Root-доступ функционирует корректно.';
+
+  @override
+  String get rootingGuide => 'Руководство по получению Root-прав';
+
+  @override
+  String get restartTheAppToReCheckRootAccess =>
+      'Перезапустите приложение для повторной проверки Root-доступа';
+
+  @override
+  String get retry => 'Повторить';
+
+  @override
+  String get howToRootYourDevice => 'Как получить Root-права на устройстве';
+
+  @override
+  String get popularRootMethods => 'Популярные методы получения Root-прав:';
+
+  @override
+  String get magiskRecommended => 'Magisk (Рекомендуется)';
+
+  @override
+  String get universalSystemlessRootSolution =>
+      'Универсальное бессистемное решение для получения Root-доступа';
+
+  @override
+  String get kernelSU => 'KernelSU';
+
+  @override
+  String get kernelBasedRootForModernDevices =>
+      'Root-доступ на уровне ядра для современных устройств';
+
+  @override
+  String get rootingMayVoidWarranty =>
+      'Получение Root-прав может привести к аннулированию гарантии и имеет последствия для безопасности. Вы действуете исключительно на собственный риск.';
+
+  @override
+  String get urlCopiedToClipboard => 'URL-адрес скопирован в буфер обмена';
 }

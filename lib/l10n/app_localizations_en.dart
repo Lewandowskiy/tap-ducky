@@ -2455,4 +2455,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get executeSelectedPayload => 'Execute selected payload';
+
+  @override
+  String executingPayload(String name) {
+    return 'Executing: $name';
+  }
+
+  @override
+  String get lastRunSuccess => 'Last run: success';
+
+  @override
+  String get lastRunError => 'Last run: error';
+
+  @override
+  String get commandCopiedToClipboard => 'Command copied to clipboard';
+
+  @override
+  String get tapDuckyNeedsElevatedPrivileges =>
+      'TapDucky needs elevated privileges';
+
+  @override
+  String get whyRootAccess => 'Why Root Access?';
+
+  @override
+  String get whyRootAccessDescription =>
+      'TapDucky requires root access to interact with the Linux kernel\'s USB gadget subsystem (ConfigFS). This low-level access is necessary to:';
+
+  @override
+  String get emulateUsbHidKeyboardDevices => 'Emulate USB HID keyboard devices';
+
+  @override
+  String get simulateMouseAndPointerInput => 'Simulate mouse and pointer input';
+
+  @override
+  String get configureUsbGadgetDrivers =>
+      'Configure USB gadget drivers in /config/usb_gadget/';
+
+  @override
+  String get writeHidReportsToDevHidgCharacterDevices =>
+      'Write HID reports to /dev/hidg* character devices';
+
+  @override
+  String get requirements => 'Requirements';
+
+  @override
+  String get rootedAndroidDevice => 'Rooted Android Device';
+
+  @override
+  String get installMagiskKernelSUOrSuperSU =>
+      'Install Magisk, KernelSU, or SuperSU';
+
+  @override
+  String get kernelMustSupportConfigFSUSBGadgets =>
+      'Kernel must support ConfigFS USB gadgets';
+
+  @override
+  String get grantRootPermission => 'Grant Root Permission';
+
+  @override
+  String get allowTapDuckyWhenPromptedByRootManager =>
+      'Allow TapDucky when prompted by root manager';
+
+  @override
+  String get testRootAccess => 'Test Root Access';
+
+  @override
+  String get openATerminalAppEgTermuxAndRun =>
+      'Open a terminal app (e.g., Termux) and run:';
+
+  @override
+  String get ifYouSeeUid0RootRootAccessIsWorking =>
+      'If you see \"uid=0(root)\", root access is working.';
+
+  @override
+  String get rootingGuide => 'Rooting Guide';
+
+  @override
+  String get restartTheAppToReCheckRootAccess =>
+      'Restart the app to re-check root access';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get howToRootYourDevice => 'How to Root Your Device';
+
+  @override
+  String get popularRootMethods => 'Popular Root Methods:';
+
+  @override
+  String get magiskRecommended => 'Magisk (Recommended)';
+
+  @override
+  String get universalSystemlessRootSolution =>
+      'Universal systemless root solution';
+
+  @override
+  String get kernelSU => 'KernelSU';
+
+  @override
+  String get kernelBasedRootForModernDevices =>
+      'Kernel-based root for modern devices';
+
+  @override
+  String get rootingMayVoidWarranty =>
+      'Rooting may void warranty and has security implications. Proceed at your own risk.';
+
+  @override
+  String get urlCopiedToClipboard => 'URL copied to clipboard';
 }

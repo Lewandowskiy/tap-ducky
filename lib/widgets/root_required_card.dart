@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../extension/context_extensions.dart';
+
 class RootRequiredCard extends StatelessWidget {
   const RootRequiredCard({super.key});
 
   void _copyCommand(BuildContext context, String command) {
     Clipboard.setData(ClipboardData(text: command));
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Command copied to clipboard'),
+      SnackBar(
+        content: Text(context.l10n.commandCopiedToClipboard),
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 2),
       ),
@@ -54,7 +56,7 @@ class RootRequiredCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Root Access Required',
+                        context.l10n.rootAccessRequired,
                         style: theme.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w900,
                           color: cs.onErrorContainer,
@@ -62,7 +64,7 @@ class RootRequiredCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'TapDucky needs elevated privileges',
+                        context.l10n.tapDuckyNeedsElevatedPrivileges,
                         style: theme.textTheme.bodyMedium?.copyWith(
                           color: cs.onErrorContainer.withOpacity(0.8),
                         ),
@@ -92,7 +94,7 @@ class RootRequiredCard extends StatelessWidget {
                       Icon(Icons.info_outline, size: 20, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        'Why Root Access?',
+                        context.l10n.whyRootAccess,
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -101,7 +103,7 @@ class RootRequiredCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'TapDucky requires root access to interact with the Linux kernel\'s USB gadget subsystem (ConfigFS). This low-level access is necessary to:',
+                    context.l10n.whyRootAccessDescription,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       height: 1.5,
                     ),
@@ -109,22 +111,22 @@ class RootRequiredCard extends StatelessWidget {
                   const SizedBox(height: 12),
                   _BulletPoint(
                     icon: Icons.keyboard,
-                    text: 'Emulate USB HID keyboard devices',
+                    text: context.l10n.emulateUsbHidKeyboardDevices,
                   ),
                   const SizedBox(height: 8),
                   _BulletPoint(
                     icon: Icons.mouse,
-                    text: 'Simulate mouse and pointer input',
+                    text: context.l10n.simulateMouseAndPointerInput,
                   ),
                   const SizedBox(height: 8),
                   _BulletPoint(
                     icon: Icons.usb,
-                    text: 'Configure USB gadget drivers in /config/usb_gadget/',
+                    text: context.l10n.configureUsbGadgetDrivers,
                   ),
                   const SizedBox(height: 8),
                   _BulletPoint(
                     icon: Icons.code,
-                    text: 'Write HID reports to /dev/hidg* character devices',
+                    text: context.l10n.writeHidReportsToDevHidgCharacterDevices,
                   ),
                 ],
               ),
@@ -149,7 +151,7 @@ class RootRequiredCard extends StatelessWidget {
                       Icon(Icons.checklist, size: 20, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        'Requirements',
+                        context.l10n.requirements,
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -159,22 +161,22 @@ class RootRequiredCard extends StatelessWidget {
                   const SizedBox(height: 12),
                   _RequirementItem(
                     number: '1',
-                    title: 'Rooted Android Device',
-                    description: 'Install Magisk, KernelSU, or SuperSU',
+                    title: context.l10n.rootedAndroidDevice,
+                    description: context.l10n.installMagiskKernelSUOrSuperSU,
                     colorScheme: cs,
                   ),
                   const SizedBox(height: 12),
                   _RequirementItem(
                     number: '2',
-                    title: 'USB Gadget Support',
-                    description: 'Kernel must support ConfigFS USB gadgets',
+                    title: context.l10n.usbGadgetSupport,
+                    description: context.l10n.kernelMustSupportConfigFSUSBGadgets,
                     colorScheme: cs,
                   ),
                   const SizedBox(height: 12),
                   _RequirementItem(
                     number: '3',
-                    title: 'Grant Root Permission',
-                    description: 'Allow TapDucky when prompted by root manager',
+                    title: context.l10n.grantRootPermission,
+                    description: context.l10n.allowTapDuckyWhenPromptedByRootManager,
                     colorScheme: cs,
                   ),
                 ],
@@ -200,7 +202,7 @@ class RootRequiredCard extends StatelessWidget {
                       Icon(Icons.terminal, size: 20, color: cs.primary),
                       const SizedBox(width: 8),
                       Text(
-                        'Test Root Access',
+                        context.l10n.testRootAccess,
                         style: theme.textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                         ),
@@ -209,7 +211,7 @@ class RootRequiredCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Open a terminal app (e.g., Termux) and run:',
+                    context.l10n.openATerminalAppEgTermuxAndRun,
                     style: theme.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 8),
@@ -243,7 +245,7 @@ class RootRequiredCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'If you see "uid=0(root)", root access is working.',
+                    context.l10n.ifYouSeeUid0RootRootAccessIsWorking,
                     style: theme.textTheme.bodySmall?.copyWith(
                       fontStyle: FontStyle.italic,
                       color: cs.onSurface.withOpacity(0.7),
@@ -266,7 +268,7 @@ class RootRequiredCard extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.help_outline),
-                    label: const Text('Rooting Guide'),
+                    label: Text(context.l10n.rootingGuide),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: cs.onErrorContainer,
                       side: BorderSide(color: cs.onErrorContainer.withOpacity(0.5)),
@@ -279,14 +281,14 @@ class RootRequiredCard extends StatelessWidget {
                     onPressed: () {
                       // Trigger root check again
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Restart the app to re-check root access'),
+                        SnackBar(
+                          content: Text(context.l10n.restartTheAppToReCheckRootAccess),
                           behavior: SnackBarBehavior.floating,
                         ),
                       );
                     },
                     icon: const Icon(Icons.refresh),
-                    label: const Text('Retry'),
+                    label: Text(context.l10n.retry),
                     style: FilledButton.styleFrom(
                       backgroundColor: cs.error,
                       foregroundColor: cs.onError,
@@ -398,29 +400,29 @@ class _RootingGuideDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     return AlertDialog(
-      title: const Text('How to Root Your Device'),
+      title: Text(context.l10n.howToRootYourDevice),
       content: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Popular Root Methods:',
+              context.l10n.popularRootMethods,
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
             const SizedBox(height: 12),
             _GuideItem(
-              title: 'Magisk (Recommended)',
-              description: 'Universal systemless root solution',
+              title: context.l10n.magiskRecommended,
+              description: context.l10n.universalSystemlessRootSolution,
               url: 'https://github.com/topjohnwu/Magisk',
               colorScheme: cs,
             ),
             const SizedBox(height: 12),
             _GuideItem(
-              title: 'KernelSU',
-              description: 'Kernel-based root for modern devices',
+              title: context.l10n.kernelSU,
+              description: context.l10n.kernelBasedRootForModernDevices,
               url: 'https://kernelsu.org',
               colorScheme: cs,
             ),
@@ -437,7 +439,7 @@ class _RootingGuideDialog extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Rooting may void warranty and has security implications. Proceed at your own risk.',
+                      context.l10n.rootingMayVoidWarranty,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                             color: cs.onErrorContainer,
                           ),
@@ -452,7 +454,7 @@ class _RootingGuideDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Close'),
+          child: Text(context.l10n.close),
         ),
       ],
     );
@@ -500,8 +502,8 @@ class _GuideItem extends StatelessWidget {
             onTap: () {
               Clipboard.setData(ClipboardData(text: url));
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('URL copied to clipboard'),
+                SnackBar(
+                  content: Text(context.l10n.urlCopiedToClipboard),
                   behavior: SnackBarBehavior.floating,
                   duration: Duration(seconds: 2),
                 ),
